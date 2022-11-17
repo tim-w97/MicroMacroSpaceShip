@@ -19,7 +19,7 @@ public class Ufo {
         frame.setWidth(texture.getWidth());
         frame.setHeight(texture.getHeight());
         frame.x = (Gdx.graphics.getWidth() - frame.width) / 2f;
-        frame.y = 64;
+        frame.y = 16;
     }
 
     public void moveWhenUserInput(float delta) {
@@ -46,19 +46,7 @@ public class Ufo {
 
     // TODO: create an abstract class or interface for these repeating methods
 
-    public float getX() {
+    public float getOriginX() {
         return frame.x + frame.width / 2;
-    }
-
-    public float getY() {
-        return frame.y + frame.height / 2;
-    }
-
-    public float getWidth() {
-        return frame.width;
-    }
-
-    public float getHeight() {
-        return frame.getHeight();
     }
 }

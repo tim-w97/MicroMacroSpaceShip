@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Projectile {
 
-    private final Rectangle frame;
+    public final Rectangle frame;
 
     private final float size = 24;
     private final float velocity = 500;
@@ -31,21 +31,5 @@ public class Projectile {
 
     public boolean ifOffScreen() {
         return frame.y > Gdx.graphics.getHeight();
-    }
-
-    public float getX() {
-        return frame.x + frame.width / 2;
-    }
-
-    public float getY() {
-        return frame.y + frame.height / 2;
-    }
-
-    public float getWidth() {
-        return frame.width;
-    }
-
-    public float getHeight() {
-        return frame.getHeight();
     }
 }

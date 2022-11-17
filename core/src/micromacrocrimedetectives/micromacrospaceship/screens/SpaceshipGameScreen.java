@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
+import micromacrocrimedetectives.micromacrospaceship.objects.Asteroid;
 import micromacrocrimedetectives.micromacrospaceship.objects.Projectile;
 import micromacrocrimedetectives.micromacrospaceship.objects.Ufo;
 
@@ -22,6 +23,7 @@ public class SpaceshipGameScreen implements Screen {
     private final Ufo ufo;
 
     private final ArrayList<Projectile> projectiles;
+    private final ArrayList<Asteroid> asteroids;
 
     private long lastShootTime;
     private final int shootDelay = 300;
@@ -33,8 +35,10 @@ public class SpaceshipGameScreen implements Screen {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         ufo = new Ufo();
-
+        asteroids = new ArrayList<>();
         projectiles = new ArrayList<>();
+
+        asteroids.add(new Asteroid());
     }
 
     @Override
@@ -48,12 +52,16 @@ public class SpaceshipGameScreen implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
+        for (Asteroid asteroid : asteroids) {
+            asteroid.rotate(delta);
+        }
+
         ufo.moveWhenUserInput(delta);
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)
                 && TimeUtils.timeSinceMillis(lastShootTime) > shootDelay) {
             // shoot the projectile
-            projectiles.add(new Projectile((ufo.getX())));
+            projectiles.add(new Projectile((ufo.getOriginX())));
             lastShootTime = TimeUtils.millis();
         }
 
@@ -65,6 +73,17 @@ public class SpaceshipGameScreen implements Screen {
             if (projectile.ifOffScreen()) {
                 offScreenProjectiles.add(projectile);
             }
+
+            ArrayList<Asteroid> shotAsteroids = new ArrayList<>();
+
+            // collision with asteroid
+            for (Asteroid asteroid : asteroids) {
+                if (asteroid.frame.overlaps(projectile.frame)) {
+                    shotAsteroids.add(asteroid);
+                }
+            }
+
+            asteroids.removeAll(shotAsteroids);
         }
 
         projectiles.removeAll(offScreenProjectiles);
@@ -80,9 +99,14 @@ public class SpaceshipGameScreen implements Screen {
 
         game.shapeRenderer.end();
 
-        // render the ufo
         game.batch.begin();
+
+        for (Asteroid asteroid : asteroids) {
+            asteroid.draw(game.batch);
+        }
+
         ufo.draw(game.batch);
+
         game.batch.end();
     }
 
