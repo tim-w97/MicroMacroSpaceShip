@@ -3,15 +3,18 @@ package micromacrocrimedetectives.micromacrospaceship;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
 
 public class MicroMacroGame extends Game {
     public SpriteBatch batch;
+    public ShapeRenderer shapeRenderer;
     public BitmapFont font;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
 
         this.setScreen(new MenuScreen(this));
@@ -25,6 +28,7 @@ public class MicroMacroGame extends Game {
     @Override
     public void dispose() {
         batch.dispose();
+        shapeRenderer.dispose();
         font.dispose();
     }
 }
