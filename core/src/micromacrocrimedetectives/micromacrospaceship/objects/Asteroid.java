@@ -1,25 +1,32 @@
 package micromacrocrimedetectives.micromacrospaceship.objects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Asteroid {
     private final Texture texture;
     public final Rectangle frame;
 
     private float rotation;
+    private float rotationVelocity;
+    private float velocity;
 
-    public Asteroid() {
+    public Asteroid(float x) {
         texture = new Texture("asteroid.png");
 
         frame = new Rectangle();
         frame.width = texture.getWidth();
         frame.height = texture.getHeight();
-        frame.x = 64;
-        frame.y = 300;
+        frame.x = x;
+        frame.y = Gdx.graphics.getHeight();
+
+        rotation = (float) (360 * Math.random());
+        rotationVelocity = (float) Math.random() * 200;
+
+        velocity = 200 + (float) Math.random() * 100;
     }
 
     public void draw(SpriteBatch batch) {
@@ -38,11 +45,17 @@ public class Asteroid {
         );
     }
 
-    public void rotate(float delta) {
-        rotation += delta * 64;
+    public void moveAndRotate(float delta) {
+        frame.y -= delta * velocity;
+
+        rotation += delta * rotationVelocity;
 
         if (rotation == 360) {
             rotation = 0;
         }
+    }
+
+    public boolean ifOffScreen() {
+        return frame.y < -frame.height;
     }
 }

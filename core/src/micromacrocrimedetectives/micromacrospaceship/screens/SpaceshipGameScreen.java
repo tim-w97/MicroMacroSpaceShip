@@ -26,7 +26,11 @@ public class SpaceshipGameScreen implements Screen {
     private final ArrayList<Asteroid> asteroids;
 
     private long lastShootTime;
-    private final int shootDelay = 300;
+    private long lastAsteroidSpawnTime;
+    private final int shootDelay = 600;
+    private final int asteroidSpawnDelay = 1000;
+
+    int lastAsteroidSpawnPosition = getRandomAsteroidSpawnPosition();
 
     public SpaceshipGameScreen(MicroMacroGame game) {
         this.game = game;
@@ -37,8 +41,6 @@ public class SpaceshipGameScreen implements Screen {
         ufo = new Ufo();
         asteroids = new ArrayList<>();
         projectiles = new ArrayList<>();
-
-        asteroids.add(new Asteroid());
     }
 
     @Override
@@ -52,20 +54,37 @@ public class SpaceshipGameScreen implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
-        for (Asteroid asteroid : asteroids) {
-            asteroid.rotate(delta);
-        }
-
         ufo.moveWhenUserInput(delta);
 
+        for (Asteroid asteroid : asteroids) {
+            asteroid.moveAndRotate(delta);
+        }
+
+        // Spawn asteroids
+        if (TimeUtils.timeSinceMillis(lastAsteroidSpawnTime) > asteroidSpawnDelay) {
+            int asteroidSpawnPosition = getRandomAsteroidSpawnPosition();
+
+            // prevent same spawn position of two asteroids
+            while (asteroidSpawnPosition == lastAsteroidSpawnPosition) {
+                asteroidSpawnPosition = getRandomAsteroidSpawnPosition();
+            }
+
+            lastAsteroidSpawnPosition = asteroidSpawnPosition;
+
+            asteroids.add(new Asteroid(120 * asteroidSpawnPosition));
+
+            lastAsteroidSpawnTime = TimeUtils.millis();
+        }
+
+        // Shoot projectiles if the user presses space
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)
                 && TimeUtils.timeSinceMillis(lastShootTime) > shootDelay) {
-            // shoot the projectile
             projectiles.add(new Projectile((ufo.getOriginX())));
             lastShootTime = TimeUtils.millis();
         }
 
         ArrayList<Projectile> offScreenProjectiles = new ArrayList<>();
+        ArrayList<Asteroid> asteroidsToRemove = new ArrayList<>();
 
         for (Projectile projectile : projectiles) {
             projectile.move(delta);
@@ -74,20 +93,32 @@ public class SpaceshipGameScreen implements Screen {
                 offScreenProjectiles.add(projectile);
             }
 
-            ArrayList<Asteroid> shotAsteroids = new ArrayList<>();
-
             // collision with asteroid
             for (Asteroid asteroid : asteroids) {
                 if (asteroid.frame.overlaps(projectile.frame)) {
-                    shotAsteroids.add(asteroid);
+                    asteroidsToRemove.add(asteroid);
                 }
             }
+        }
 
-            asteroids.removeAll(shotAsteroids);
+        // asteroid is off-screen
+        for (Asteroid asteroid : asteroids) {
+            if (asteroid.ifOffScreen()) {
+                asteroidsToRemove.add(asteroid);
+            }
         }
 
         projectiles.removeAll(offScreenProjectiles);
+        asteroids.removeAll(asteroidsToRemove);
 
+        renderObjects();
+    }
+
+    private int getRandomAsteroidSpawnPosition() {
+        return (int) (Math.random() * 6);
+    }
+
+    private void renderObjects() {
         // render the projectiles
         game.shapeRenderer.setColor(CustomColors.pink);
 
