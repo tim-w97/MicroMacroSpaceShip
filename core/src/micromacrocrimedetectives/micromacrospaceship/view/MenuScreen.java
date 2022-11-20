@@ -1,4 +1,4 @@
-package micromacrocrimedetectives.micromacrospaceship.screens;
+package micromacrocrimedetectives.micromacrospaceship.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -21,11 +21,6 @@ public class MenuScreen implements Screen {
     }
 
     @Override
-    public void show() {
-
-    }
-
-    @Override
     public void render(float delta) {
         ScreenUtils.clear(Color.CLEAR);
         camera.update();
@@ -43,6 +38,11 @@ public class MenuScreen implements Screen {
             game.setScreen(new SpaceshipGameScreen(game));
             dispose();
         }
+    }
+
+    @Override
+    public void show() {
+
     }
 
     @Override
