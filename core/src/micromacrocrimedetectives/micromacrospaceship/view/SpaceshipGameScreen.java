@@ -5,11 +5,11 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.Projectile;
 
 public class SpaceshipGameScreen implements Screen {
 
@@ -63,13 +63,12 @@ public class SpaceshipGameScreen implements Screen {
         game.batch.begin();
 
         for (Asteroid asteroid : game.controller.getCurrentAsteroids()) {
-            // SpriteBatch.draw(textureRegion, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
             game.batch.draw(
                     asteroid.textureRegion,
                     asteroid.frame.x,
                     asteroid.frame.y,
-                    asteroid.frame.width / 2,
-                    asteroid.frame.height / 2,
+                    asteroid.originX,
+                    asteroid.originY,
                     asteroid.frame.width,
                     asteroid.frame.height,
                     1,
@@ -79,20 +78,20 @@ public class SpaceshipGameScreen implements Screen {
         }
 
         game.batch.draw(
-                game.controller.getUfoTexture(),
-                game.controller.getUfoPositionX(),
-                game.controller.getUfoPositionY()
+                game.controller.getUfo().texture,
+                game.controller.getUfo().frame.x,
+                game.controller.getUfo().frame.y
         );
 
         game.batch.end();
 
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        for (Rectangle projectile : game.controller.getCurrentProjectiles()) {
+        for (Projectile projectile : game.controller.getCurrentProjectiles()) {
             game.shapeRenderer.circle(
-                    projectile.x,
-                    projectile.y,
-                    projectile.width / 2
+                    projectile.frame.x,
+                    projectile.frame.y,
+                    projectile.frame.radius
             );
         }
 

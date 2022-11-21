@@ -9,6 +9,8 @@ public class Asteroid {
     public final Texture texture;
     public final TextureRegion textureRegion;
     public final Rectangle frame;
+
+    public float originX, originY;
     public final float velocity;
 
     public float rotation;
@@ -26,6 +28,9 @@ public class Asteroid {
                 texture.getWidth(),
                 texture.getHeight()
         );
+
+        originX = frame.width / 2;
+        originY = frame.height / 2;
 
         velocity = 200;
         rotation = (int) (Math.random() * 360);

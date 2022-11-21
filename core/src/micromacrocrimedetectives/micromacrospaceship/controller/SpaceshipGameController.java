@@ -1,11 +1,12 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.Projectile;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
 
 import java.util.ArrayList;
 
@@ -16,44 +17,39 @@ public class SpaceshipGameController {
         this.model = model;
     }
 
-    public float getUfoPositionX() {
-        return model.ufoFrame.x;
-    }
-
-    public float getUfoPositionY() {
-        return model.ufoFrame.y;
-    }
-
-    public Texture getUfoTexture() {
-        return model.ufoTexture;
+    public Ufo getUfo() {
+        return model.ufo;
     }
 
     public void moveUfoLeft(float delta) {
-        model.ufoFrame.x -= delta * model.ufoVelocity;
+        model.ufo.frame.x -= delta * model.ufo.velocity;
 
-        if (model.ufoFrame.x < -model.ufoFrame.width) {
-            model.ufoFrame.x = Gdx.graphics.getWidth();
+        if (model.ufo.frame.x < -model.ufo.frame.width) {
+            model.ufo.frame.x = Gdx.graphics.getWidth();
         }
     }
 
     public void moveUfoRight(float delta) {
-        model.ufoFrame.x += delta * model.ufoVelocity;
+        model.ufo.frame.x += delta * model.ufo.velocity;
 
-        if (model.ufoFrame.x > Gdx.graphics.getWidth()) {
-            model.ufoFrame.x = -model.ufoFrame.width;
+        if (model.ufo.frame.x > Gdx.graphics.getWidth()) {
+            model.ufo.frame.x = -model.ufo.frame.width;
         }
     }
 
     public void shootProjectile() {
         if (TimeUtils.timeSinceMillis(model.lastShootTime) > model.shootDelay) {
-            Rectangle projectile = new Rectangle(model.projectileTemplate);
-            projectile.setX(model.ufoFrame.x + model.ufoFrame.width / 2);
+            Projectile projectile = new Projectile(
+                    model.ufo.frame.x + model.ufo.frame.width / 2,
+                    model.ufo.frame.height + Ufo.bottomMargin
+            );
+
             model.projectiles.add(projectile);
             model.lastShootTime = TimeUtils.millis();
         }
     }
 
-    public ArrayList<Rectangle> getCurrentProjectiles() {
+    public ArrayList<Projectile> getCurrentProjectiles() {
         return model.projectiles;
     }
 
@@ -62,12 +58,12 @@ public class SpaceshipGameController {
     }
 
     public void moveProjectiles(float delta) {
-        ArrayList<Rectangle> offScreenProjectiles = new ArrayList<>();
+        ArrayList<Projectile> offScreenProjectiles = new ArrayList<>();
 
-        for (Rectangle projectile : model.projectiles) {
-            projectile.y += delta * model.projectileVelocity;
+        for (Projectile projectile : model.projectiles) {
+            projectile.frame.y += delta * projectile.velocity;
 
-            if (projectile.y > Gdx.graphics.getHeight() + projectile.height) {
+            if (projectile.frame.y > Gdx.graphics.getHeight() + projectile.frame.radius) {
                 offScreenProjectiles.add(projectile);
             }
         }
@@ -105,9 +101,9 @@ public class SpaceshipGameController {
     public void checkAsteroidProjectileCollision() {
         ArrayList<Asteroid> shotAsteroids = new ArrayList<>();
 
-        for (Rectangle projectile : model.projectiles) {
+        for (Projectile projectile : model.projectiles) {
             for (Asteroid asteroid : model.asteroids) {
-                if (projectile.overlaps(asteroid.frame)) {
+                if (Intersector.overlaps(projectile.frame, asteroid.frame)) {
                     shotAsteroids.add(asteroid);
                 }
             }
