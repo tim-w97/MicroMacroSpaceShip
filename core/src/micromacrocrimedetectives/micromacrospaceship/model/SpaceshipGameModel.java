@@ -26,7 +26,6 @@ public class SpaceshipGameModel {
     public final int asteroidSpawnDelay;
     public int lastAsteroidSpawnPosition;
     public final int asteroidRows;
-    public final int asteroidOffset;
 
     public SpaceshipGameModel() {
         float ufoWindowGap = 20;
@@ -46,14 +45,13 @@ public class SpaceshipGameModel {
         projectileTemplate.setHeight(projectileSize);
         // x position is set by the controller, depending on x position of the ufo
         projectileTemplate.setY(ufoFrame.height + ufoWindowGap);
-        projectileVelocity = 400;
+        projectileVelocity = 600;
         shootDelay = 400;
 
         asteroidVelocity = 200;
         asteroidTexture = new Texture("asteroid.png");
         asteroids = new ArrayList<>();
         asteroidSpawnDelay = 1000;
-        asteroidRows = 4;
-        asteroidOffset = 8;
+        asteroidRows = 6;
     }
 }

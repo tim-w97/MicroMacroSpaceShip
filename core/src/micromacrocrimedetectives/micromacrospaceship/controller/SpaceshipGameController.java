@@ -83,7 +83,7 @@ public class SpaceshipGameController {
 
         if (TimeUtils.timeSinceMillis(model.lastAsteroidSpawnTime) > model.asteroidSpawnDelay) {
             Rectangle asteroid = new Rectangle(
-                    model.lastAsteroidSpawnPosition * model.asteroidTexture.getWidth() + model.asteroidOffset,
+                    model.lastAsteroidSpawnPosition * model.asteroidTexture.getWidth(),
                     Gdx.graphics.getHeight(),
                     model.asteroidTexture.getWidth(),
                     model.asteroidTexture.getHeight()
