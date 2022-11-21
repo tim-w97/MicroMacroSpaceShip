@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
 
 import java.util.ArrayList;
 
@@ -56,11 +57,7 @@ public class SpaceshipGameController {
         return model.projectiles;
     }
 
-    public Texture getAsteroidTexture() {
-        return model.asteroidTexture;
-    }
-
-    public ArrayList<Rectangle> getCurrentAsteroids() {
+    public ArrayList<Asteroid> getCurrentAsteroids() {
         return model.asteroids;
     }
 
@@ -74,7 +71,6 @@ public class SpaceshipGameController {
                 offScreenProjectiles.add(projectile);
             }
         }
-
         model.projectiles.removeAll(offScreenProjectiles);
     }
 
@@ -82,26 +78,24 @@ public class SpaceshipGameController {
         model.lastAsteroidSpawnPosition = (int) (Math.random() * model.asteroidRows);
 
         if (TimeUtils.timeSinceMillis(model.lastAsteroidSpawnTime) > model.asteroidSpawnDelay) {
-            Rectangle asteroid = new Rectangle(
-                    model.lastAsteroidSpawnPosition * model.asteroidTexture.getWidth(),
-                    Gdx.graphics.getHeight(),
-                    model.asteroidTexture.getWidth(),
-                    model.asteroidTexture.getHeight()
-            );
-
-            model.asteroids.add(asteroid);
-
+            model.asteroids.add(new Asteroid(model.lastAsteroidSpawnPosition));
             model.lastAsteroidSpawnTime = TimeUtils.millis();
         }
     }
 
-    public void moveAsteroids(float delta) {
-        ArrayList<Rectangle> offScreenAsteroids = new ArrayList<>();
+    public void moveAndRotateAsteroids(float delta) {
+        ArrayList<Asteroid> offScreenAsteroids = new ArrayList<>();
 
-        for (Rectangle asteroid : model.asteroids) {
-            asteroid.y -= delta * model.asteroidVelocity;
+        for (Asteroid asteroid : model.asteroids) {
+            asteroid.frame.y -= delta * asteroid.velocity;
 
-            if (asteroid.y < -model.asteroidTexture.getHeight()) {
+            if (asteroid.rotateClockwise) {
+                asteroid.rotation += delta * asteroid.rotationVelocity;
+            } else {
+                asteroid.rotation -= delta * asteroid.rotationVelocity;
+            }
+
+            if (asteroid.frame.y < -asteroid.frame.getHeight()) {
                 offScreenAsteroids.add(asteroid);
             }
         }
@@ -109,16 +103,15 @@ public class SpaceshipGameController {
     }
 
     public void checkAsteroidProjectileCollision() {
-        ArrayList<Rectangle> shotAsteroids = new ArrayList<>();
+        ArrayList<Asteroid> shotAsteroids = new ArrayList<>();
 
         for (Rectangle projectile : model.projectiles) {
-            for (Rectangle asteroid : model.asteroids) {
-                if (projectile.overlaps(asteroid)) {
+            for (Asteroid asteroid : model.asteroids) {
+                if (projectile.overlaps(asteroid.frame)) {
                     shotAsteroids.add(asteroid);
                 }
             }
         }
-
         model.asteroids.removeAll(shotAsteroids);
     }
 }

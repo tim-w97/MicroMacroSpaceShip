@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
 
 public class SpaceshipGameScreen implements Screen {
 
@@ -54,18 +55,26 @@ public class SpaceshipGameScreen implements Screen {
         game.controller.moveProjectiles(delta);
 
         game.controller.generateAsteroids();
-        game.controller.moveAsteroids(delta);
+        game.controller.moveAndRotateAsteroids(delta);
         game.controller.checkAsteroidProjectileCollision();
     }
 
     private void drawObjects() {
         game.batch.begin();
 
-        for (Rectangle asteroid : game.controller.getCurrentAsteroids()) {
+        for (Asteroid asteroid : game.controller.getCurrentAsteroids()) {
+            // SpriteBatch.draw(textureRegion, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
             game.batch.draw(
-                    game.controller.getAsteroidTexture(),
-                    asteroid.x,
-                    asteroid.y
+                    asteroid.textureRegion,
+                    asteroid.frame.x,
+                    asteroid.frame.y,
+                    asteroid.frame.width / 2,
+                    asteroid.frame.height / 2,
+                    asteroid.frame.width,
+                    asteroid.frame.height,
+                    1,
+                    1,
+                    asteroid.rotation
             );
         }
 
