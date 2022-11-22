@@ -54,6 +54,8 @@ public class SpaceshipGameScreen implements Screen {
 
         game.controller.moveProjectiles(delta);
 
+        game.controller.movePlanetsBackground(delta);
+
         game.controller.generateAsteroids();
         game.controller.moveAndRotateAsteroids(delta);
         game.controller.checkAsteroidProjectileCollision();
@@ -61,6 +63,12 @@ public class SpaceshipGameScreen implements Screen {
 
     private void drawObjects() {
         game.batch.begin();
+
+        game.batch.draw(
+                game.controller.getPlanetsBackground().texture,
+                game.controller.getPlanetsBackground().x,
+                game.controller.getPlanetsBackground().y
+        );
 
         for (Asteroid asteroid : game.controller.getCurrentAsteroids()) {
             game.batch.draw(

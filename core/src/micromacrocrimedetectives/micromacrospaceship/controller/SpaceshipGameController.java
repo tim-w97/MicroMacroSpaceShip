@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.PlanetsBackground;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Projectile;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
 
@@ -15,6 +16,18 @@ public class SpaceshipGameController {
 
     public SpaceshipGameController(SpaceshipGameModel model) {
         this.model = model;
+    }
+
+    public PlanetsBackground getPlanetsBackground() {
+        return model.planetsBackground;
+    }
+
+    public void movePlanetsBackground(float delta) {
+        model.planetsBackground.y -= delta * model.planetsBackground.velocity;
+
+        if (model.planetsBackground.y < -model.planetsBackground.texture.getHeight() + Gdx.graphics.getHeight()) {
+            model.planetsBackground.y = 0;
+        }
     }
 
     public Ufo getUfo() {

@@ -1,12 +1,14 @@
 package micromacrocrimedetectives.micromacrospaceship.model;
 
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.PlanetsBackground;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Projectile;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
 
 import java.util.ArrayList;
 
 public class SpaceshipGameModel {
+    public PlanetsBackground planetsBackground;
     public Ufo ufo;
     public final ArrayList<Projectile> projectiles;
     public final ArrayList<Asteroid> asteroids;
@@ -19,6 +21,7 @@ public class SpaceshipGameModel {
     public final int asteroidRows;
 
     public SpaceshipGameModel() {
+        planetsBackground = new PlanetsBackground();
         ufo = new Ufo();
 
         projectiles = new ArrayList<>();
