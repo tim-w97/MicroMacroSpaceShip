@@ -13,10 +13,22 @@ public class MenuModel {
 
     public Button startGameButton;
 
+    public final float buttonWidth;
+    public final float buttonHeight;
+
     public MenuModel() {
         stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal("skin/neon-ui.json"));
 
+        buttonWidth = 300;
+        buttonHeight = 80;
+
         startGameButton = new TextButton("Spiel starten", skin);
+        startGameButton.setSize(buttonWidth, buttonHeight);
+
+        startGameButton.setPosition(
+                (Gdx.graphics.getWidth() - buttonWidth) / 2,
+                (Gdx.graphics.getHeight() - buttonHeight) / 2
+        );
     }
 }
