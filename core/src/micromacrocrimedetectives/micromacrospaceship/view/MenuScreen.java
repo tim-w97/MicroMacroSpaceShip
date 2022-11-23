@@ -1,15 +1,13 @@
 package micromacrocrimedetectives.micromacrospaceship.view;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
+import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 
 public class MenuScreen implements Screen {
-    private final MicroMacroGame game;
+    public final MicroMacroGame game;
 
     private final OrthographicCamera camera;
 
@@ -18,26 +16,19 @@ public class MenuScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 720, 480);
+
+        game.menuController.initStage(this);
     }
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(Color.CLEAR);
+        ScreenUtils.clear(CustomColors.darkPurple);
         camera.update();
 
         game.batch.setProjectionMatrix(camera.combined);
 
-        game.batch.begin();
-
-        game.font.draw(game.batch, "Herzlich Willkommen bei MicroMacroSpaceShip", 100, 150);
-        game.font.draw(game.batch, "Drücke Space um zu beginnen.", 100, 100);
-
-        game.batch.end();
-
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            game.setScreen(new SpaceshipGameScreen(game));
-            dispose();
-        }
+        game.menuController.getStage().act();
+        game.menuController.getStage().draw();
     }
 
     @Override

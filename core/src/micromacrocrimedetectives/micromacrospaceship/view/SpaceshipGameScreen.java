@@ -43,34 +43,34 @@ public class SpaceshipGameScreen implements Screen {
         boolean playerShoots = Gdx.input.isKeyPressed(Keys.SPACE);
 
         if (playerGoesLeft) {
-            game.controller.moveUfoLeft(delta);
+            game.spaceshipGameController.moveUfoLeft(delta);
         } else if (playerGoesRight) {
-            game.controller.moveUfoRight(delta);
+            game.spaceshipGameController.moveUfoRight(delta);
         }
 
         if (playerShoots) {
-            game.controller.shootProjectile();
+            game.spaceshipGameController.shootProjectile();
         }
 
-        game.controller.moveProjectiles(delta);
+        game.spaceshipGameController.moveProjectiles(delta);
 
-        game.controller.movePlanetsBackground(delta);
+        game.spaceshipGameController.movePlanetsBackground(delta);
 
-        game.controller.generateAsteroids();
-        game.controller.moveAndRotateAsteroids(delta);
-        game.controller.checkAsteroidProjectileCollision();
+        game.spaceshipGameController.generateAsteroids();
+        game.spaceshipGameController.moveAndRotateAsteroids(delta);
+        game.spaceshipGameController.checkAsteroidProjectileCollision();
     }
 
     private void drawObjects() {
         game.batch.begin();
 
         game.batch.draw(
-                game.controller.getPlanetsBackground().texture,
-                game.controller.getPlanetsBackground().x,
-                game.controller.getPlanetsBackground().y
+                game.spaceshipGameController.getPlanetsBackground().texture,
+                game.spaceshipGameController.getPlanetsBackground().x,
+                game.spaceshipGameController.getPlanetsBackground().y
         );
 
-        for (Asteroid asteroid : game.controller.getCurrentAsteroids()) {
+        for (Asteroid asteroid : game.spaceshipGameController.getCurrentAsteroids()) {
             game.batch.draw(
                     asteroid.textureRegion,
                     asteroid.frame.x,
@@ -86,16 +86,16 @@ public class SpaceshipGameScreen implements Screen {
         }
 
         game.batch.draw(
-                game.controller.getUfo().texture,
-                game.controller.getUfo().frame.x,
-                game.controller.getUfo().frame.y
+                game.spaceshipGameController.getUfo().texture,
+                game.spaceshipGameController.getUfo().frame.x,
+                game.spaceshipGameController.getUfo().frame.y
         );
 
         game.batch.end();
 
         game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        for (Projectile projectile : game.controller.getCurrentProjectiles()) {
+        for (Projectile projectile : game.spaceshipGameController.getCurrentProjectiles()) {
             game.shapeRenderer.circle(
                     projectile.frame.x,
                     projectile.frame.y,
