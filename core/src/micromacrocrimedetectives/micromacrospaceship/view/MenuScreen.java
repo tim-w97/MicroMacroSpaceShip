@@ -2,6 +2,7 @@ package micromacrocrimedetectives.micromacrospaceship.view;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.ScreenUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
@@ -26,6 +27,11 @@ public class MenuScreen implements Screen {
         camera.update();
 
         game.batch.setProjectionMatrix(camera.combined);
+        game.shapeRenderer.setProjectionMatrix(camera.combined);
+
+        game.shapeRenderer.begin(ShapeType.Filled);
+        game.menuController.drawUfoLight(game.shapeRenderer);
+        game.shapeRenderer.end();
 
         game.batch.begin();
         game.menuController.drawUfo(game.batch);

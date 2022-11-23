@@ -20,6 +20,8 @@ public class MenuModel {
     public Texture ufoTexture;
     public float ufoX, ufoY;
 
+    public float ufoLightX1, ufoLightY1, ufoLightX2, ufoLightY2, ufoLightX3, ufoLightY3;
+
     public MenuModel() {
         stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal("skin/neon-ui.json"));
@@ -38,5 +40,12 @@ public class MenuModel {
         ufoTexture = new Texture("ufo.png");
         ufoX = (Gdx.graphics.getWidth() - ufoTexture.getWidth()) / 2f;
         ufoY = Gdx.graphics.getHeight() - ufoTexture.getHeight() - 20;
+
+        ufoLightX1 = Gdx.graphics.getWidth() / 2f;
+        ufoLightY1 = Gdx.graphics.getHeight() - 65;
+        ufoLightX2 = 100;
+        ufoLightY2 = 100;
+        ufoLightX3 = Gdx.graphics.getWidth() - 100;
+        ufoLightY3 = 100;
     }
 }
