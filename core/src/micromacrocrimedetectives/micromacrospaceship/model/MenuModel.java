@@ -1,6 +1,7 @@
 package micromacrocrimedetectives.micromacrospaceship.model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,6 +17,9 @@ public class MenuModel {
     public final float buttonWidth;
     public final float buttonHeight;
 
+    public Texture ufoTexture;
+    public float ufoX, ufoY;
+
     public MenuModel() {
         stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal("skin/neon-ui.json"));
@@ -30,5 +34,9 @@ public class MenuModel {
                 (Gdx.graphics.getWidth() - buttonWidth) / 2,
                 (Gdx.graphics.getHeight() - buttonHeight) / 2
         );
+
+        ufoTexture = new Texture("ufo.png");
+        ufoX = (Gdx.graphics.getWidth() - ufoTexture.getWidth()) / 2f;
+        ufoY = Gdx.graphics.getHeight() - ufoTexture.getHeight() - 20;
     }
 }

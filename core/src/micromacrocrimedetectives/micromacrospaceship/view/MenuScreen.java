@@ -27,6 +27,10 @@ public class MenuScreen implements Screen {
 
         game.batch.setProjectionMatrix(camera.combined);
 
+        game.batch.begin();
+        game.menuController.drawUfo(game.batch);
+        game.batch.end();
+
         game.menuController.getStage().act();
         game.menuController.getStage().draw();
     }

@@ -1,6 +1,7 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -31,5 +32,9 @@ public class MenuController {
         });
 
         model.stage.addActor(model.startGameButton);
+    }
+
+    public void drawUfo(SpriteBatch batch) {
+        batch.draw(model.ufoTexture, model.ufoX, model.ufoY);
     }
 }
