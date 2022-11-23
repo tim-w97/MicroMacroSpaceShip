@@ -12,28 +12,16 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 }
 com.badlogic.gdx.graphics.Color: {
 	color: {
-		r: 0
-		g: 1
-		b: 1
-		a: 1
+		hex: "de004e"
 	}
 	selected: {
-		r: 0
-		g: .4
-		b: .4
-		a: 1
+		hex: "f887ff"
 	}
 	text: {
-		r: .580392156
-		g: 1
-		b: 1
-		a: 1
+		hex: "f887ff"
 	}
 	text-selected: {
-		r: 1
-		g: 1
-		b: 1
-		a: 1
+		hex: "f887ff"
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
