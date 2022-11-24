@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import micromacrocrimedetectives.micromacrospaceship.controller.MenuController;
+import micromacrocrimedetectives.micromacrospaceship.controller.MicroMacroGameController;
 import micromacrocrimedetectives.micromacrospaceship.controller.SpaceshipGameController;
 import micromacrocrimedetectives.micromacrospaceship.model.MenuModel;
+import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroGameModel;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
 import micromacrocrimedetectives.micromacrospaceship.view.MenuScreen;
 
@@ -16,6 +18,7 @@ public class MicroMacroGame extends Game {
     public BitmapFont font;
     public SpaceshipGameController spaceshipGameController;
     public MenuController menuController;
+    public MicroMacroGameController microMacroGameController;
 
     @Override
     public void create() {
@@ -29,6 +32,10 @@ public class MicroMacroGame extends Game {
 
         menuController = new MenuController(
                 new MenuModel()
+        );
+
+        microMacroGameController = new MicroMacroGameController(
+                new MicroMacroGameModel()
         );
 
         this.setScreen(new MenuScreen(this));
