@@ -53,4 +53,10 @@ public class MenuController {
                 CustomColors.darkPurple
         );
     }
+
+    public void dispose() {
+        model.stage.dispose();
+        model.skin.dispose();
+        model.ufoTexture.dispose();
+    }
 }
