@@ -57,8 +57,8 @@ public class MicroMacroGameController {
     public void drawBongoBob(SpriteBatch batch) {
         batch.draw(
                 model.bongoBob.textures.get(model.bongoBob.direction),
-                model.cameraPosition.x,
-                model.cameraPosition.y
+                model.cameraPosition.x - model.bongoBob.texture.getWidth() / 2f,
+                model.cameraPosition.y - model.bongoBob.texture.getHeight() / 2f
         );
     }
 }
