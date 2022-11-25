@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.ScreenUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
@@ -32,15 +31,17 @@ public class MicroMacroGameScreen implements Screen {
         game.shapeRenderer.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+
         game.microMacroGameController.drawMap(game.batch);
+        game.microMacroGameController.drawBongoBob(game.batch);
+
         game.batch.end();
 
-        game.shapeRenderer.begin(ShapeType.Filled);
-        game.shapeRenderer.circle(camera.position.x, camera.position.y, 16);
-        game.shapeRenderer.end();
-
+        handleUserInput(delta);
         camera.position.set(game.microMacroGameController.getCameraPosition());
+    }
 
+    private void handleUserInput(float delta) {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             game.microMacroGameController.goLeft(delta);
         }

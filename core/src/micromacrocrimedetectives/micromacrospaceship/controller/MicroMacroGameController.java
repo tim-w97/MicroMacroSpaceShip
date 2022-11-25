@@ -2,6 +2,7 @@ package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import micromacrocrimedetectives.micromacrospaceship.Direction;
 import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroGameModel;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.MapTile;
 
@@ -34,18 +35,30 @@ public class MicroMacroGameController {
     }
 
     public void goLeft(float delta) {
+        model.bongoBob.direction = Direction.LEFT;
         model.cameraPosition.x -= delta * model.bongoBob.velocity;
     }
 
     public void goRight(float delta) {
+        model.bongoBob.direction = Direction.RIGHT;
         model.cameraPosition.x += delta * model.bongoBob.velocity;
     }
 
     public void goUp(float delta) {
+        model.bongoBob.direction = Direction.UP;
         model.cameraPosition.y += delta * model.bongoBob.velocity;
     }
 
     public void goDown(float delta) {
+        model.bongoBob.direction = Direction.DOWN;
         model.cameraPosition.y -= delta * model.bongoBob.velocity;
+    }
+
+    public void drawBongoBob(SpriteBatch batch) {
+        batch.draw(
+                model.bongoBob.textures.get(model.bongoBob.direction),
+                model.cameraPosition.x,
+                model.cameraPosition.y
+        );
     }
 }
