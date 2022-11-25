@@ -13,6 +13,8 @@ public class MicroMacroGameModel {
 
     public MapTile[][] mapTiles;
 
+    public float mapWalkFactor;
+
     public MicroMacroGameModel() {
         bongoBob = new BongoBob();
 
@@ -28,5 +30,7 @@ public class MicroMacroGameModel {
                 mapTiles[v][h] = new MapTile(v, h);
             }
         }
+
+        mapWalkFactor = (float) (Math.PI / 180 * 33);
     }
 }

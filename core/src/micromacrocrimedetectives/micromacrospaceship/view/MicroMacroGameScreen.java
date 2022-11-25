@@ -42,19 +42,26 @@ public class MicroMacroGameScreen implements Screen {
     }
 
     private void handleUserInput(float delta) {
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        boolean playerGoesLeft = Gdx.input.isKeyPressed(Input.Keys.LEFT);
+        boolean playerGoesRight = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
+        boolean playerGoesUp = Gdx.input.isKeyPressed(Input.Keys.UP);
+        boolean playerGoesDown = Gdx.input.isKeyPressed(Input.Keys.DOWN);
+
+        if (playerGoesLeft && playerGoesUp) {
+            game.microMacroGameController.goDiagonalUp(delta);
+        } else if (playerGoesLeft && playerGoesDown) {
+            game.microMacroGameController.goDiagonalLeft(delta);
+        } else if (playerGoesRight && playerGoesUp) {
+            game.microMacroGameController.goDiagonalRight(delta);
+        } else if (playerGoesRight && playerGoesDown) {
+            game.microMacroGameController.goDiagonalDown(delta);
+        } else if (playerGoesLeft) {
             game.microMacroGameController.goLeft(delta);
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        } else if (playerGoesRight) {
             game.microMacroGameController.goRight(delta);
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        } else if (playerGoesUp) {
             game.microMacroGameController.goUp(delta);
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (playerGoesDown) {
             game.microMacroGameController.goDown(delta);
         }
     }

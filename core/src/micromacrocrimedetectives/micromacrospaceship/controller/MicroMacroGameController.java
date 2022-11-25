@@ -54,6 +54,31 @@ public class MicroMacroGameController {
         model.cameraPosition.y -= delta * model.bongoBob.velocity;
     }
 
+    // 2 * PI = 360 Degrees
+    public void goDiagonalLeft(float delta) {
+        model.bongoBob.direction = Direction.LEFT;
+        model.cameraPosition.x -= delta * model.bongoBob.velocity;
+        model.cameraPosition.y -= model.mapWalkFactor * delta * model.bongoBob.velocity;
+    }
+
+    public void goDiagonalRight(float delta) {
+        model.bongoBob.direction = Direction.RIGHT;
+        model.cameraPosition.x += delta * model.bongoBob.velocity;
+        model.cameraPosition.y += model.mapWalkFactor * delta * model.bongoBob.velocity;
+    }
+
+    public void goDiagonalUp(float delta) {
+        model.bongoBob.direction = Direction.UP;
+        model.cameraPosition.x -= delta * model.bongoBob.velocity;
+        model.cameraPosition.y += model.mapWalkFactor * delta * model.bongoBob.velocity;
+    }
+
+    public void goDiagonalDown(float delta) {
+        model.bongoBob.direction = Direction.DOWN;
+        model.cameraPosition.x += delta * model.bongoBob.velocity;
+        model.cameraPosition.y -= model.mapWalkFactor * delta * model.bongoBob.velocity;
+    }
+
     public void drawBongoBob(SpriteBatch batch) {
         batch.draw(
                 model.bongoBob.textures.get(model.bongoBob.direction),
