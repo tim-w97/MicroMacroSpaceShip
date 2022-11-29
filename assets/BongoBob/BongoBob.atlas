@@ -24,34 +24,34 @@ body/side
   orig: 114, 153
   offset: 0, 0
   index: -1
-face/cool
+face
   rotate: false
   xy: 342, 0
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
-  index: -1
-face/crazy
+  index: 1
+face
   rotate: false
   xy: 456, 0
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
-  index: -1
-face/sad
+  index: 2
+face
   rotate: false
   xy: 570, 0
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
-  index: -1
-face/surprised
+  index: 3
+face
   rotate: false
   xy: 684, 0
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
-  index: -1
+  index: 4
 ring
   rotate: false
   xy: 798, 0

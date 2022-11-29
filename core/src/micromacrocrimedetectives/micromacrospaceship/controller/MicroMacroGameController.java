@@ -37,46 +37,22 @@ public class MicroMacroGameController {
 
     public void goLeft(float delta) {
         model.bongoBob.direction = Direction.LEFT;
-
         model.cameraPosition.x -= delta * model.bongoBob.velocity;
-
-        model.bongoBob.frame.x = model.cameraPosition.x - model.bongoBob.frame.width / 2f;
-        model.bongoBob.frame.y = model.cameraPosition.y - model.bongoBob.frame.height / 2f;
-
-        model.stateTime += delta;
     }
 
     public void goRight(float delta) {
         model.bongoBob.direction = Direction.RIGHT;
-
         model.cameraPosition.x += delta * model.bongoBob.velocity;
-
-        model.bongoBob.frame.x = model.cameraPosition.x - model.bongoBob.frame.width / 2f;
-        model.bongoBob.frame.y = model.cameraPosition.y - model.bongoBob.frame.height / 2f;
-
-        model.stateTime += delta;
     }
 
     public void goUp(float delta) {
         model.bongoBob.direction = Direction.UP;
-
         model.cameraPosition.y += delta * model.bongoBob.velocity;
-
-        model.bongoBob.frame.x = model.cameraPosition.x - model.bongoBob.frame.width / 2f;
-        model.bongoBob.frame.y = model.cameraPosition.y - model.bongoBob.frame.height / 2f;
-
-        model.stateTime += delta;
     }
 
     public void goDown(float delta) {
         model.bongoBob.direction = Direction.DOWN;
-
         model.cameraPosition.y -= delta * model.bongoBob.velocity;
-
-        model.bongoBob.frame.x = model.cameraPosition.x - model.bongoBob.frame.width / 2f;
-        model.bongoBob.frame.y = model.cameraPosition.y - model.bongoBob.frame.height / 2f;
-
-        model.stateTime += delta;
     }
 
     // 2 * PI = 360 Degrees
@@ -85,11 +61,6 @@ public class MicroMacroGameController {
 
         model.cameraPosition.x -= delta * model.bongoBob.velocity;
         model.cameraPosition.y -= model.mapWalkFactor * delta * model.bongoBob.velocity;
-
-        model.bongoBob.frame.x = model.cameraPosition.x - model.bongoBob.frame.width / 2f;
-        model.bongoBob.frame.y = model.cameraPosition.y - model.bongoBob.frame.height / 2f;
-
-        model.stateTime += delta;
     }
 
     public void goDiagonalRight(float delta) {
@@ -97,11 +68,6 @@ public class MicroMacroGameController {
 
         model.cameraPosition.x += delta * model.bongoBob.velocity;
         model.cameraPosition.y += model.mapWalkFactor * delta * model.bongoBob.velocity;
-
-        model.bongoBob.frame.x = model.cameraPosition.x - model.bongoBob.frame.width / 2f;
-        model.bongoBob.frame.y = model.cameraPosition.y - model.bongoBob.frame.height / 2f;
-
-        model.stateTime += delta;
     }
 
     public void goDiagonalUp(float delta) {
@@ -109,11 +75,6 @@ public class MicroMacroGameController {
 
         model.cameraPosition.x -= delta * model.bongoBob.velocity;
         model.cameraPosition.y += model.mapWalkFactor * delta * model.bongoBob.velocity;
-
-        model.bongoBob.frame.x = model.cameraPosition.x - model.bongoBob.frame.width / 2f;
-        model.bongoBob.frame.y = model.cameraPosition.y - model.bongoBob.frame.height / 2f;
-
-        model.stateTime += delta;
     }
 
     public void goDiagonalDown(float delta) {
@@ -121,15 +82,11 @@ public class MicroMacroGameController {
 
         model.cameraPosition.x += delta * model.bongoBob.velocity;
         model.cameraPosition.y -= model.mapWalkFactor * delta * model.bongoBob.velocity;
-
-        model.bongoBob.frame.x = model.cameraPosition.x - model.bongoBob.frame.width / 2f;
-        model.bongoBob.frame.y = model.cameraPosition.y - model.bongoBob.frame.height / 2f;
-
-        model.stateTime += delta;
     }
 
     public void drawBongoBob(SpriteBatch batch) {
-        TextureRegion ring = model.bongoBob.ringAnimation.getKeyFrame(model.stateTime);
+        TextureRegion ring = model.bongoBob.ringAnimation.getKeyFrame(model.bongoBob.ringStateTime);
+        TextureRegion face = model.bongoBob.faceAnimation.getKeyFrame(model.stateTime);
 
         batch.draw(
                 ring,
@@ -146,10 +103,21 @@ public class MicroMacroGameController {
         // only draw face if BongoBob walks down
         if (model.bongoBob.direction == Direction.DOWN) {
             batch.draw(
-                    model.bongoBob.face,
+                    face,
                     model.bongoBob.frame.x,
                     model.bongoBob.frame.y
             );
         }
+    }
+
+    public void playerMoves(float delta) {
+        model.bongoBob.frame.x = model.cameraPosition.x - model.bongoBob.frame.width / 2f;
+        model.bongoBob.frame.y = model.cameraPosition.y - model.bongoBob.frame.height / 2f;
+
+        model.bongoBob.ringStateTime += delta;
+    }
+
+    public void accumulateStateTime(float delta) {
+        model.stateTime += delta;
     }
 }

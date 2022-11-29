@@ -37,6 +37,8 @@ public class MicroMacroGameScreen implements Screen {
 
         game.batch.end();
 
+        game.microMacroGameController.accumulateStateTime(delta);
+
         handleUserInput(delta);
         camera.position.set(game.microMacroGameController.getCameraPosition());
     }
@@ -46,6 +48,10 @@ public class MicroMacroGameScreen implements Screen {
         boolean playerGoesRight = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
         boolean playerGoesUp = Gdx.input.isKeyPressed(Input.Keys.UP);
         boolean playerGoesDown = Gdx.input.isKeyPressed(Input.Keys.DOWN);
+
+        if (playerGoesLeft || playerGoesRight || playerGoesUp || playerGoesDown) {
+            game.microMacroGameController.playerMoves(delta);
+        }
 
         if (playerGoesLeft && playerGoesUp) {
             game.microMacroGameController.goDiagonalUp(delta);

@@ -1,6 +1,5 @@
 package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,22 +12,34 @@ import java.util.Map;
 public class BongoBob {
     public Rectangle frame;
 
+    public float ringStateTime;
+
     public TextureAtlas atlas;
     public Map<Direction, TextureRegion> bodyTextures;
-    public TextureRegion face;
+    public Animation<TextureRegion> faceAnimation;
+
     public Animation<TextureRegion> ringAnimation;
 
     public Direction direction;
     public float velocity;
 
     public BongoBob() {
+        ringStateTime = 0;
+
         atlas = new TextureAtlas("BongoBob/BongoBob.atlas");
 
-        float frameDuration = 0.03f;
+        float ringFrameDuration = 0.03f;
+        float faceFrameDuration = 5f;
 
         ringAnimation = new Animation<TextureRegion>(
-                frameDuration,
+                ringFrameDuration,
                 atlas.findRegions("ring"),
+                Animation.PlayMode.LOOP
+        );
+
+        faceAnimation = new Animation<TextureRegion>(
+                faceFrameDuration,
+                atlas.findRegions("face"),
                 Animation.PlayMode.LOOP
         );
 
@@ -43,13 +54,13 @@ public class BongoBob {
 
         bodyTextures.put(Direction.RIGHT, flippedSide);
 
-        face = atlas.findRegion("face/cool");
+        TextureRegion misusedTextureRegion = bodyTextures.get(Direction.DOWN);
 
         frame = new Rectangle(
-                -face.getRegionWidth() / 2f,
-                -face.getRegionHeight() / 2f,
-                face.getRegionWidth(),
-                face.getRegionHeight()
+                -misusedTextureRegion.getRegionWidth() / 2f,
+                -misusedTextureRegion.getRegionHeight() / 2f,
+                misusedTextureRegion.getRegionWidth(),
+                misusedTextureRegion.getRegionHeight()
         );
 
         velocity = 300;
