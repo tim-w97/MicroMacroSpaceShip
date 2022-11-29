@@ -15,6 +15,9 @@ public class MicroMacroGameModel {
 
     public float mapWalkFactor;
 
+    // accumulated delta time
+    public float stateTime;
+
     public MicroMacroGameModel() {
         bongoBob = new BongoBob();
 
@@ -32,5 +35,7 @@ public class MicroMacroGameModel {
         }
 
         mapWalkFactor = (float) (Math.PI / 180 * 33);
+
+        stateTime = 0;
     }
 }

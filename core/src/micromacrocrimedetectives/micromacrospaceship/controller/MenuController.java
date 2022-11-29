@@ -10,7 +10,6 @@ import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.model.MenuModel;
 import micromacrocrimedetectives.micromacrospaceship.view.MenuScreen;
 import micromacrocrimedetectives.micromacrospaceship.view.MicroMacroGameScreen;
-import micromacrocrimedetectives.micromacrospaceship.view.SpaceshipGameScreen;
 
 public class MenuController {
     private final MenuModel model;
