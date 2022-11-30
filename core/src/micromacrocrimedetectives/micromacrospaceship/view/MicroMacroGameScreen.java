@@ -11,36 +11,42 @@ import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 public class MicroMacroGameScreen implements Screen {
     private final MicroMacroGame game;
 
-    private final OrthographicCamera camera;
+    private final OrthographicCamera movingCamera;
+    private final OrthographicCamera fixedCamera;
 
     public MicroMacroGameScreen(MicroMacroGame game) {
         this.game = game;
 
         game.shapeRenderer.setColor(CustomColors.red);
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        fixedCamera = new OrthographicCamera();
+        movingCamera = new OrthographicCamera();
+
+        fixedCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        movingCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(CustomColors.darkPurple);
-        camera.update();
+        movingCamera.update();
 
-        game.batch.setProjectionMatrix(camera.combined);
-        game.shapeRenderer.setProjectionMatrix(camera.combined);
+        game.batch.setProjectionMatrix(movingCamera.combined);
+        game.shapeRenderer.setProjectionMatrix(movingCamera.combined);
 
         game.batch.begin();
 
         game.microMacroGameController.drawMap(game.batch);
         game.microMacroGameController.drawBongoBob(game.batch);
 
+        game.batch.setProjectionMatrix(fixedCamera.combined);
+
+        game.microMacroGameController.drawPhone(game.batch);
+
         game.batch.end();
 
-        game.microMacroGameController.accumulateStateTime(delta);
-
         handleUserInput(delta);
-        camera.position.set(game.microMacroGameController.getCameraPosition());
+        movingCamera.position.set(game.microMacroGameController.getCameraPosition());
     }
 
     private void handleUserInput(float delta) {

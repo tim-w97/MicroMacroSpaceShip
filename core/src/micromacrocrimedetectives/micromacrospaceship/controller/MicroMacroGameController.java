@@ -1,5 +1,6 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
@@ -86,7 +87,6 @@ public class MicroMacroGameController {
 
     public void drawBongoBob(SpriteBatch batch) {
         TextureRegion ring = model.bongoBob.ringAnimation.getKeyFrame(model.bongoBob.ringStateTime);
-        TextureRegion face = model.bongoBob.faceAnimation.getKeyFrame(model.stateTime);
 
         batch.draw(
                 ring,
@@ -103,7 +103,7 @@ public class MicroMacroGameController {
         // only draw face if BongoBob walks down
         if (model.bongoBob.direction == Direction.DOWN) {
             batch.draw(
-                    face,
+                    model.bongoBob.face,
                     model.bongoBob.frame.x,
                     model.bongoBob.frame.y
             );
@@ -117,7 +117,11 @@ public class MicroMacroGameController {
         model.bongoBob.ringStateTime += delta;
     }
 
-    public void accumulateStateTime(float delta) {
-        model.stateTime += delta;
+    public void drawPhone(SpriteBatch batch) {
+        batch.draw(
+                model.phone.texture,
+                model.phone.position.x,
+                model.phone.position.y
+        );
     }
 }

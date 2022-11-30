@@ -13,7 +13,7 @@ public class MapTile {
         this.verticalTileIndex = verticalTileIndex;
         this.horizontalTileIndex = horizontalTileIndex;
 
-        texture = new Texture("map/x" + horizontalTileIndex + "y" + verticalTileIndex + ".png");
+        texture = new Texture("mapTiles/x" + horizontalTileIndex + "y" + verticalTileIndex + ".png");
 
         width = texture.getWidth();
         height = texture.getHeight();

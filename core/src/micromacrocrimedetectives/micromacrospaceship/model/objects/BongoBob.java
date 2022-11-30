@@ -13,43 +13,34 @@ public class BongoBob {
     public Rectangle frame;
 
     public float ringStateTime;
-
-    public TextureAtlas atlas;
     public Map<Direction, TextureRegion> bodyTextures;
-    public Animation<TextureRegion> faceAnimation;
+    public TextureRegion face;
 
     public Animation<TextureRegion> ringAnimation;
 
     public Direction direction;
     public float velocity;
 
-    public BongoBob() {
+    public BongoBob(TextureAtlas atlas) {
         ringStateTime = 0;
 
-        atlas = new TextureAtlas("BongoBob/BongoBob.atlas");
-
         float ringFrameDuration = 0.03f;
-        float faceFrameDuration = 5f;
 
         ringAnimation = new Animation<TextureRegion>(
                 ringFrameDuration,
-                atlas.findRegions("ring"),
+                atlas.findRegions("bongoBob/ring"),
                 Animation.PlayMode.LOOP
         );
 
-        faceAnimation = new Animation<TextureRegion>(
-                faceFrameDuration,
-                atlas.findRegions("face"),
-                Animation.PlayMode.LOOP
-        );
+        face = atlas.findRegion("bongoBob/face/cool");
 
         bodyTextures = new HashMap<>();
 
-        bodyTextures.put(Direction.UP, atlas.findRegion("body/back"));
-        bodyTextures.put(Direction.DOWN, atlas.findRegion("body/front"));
-        bodyTextures.put(Direction.LEFT, atlas.findRegion("body/side"));
+        bodyTextures.put(Direction.UP, atlas.findRegion("bongoBob/body/back"));
+        bodyTextures.put(Direction.DOWN, atlas.findRegion("bongoBob/body/front"));
+        bodyTextures.put(Direction.LEFT, atlas.findRegion("bongoBob/body/side"));
 
-        TextureRegion flippedSide = new TextureRegion(atlas.findRegion("body/side"));
+        TextureRegion flippedSide = new TextureRegion(atlas.findRegion("bongoBob/body/side"));
         flippedSide.flip(true, false);
 
         bodyTextures.put(Direction.RIGHT, flippedSide);

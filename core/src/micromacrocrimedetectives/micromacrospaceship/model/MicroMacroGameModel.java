@@ -1,11 +1,15 @@
 package micromacrocrimedetectives.micromacrospaceship.model;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.BongoBob;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.MapTile;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.Phone;
 
 public class MicroMacroGameModel {
     public BongoBob bongoBob;
+
+    public Phone phone;
 
     public Vector3 cameraPosition;
 
@@ -15,11 +19,12 @@ public class MicroMacroGameModel {
 
     public float mapWalkFactor;
 
-    // accumulated delta time
-    public float stateTime;
-
     public MicroMacroGameModel() {
-        bongoBob = new BongoBob();
+        TextureAtlas atlas = new TextureAtlas("MicroMacroGame/MicroMacroGame.atlas");
+
+        phone = new Phone(atlas.findRegion("screen/phone"));
+
+        bongoBob = new BongoBob(atlas);
 
         cameraPosition = new Vector3();
 
@@ -35,7 +40,5 @@ public class MicroMacroGameModel {
         }
 
         mapWalkFactor = (float) (Math.PI / 180 * 33);
-
-        stateTime = 0;
     }
 }
