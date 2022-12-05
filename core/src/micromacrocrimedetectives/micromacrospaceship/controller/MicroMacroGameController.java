@@ -1,12 +1,10 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import micromacrocrimedetectives.micromacrospaceship.Direction;
 import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroGameModel;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.MapTile;
 
 public class MicroMacroGameController {
     private final MicroMacroGameModel model;
@@ -20,20 +18,7 @@ public class MicroMacroGameController {
     }
 
     public void drawMap(SpriteBatch batch) {
-
-        for (int h = 0; h < model.horizontalMapTilesCount; h++) {
-            for (int v = 0; v < model.verticalMapTilesCount; v++) {
-                MapTile tile = model.mapTiles[v][h];
-
-                batch.draw(
-                        tile.texture,
-                        tile.x,
-                        tile.y,
-                        tile.width,
-                        tile.height
-                );
-            }
-        }
+        batch.draw(model.map, 0, 0);
     }
 
     public void goLeft(float delta) {

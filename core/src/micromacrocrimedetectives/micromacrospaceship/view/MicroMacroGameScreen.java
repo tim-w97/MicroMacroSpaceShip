@@ -17,8 +17,6 @@ public class MicroMacroGameScreen implements Screen {
     public MicroMacroGameScreen(MicroMacroGame game) {
         this.game = game;
 
-        game.shapeRenderer.setColor(CustomColors.red);
-
         fixedCamera = new OrthographicCamera();
         movingCamera = new OrthographicCamera();
 
@@ -28,18 +26,23 @@ public class MicroMacroGameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(CustomColors.darkPurple);
+        ScreenUtils.clear(CustomColors.red);
+
         movingCamera.update();
+        fixedCamera.update();
 
         game.batch.setProjectionMatrix(movingCamera.combined);
-        game.shapeRenderer.setProjectionMatrix(movingCamera.combined);
 
         game.batch.begin();
 
         game.microMacroGameController.drawMap(game.batch);
         game.microMacroGameController.drawBongoBob(game.batch);
 
+        game.batch.end();
+
         game.batch.setProjectionMatrix(fixedCamera.combined);
+
+        game.batch.begin();
 
         game.microMacroGameController.drawPhone(game.batch);
 
