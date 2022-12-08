@@ -27,7 +27,7 @@ public class MicroMacroGameModel {
 
         bongoBob = new BongoBob(atlas);
 
-        miniMap = new MiniMap(atlas.findRegion("screen/miniMap"));
+        miniMap = new MiniMap(atlas);
 
         cameraPosition = new Vector3();
 

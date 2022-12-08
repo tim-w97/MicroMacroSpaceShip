@@ -1,11 +1,11 @@
 MicroMacroGame.png
-size: 458, 972
+size: 228, 1824
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 bongoBob/body/back
   rotate: false
-  xy: 344, 0
+  xy: 96, 0
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
@@ -26,112 +26,119 @@ bongoBob/body/side
   index: -1
 bongoBob/face/cool
   rotate: false
-  xy: 228, 153
+  xy: 0, 306
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 bongoBob/face/crazy
   rotate: false
-  xy: 342, 153
+  xy: 114, 306
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 bongoBob/face/sad
   rotate: false
-  xy: 0, 306
+  xy: 0, 459
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 bongoBob/face/surprised
   rotate: false
-  xy: 114, 306
-  size: 114, 153
-  orig: 114, 153
-  offset: 0, 0
-  index: -1
-bongoBob/ring
-  rotate: false
-  xy: 228, 306
-  size: 114, 153
-  orig: 114, 153
-  offset: 0, 0
-  index: 1
-bongoBob/ring
-  rotate: false
-  xy: 342, 306
-  size: 114, 153
-  orig: 114, 153
-  offset: 0, 0
-  index: 2
-bongoBob/ring
-  rotate: false
-  xy: 0, 459
-  size: 114, 153
-  orig: 114, 153
-  offset: 0, 0
-  index: 3
-bongoBob/ring
-  rotate: false
   xy: 114, 459
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
-  index: 4
-bongoBob/ring
-  rotate: false
-  xy: 228, 459
-  size: 114, 153
-  orig: 114, 153
-  offset: 0, 0
-  index: 5
-bongoBob/ring
-  rotate: false
-  xy: 342, 459
-  size: 114, 153
-  orig: 114, 153
-  offset: 0, 0
-  index: 6
-bongoBob/ring
+  index: -1
+bongoBob/ring/ring
   rotate: false
   xy: 0, 612
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
-  index: 7
-bongoBob/ring
+  index: 1
+bongoBob/ring/ring
   rotate: false
   xy: 114, 612
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
-  index: 8
-screen/miniMap
+  index: 2
+bongoBob/ring/ring
   rotate: false
-  xy: 0, 0
+  xy: 0, 765
+  size: 114, 153
+  orig: 114, 153
+  offset: 0, 0
+  index: 3
+bongoBob/ring/ring
+  rotate: false
+  xy: 114, 765
+  size: 114, 153
+  orig: 114, 153
+  offset: 0, 0
+  index: 4
+bongoBob/ring/ring
+  rotate: false
+  xy: 0, 918
+  size: 114, 153
+  orig: 114, 153
+  offset: 0, 0
+  index: 5
+bongoBob/ring/ring
+  rotate: false
+  xy: 114, 918
+  size: 114, 153
+  orig: 114, 153
+  offset: 0, 0
+  index: 6
+bongoBob/ring/ring
+  rotate: false
+  xy: 0, 1071
+  size: 114, 153
+  orig: 114, 153
+  offset: 0, 0
+  index: 7
+bongoBob/ring/ring
+  rotate: false
+  xy: 114, 1071
+  size: 114, 153
+  orig: 114, 153
+  offset: 0, 0
+  index: 8
+screen/miniMap/background
+  rotate: false
+  xy: 0, 1344
   size: 160, 120
   orig: 160, 120
   offset: 0, 0
   index: -1
+screen/miniMap/bongoBob
+  rotate: false
+  xy: 0, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 screen/phone
   rotate: false
-  xy: 228, 612
+  xy: 0, 1464
   size: 191, 360
   orig: 191, 360
   offset: 0, 0
   index: -1
 screen/phoneIcon
   rotate: false
-  xy: 160, 0
+  xy: 32, 0
   size: 64, 120
   orig: 64, 120
   offset: 0, 0
   index: -1
 screen/pinIcon
   rotate: false
-  xy: 224, 0
+  xy: 0, 1224
   size: 120, 120
   orig: 120, 120
   offset: 0, 0

@@ -1,24 +1,33 @@
 package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 public class MiniMap {
-    public TextureRegion texture;
+    public TextureRegion background;
+    public TextureRegion bongoBob;
 
     public Vector2 position;
+    public Vector2 bongoBobPosition;
 
     public float margin;
 
-    public MiniMap(TextureRegion texture) {
+    public MiniMap(TextureAtlas atlas) {
         margin = 10;
 
-        this.texture = texture;
+        background = atlas.findRegion("screen/miniMap/background");
+        bongoBob = atlas.findRegion("screen/miniMap/bongoBob");
 
         position = new Vector2(
                 margin,
-                Gdx.graphics.getHeight() - texture.getRegionHeight() - margin
+                Gdx.graphics.getHeight() - background.getRegionHeight() - margin
+        );
+
+        bongoBobPosition = new Vector2(
+                10,
+                Gdx.graphics.getHeight() - 10 - background.getRegionHeight()
         );
     }
 }

@@ -1,5 +1,6 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
@@ -21,24 +22,50 @@ public class MicroMacroGameController {
         batch.draw(model.map, 0, 0);
     }
 
+    private void correctCameraPosition() {
+        if (model.cameraPosition.x < 0) {
+            model.cameraPosition.x = 0;
+        }
+
+        if (model.cameraPosition.y < 0) {
+            model.cameraPosition.y = 0;
+        }
+
+        if (model.cameraPosition.x > model.map.getWidth()) {
+            model.cameraPosition.x = model.map.getWidth();
+        }
+
+        if (model.cameraPosition.y > model.map.getHeight()) {
+            model.cameraPosition.y = model.map.getHeight();
+        }
+    }
+
     public void goLeft(float delta) {
         model.bongoBob.direction = Direction.LEFT;
         model.cameraPosition.x -= delta * model.bongoBob.velocity;
+
+        correctCameraPosition();
     }
 
     public void goRight(float delta) {
         model.bongoBob.direction = Direction.RIGHT;
         model.cameraPosition.x += delta * model.bongoBob.velocity;
+
+        correctCameraPosition();
     }
 
     public void goUp(float delta) {
         model.bongoBob.direction = Direction.UP;
         model.cameraPosition.y += delta * model.bongoBob.velocity;
+
+        correctCameraPosition();
     }
 
     public void goDown(float delta) {
         model.bongoBob.direction = Direction.DOWN;
         model.cameraPosition.y -= delta * model.bongoBob.velocity;
+
+        correctCameraPosition();
     }
 
     // 2 * PI = 360 Degrees
@@ -47,6 +74,8 @@ public class MicroMacroGameController {
 
         model.cameraPosition.x -= delta * model.bongoBob.velocity;
         model.cameraPosition.y -= model.mapWalkFactor * delta * model.bongoBob.velocity;
+
+        correctCameraPosition();
     }
 
     public void goDiagonalRight(float delta) {
@@ -54,6 +83,8 @@ public class MicroMacroGameController {
 
         model.cameraPosition.x += delta * model.bongoBob.velocity;
         model.cameraPosition.y += model.mapWalkFactor * delta * model.bongoBob.velocity;
+
+        correctCameraPosition();
     }
 
     public void goDiagonalUp(float delta) {
@@ -61,6 +92,8 @@ public class MicroMacroGameController {
 
         model.cameraPosition.x -= delta * model.bongoBob.velocity;
         model.cameraPosition.y += model.mapWalkFactor * delta * model.bongoBob.velocity;
+
+        correctCameraPosition();
     }
 
     public void goDiagonalDown(float delta) {
@@ -68,6 +101,8 @@ public class MicroMacroGameController {
 
         model.cameraPosition.x += delta * model.bongoBob.velocity;
         model.cameraPosition.y -= model.mapWalkFactor * delta * model.bongoBob.velocity;
+
+        correctCameraPosition();
     }
 
     public void drawBongoBob(SpriteBatch batch) {
@@ -97,6 +132,21 @@ public class MicroMacroGameController {
 
     public void playerMoves(float delta) {
         model.bongoBob.ringStateTime += delta;
+
+        refreshMiniMap();
+    }
+
+    private void refreshMiniMap() {
+        model.miniMap.bongoBobPosition.x = model.miniMap.margin +
+                model.cameraPosition.x / model.map.getWidth()
+                        * (model.miniMap.background.getRegionWidth() - model.miniMap.bongoBob.getRegionWidth());
+
+
+        model.miniMap.bongoBobPosition.y = Gdx.graphics.getHeight() - model.miniMap.margin
+                - model.miniMap.background.getRegionHeight() +
+                model.cameraPosition.y
+                        / model.map.getHeight() * (model.miniMap.background.getRegionHeight()
+                        - model.miniMap.bongoBob.getRegionHeight());
     }
 
     public void drawPhone(SpriteBatch batch) {
@@ -109,9 +159,15 @@ public class MicroMacroGameController {
 
     public void drawMiniMap(SpriteBatch batch) {
         batch.draw(
-                model.miniMap.texture,
+                model.miniMap.background,
                 model.miniMap.position.x,
                 model.miniMap.position.y
+        );
+
+        batch.draw(
+                model.miniMap.bongoBob,
+                model.miniMap.bongoBobPosition.x,
+                model.miniMap.bongoBobPosition.y
         );
     }
 }

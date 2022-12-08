@@ -29,7 +29,7 @@ public class BongoBob {
 
         ringAnimation = new Animation<TextureRegion>(
                 ringFrameDuration,
-                atlas.findRegions("bongoBob/ring"),
+                atlas.findRegions("bongoBob/ring/ring"),
                 Animation.PlayMode.LOOP
         );
 
