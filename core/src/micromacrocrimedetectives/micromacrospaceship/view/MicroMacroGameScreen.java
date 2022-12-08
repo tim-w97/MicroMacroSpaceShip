@@ -36,7 +36,6 @@ public class MicroMacroGameScreen implements Screen {
         game.batch.begin();
 
         game.microMacroGameController.drawMap(game.batch);
-        game.microMacroGameController.drawBongoBob(game.batch);
 
         game.batch.end();
 
@@ -44,6 +43,7 @@ public class MicroMacroGameScreen implements Screen {
 
         game.batch.begin();
 
+        game.microMacroGameController.drawBongoBob(game.batch);
         game.microMacroGameController.drawPhone(game.batch);
 
         game.batch.end();

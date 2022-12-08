@@ -96,9 +96,6 @@ public class MicroMacroGameController {
     }
 
     public void playerMoves(float delta) {
-        model.bongoBob.frame.x = model.cameraPosition.x - model.bongoBob.frame.width / 2f;
-        model.bongoBob.frame.y = model.cameraPosition.y - model.bongoBob.frame.height / 2f;
-
         model.bongoBob.ringStateTime += delta;
     }
 

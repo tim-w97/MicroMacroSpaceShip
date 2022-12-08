@@ -20,7 +20,7 @@ public class MicroMacroGameModel {
     public MicroMacroGameModel() {
         TextureAtlas atlas = new TextureAtlas("MicroMacroGame/MicroMacroGame.atlas");
 
-        phone = new Phone(atlas.findRegion("screen/phone"));
+        phone = new Phone(atlas.findRegion("screen/phoneIcon"));
 
         bongoBob = new BongoBob(atlas);
 

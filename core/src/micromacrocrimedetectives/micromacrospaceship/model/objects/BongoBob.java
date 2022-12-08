@@ -1,5 +1,6 @@
 package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -48,8 +49,8 @@ public class BongoBob {
         TextureRegion misusedTextureRegion = bodyTextures.get(Direction.DOWN);
 
         frame = new Rectangle(
-                -misusedTextureRegion.getRegionWidth() / 2f,
-                -misusedTextureRegion.getRegionHeight() / 2f,
+                (Gdx.graphics.getWidth() - misusedTextureRegion.getRegionWidth()) / 2f,
+                (Gdx.graphics.getHeight() - misusedTextureRegion.getRegionHeight()) / 2f,
                 misusedTextureRegion.getRegionWidth(),
                 misusedTextureRegion.getRegionHeight()
         );
