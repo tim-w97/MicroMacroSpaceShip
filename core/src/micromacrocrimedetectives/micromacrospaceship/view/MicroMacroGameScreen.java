@@ -45,6 +45,7 @@ public class MicroMacroGameScreen implements Screen {
 
         game.microMacroGameController.drawBongoBob(game.batch);
         game.microMacroGameController.drawPhone(game.batch);
+        game.microMacroGameController.drawMiniMap(game.batch);
 
         game.batch.end();
 

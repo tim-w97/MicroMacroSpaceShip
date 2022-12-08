@@ -106,4 +106,12 @@ public class MicroMacroGameController {
                 model.phone.position.y
         );
     }
+
+    public void drawMiniMap(SpriteBatch batch) {
+        batch.draw(
+                model.miniMap.texture,
+                model.miniMap.position.x,
+                model.miniMap.position.y
+        );
+    }
 }
