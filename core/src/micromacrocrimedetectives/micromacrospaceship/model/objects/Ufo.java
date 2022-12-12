@@ -27,8 +27,8 @@ public class Ufo {
 
         velocity = 300;
 
-        laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.mp3"));
-        crumbleSound = Gdx.audio.newSound(Gdx.files.internal("sounds/crumble.mp3"));
+        laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
+        crumbleSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
     }
 
     public void dispose() {

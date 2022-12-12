@@ -170,4 +170,21 @@ public class MicroMacroGameController {
                 model.miniMap.bongoBobPosition.y
         );
     }
+
+    public void playSpaceshipAmbienceMusic() {
+        model.spaceshipAmbienceMusic.setLooping(true);
+        model.spaceshipAmbienceMusic.play();
+    }
+
+    public void playWhobbleSound() {
+        if (!model.bongoBob.whobbleSoundIsPlaying) {
+            model.bongoBob.whobbleSoundIsPlaying = true;
+            model.bongoBob.whobbleSound.resume();
+        }
+    }
+
+    public void stopWhobbleSound() {
+        model.bongoBob.whobbleSoundIsPlaying = false;
+        model.bongoBob.whobbleSound.pause();
+    }
 }

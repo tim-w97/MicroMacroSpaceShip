@@ -60,7 +60,10 @@ public class MicroMacroGameScreen implements Screen {
         boolean playerGoesDown = Gdx.input.isKeyPressed(Input.Keys.DOWN);
 
         if (playerGoesLeft || playerGoesRight || playerGoesUp || playerGoesDown) {
+            game.microMacroGameController.playWhobbleSound();
             game.microMacroGameController.playerMoves(delta);
+        } else {
+            game.microMacroGameController.stopWhobbleSound();
         }
 
         if (playerGoesLeft && playerGoesUp) {
@@ -84,7 +87,7 @@ public class MicroMacroGameScreen implements Screen {
 
     @Override
     public void show() {
-
+        game.microMacroGameController.playSpaceshipAmbienceMusic();
     }
 
     @Override

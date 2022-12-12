@@ -30,4 +30,7 @@ public class MiniMap {
                 Gdx.graphics.getHeight() - 10 - background.getRegionHeight()
         );
     }
+
+    public void dispose() {
+    }
 }

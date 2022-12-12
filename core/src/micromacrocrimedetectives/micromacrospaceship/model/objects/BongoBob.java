@@ -1,6 +1,7 @@
 package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,6 +22,9 @@ public class BongoBob {
 
     public Direction direction;
     public float velocity;
+
+    public Sound whobbleSound;
+    public boolean whobbleSoundIsPlaying;
 
     public BongoBob(TextureAtlas atlas) {
         ringStateTime = 0;
@@ -57,5 +61,15 @@ public class BongoBob {
 
         velocity = 300;
         direction = Direction.DOWN;
+
+        whobbleSound = Gdx.audio.newSound(Gdx.files.internal("sounds/robot sounds.mp3"));
+        whobbleSound.loop();
+        whobbleSound.pause();
+
+        whobbleSoundIsPlaying = false;
+    }
+
+    public void dispose() {
+        whobbleSound.dispose();
     }
 }

@@ -1,5 +1,7 @@
 package micromacrocrimedetectives.micromacrospaceship.model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
@@ -20,6 +22,8 @@ public class MicroMacroGameModel {
 
     public float mapWalkFactor;
 
+    public Music spaceshipAmbienceMusic;
+
     public MicroMacroGameModel() {
         TextureAtlas atlas = new TextureAtlas("MicroMacroGame/MicroMacroGame.atlas");
 
@@ -34,5 +38,16 @@ public class MicroMacroGameModel {
         mapWalkFactor = (float) (Math.PI / 180 * 33);
 
         map = new Texture("MicroMacroGame/map.jpg");
+
+        spaceshipAmbienceMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/spaceship ambience.mp3"));
+        spaceshipAmbienceMusic.setVolume(0.3f);
+    }
+
+    public void dispose() {
+        bongoBob.dispose();
+        phone.dispose();
+        miniMap.dispose();
+        map.dispose();
+        spaceshipAmbienceMusic.dispose();
     }
 }

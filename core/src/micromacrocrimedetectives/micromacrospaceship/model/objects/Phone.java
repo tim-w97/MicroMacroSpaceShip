@@ -19,4 +19,8 @@ public class Phone {
                 margin
         );
     }
+
+    public void dispose() {
+
+    }
 }
