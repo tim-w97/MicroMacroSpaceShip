@@ -112,7 +112,7 @@ public class SpaceshipGameScreen implements Screen {
 
     @Override
     public void show() {
-
+        game.spaceshipGameController.playSpaceMusic();
     }
 
     @Override

@@ -137,4 +137,8 @@ public class SpaceshipGameController {
     public void dispose() {
         model.dispose();
     }
+
+    public void playSpaceMusic() {
+        model.spaceMusic.play();
+    }
 }

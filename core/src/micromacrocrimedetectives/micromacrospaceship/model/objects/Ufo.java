@@ -33,5 +33,7 @@ public class Ufo {
 
     public void dispose() {
         texture.dispose();
+        crumbleSound.dispose();
+        laserSound.dispose();
     }
 }

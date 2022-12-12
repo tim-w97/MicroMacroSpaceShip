@@ -1,5 +1,7 @@
 package micromacrocrimedetectives.micromacrospaceship.model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.PlanetsBackground;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Projectile;
@@ -20,6 +22,8 @@ public class SpaceshipGameModel {
     public int lastAsteroidSpawnPosition;
     public final int asteroidRows;
 
+    public Music spaceMusic;
+
     public SpaceshipGameModel() {
         planetsBackground = new PlanetsBackground();
         ufo = new Ufo();
@@ -30,11 +34,15 @@ public class SpaceshipGameModel {
         asteroids = new ArrayList<>();
         asteroidSpawnDelay = 1000;
         asteroidRows = 6;
+
+        spaceMusic = Gdx.audio.newMusic(Gdx.files.internal("music/space music.mp3"));
+        spaceMusic.setVolume(0.1f);
     }
 
     public void dispose() {
         planetsBackground.dispose();
         ufo.dispose();
+        spaceMusic.dispose();
 
         for (Projectile projectile : projectiles) {
             projectile.dispose();
