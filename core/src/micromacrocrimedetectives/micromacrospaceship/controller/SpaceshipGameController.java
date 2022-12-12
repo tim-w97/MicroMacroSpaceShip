@@ -54,6 +54,8 @@ public class SpaceshipGameController {
 
     public void shootProjectile() {
         if (TimeUtils.timeSinceMillis(model.lastShootTime) > model.shootDelay) {
+            model.ufo.laserSound.play();
+
             Projectile projectile = new Projectile(
                     model.ufo.frame.x + model.ufo.frame.width / 2,
                     model.ufo.frame.height + Ufo.bottomMargin
@@ -119,6 +121,7 @@ public class SpaceshipGameController {
         for (Projectile projectile : model.projectiles) {
             for (Asteroid asteroid : model.asteroids) {
                 if (Intersector.overlaps(projectile.frame, asteroid.frame)) {
+                    model.ufo.crumbleSound.play();
                     shotAsteroids.add(asteroid);
                 }
             }
