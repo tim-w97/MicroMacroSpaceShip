@@ -31,4 +31,17 @@ public class SpaceshipGameModel {
         asteroidSpawnDelay = 1000;
         asteroidRows = 6;
     }
+
+    public void dispose() {
+        planetsBackground.dispose();
+        ufo.dispose();
+
+        for (Projectile projectile : projectiles) {
+            projectile.dispose();
+        }
+
+        for (Asteroid asteroid : asteroids) {
+            asteroid.dispose();
+        }
+    }
 }

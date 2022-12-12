@@ -13,4 +13,8 @@ public class PlanetsBackground {
         y = 0;
         velocity = 50;
     }
+
+    public void dispose() {
+        texture.dispose();
+    }
 }

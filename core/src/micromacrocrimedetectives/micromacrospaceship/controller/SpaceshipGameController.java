@@ -8,6 +8,8 @@ import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.PlanetsBackground;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Projectile;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
+import micromacrocrimedetectives.micromacrospaceship.view.MicroMacroGameScreen;
+import micromacrocrimedetectives.micromacrospaceship.view.SpaceshipGameScreen;
 
 import java.util.ArrayList;
 
@@ -122,5 +124,14 @@ public class SpaceshipGameController {
             }
         }
         model.asteroids.removeAll(shotAsteroids);
+    }
+
+    public void switchToMicroMacroGameScreen(SpaceshipGameScreen screen) {
+        screen.game.setScreen(new MicroMacroGameScreen(screen.game));
+        screen.dispose();
+    }
+
+    public void dispose() {
+        model.dispose();
     }
 }

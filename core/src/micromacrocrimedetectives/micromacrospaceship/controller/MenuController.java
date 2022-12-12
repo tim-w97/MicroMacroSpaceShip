@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.model.MenuModel;
 import micromacrocrimedetectives.micromacrospaceship.view.MenuScreen;
-import micromacrocrimedetectives.micromacrospaceship.view.MicroMacroGameScreen;
+import micromacrocrimedetectives.micromacrospaceship.view.SpaceshipGameScreen;
 
 public class MenuController {
     private final MenuModel model;
@@ -28,8 +28,7 @@ public class MenuController {
         model.startGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                menuScreen.game.setScreen(new MicroMacroGameScreen(menuScreen.game));
-                //menuScreen.game.setScreen(new SpaceshipGameScreen(menuScreen.game));
+                menuScreen.game.setScreen(new SpaceshipGameScreen(menuScreen.game));
                 menuScreen.dispose();
             }
         });

@@ -10,4 +10,8 @@ public class Projectile {
         frame = new Circle(x, y, 16);
         velocity = 600;
     }
+
+    public void dispose() {
+
+    }
 }

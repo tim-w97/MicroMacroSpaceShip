@@ -13,7 +13,7 @@ import micromacrocrimedetectives.micromacrospaceship.model.objects.Projectile;
 
 public class SpaceshipGameScreen implements Screen {
 
-    private final MicroMacroGame game;
+    public final MicroMacroGame game;
     private final OrthographicCamera camera;
 
     public SpaceshipGameScreen(MicroMacroGame game) {
@@ -32,6 +32,10 @@ public class SpaceshipGameScreen implements Screen {
 
         game.shapeRenderer.setProjectionMatrix(camera.combined);
         game.shapeRenderer.setColor(CustomColors.pink);
+
+        if (Gdx.input.isKeyPressed(Keys.C)) {
+            game.spaceshipGameController.switchToMicroMacroGameScreen(this);
+        }
 
         moveObjects(delta);
         drawObjects();
@@ -133,6 +137,6 @@ public class SpaceshipGameScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        game.spaceshipGameController.dispose();
     }
 }

@@ -23,4 +23,8 @@ public class Ufo {
 
         velocity = 300;
     }
+
+    public void dispose() {
+        texture.dispose();
+    }
 }

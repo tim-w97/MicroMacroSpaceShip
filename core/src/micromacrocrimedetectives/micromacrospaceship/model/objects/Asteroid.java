@@ -38,4 +38,8 @@ public class Asteroid {
 
         rotateClockwise = rotation % 2 == 0;
     }
+
+    public void dispose() {
+        texture.dispose();
+    }
 }
