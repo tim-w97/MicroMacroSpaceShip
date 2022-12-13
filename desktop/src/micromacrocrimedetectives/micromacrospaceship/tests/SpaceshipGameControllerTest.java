@@ -1,19 +1,26 @@
 package micromacrocrimedetectives.micromacrospaceship.tests;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.badlogic.gdx.graphics.Texture;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 import micromacrocrimedetectives.micromacrospaceship.controller.SpaceshipGameController;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class DummyTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class SpaceshipGameControllerTest {
+    SpaceshipGameModel model;
+    SpaceshipGameController controller;
+    float delta;
+
+    SpaceshipGameControllerTest() {
+        model = new SpaceshipGameModel();
+        controller = new SpaceshipGameController(model);
+        delta = 1.0f;
+    }
+
     @BeforeAll
     public static void init() {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
@@ -25,14 +32,14 @@ public class DummyTest {
     }
 
     @Test
-    public void textureTest() {
-        Texture dummyTexture = new Texture(Gdx.files.internal("ufo.png"));
-        assertNotNull(dummyTexture);
+    public void getPlanetsBackgroundTest() {
+        assertEquals(controller.getPlanetsBackground(), model.planetsBackground);
     }
 
     @Test
-    public void soundTest() {
-        Sound dummySound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
-        assertNotNull(dummySound);
+    public void movePlanetsBackgroundTest() {
+        assertEquals(model.planetsBackground.y, 0);
+        controller.movePlanetsBackground(delta);
+        assertEquals(model.planetsBackground.y, -50);
     }
 }
