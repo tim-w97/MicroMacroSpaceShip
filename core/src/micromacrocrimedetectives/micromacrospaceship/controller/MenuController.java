@@ -59,4 +59,12 @@ public class MenuController {
         model.skin.dispose();
         model.ufoTexture.dispose();
     }
+
+    public void drawGear(SpriteBatch batch) {
+        batch.draw(
+                model.gearTexture,
+                (Gdx.graphics.getWidth() - model.gearTexture.getWidth()) / 2f,
+                20
+        );
+    }
 }

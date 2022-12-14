@@ -1,6 +1,8 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
@@ -129,16 +131,35 @@ public class SpaceshipGameController {
         model.asteroids.removeAll(shotAsteroids);
     }
 
-    public void switchToMicroMacroGameScreen(SpaceshipGameScreen screen) {
-        screen.game.setScreen(new MicroMacroGameScreen(screen.game));
-        screen.dispose();
-    }
-
     public void dispose() {
         model.dispose();
     }
 
     public void playSpaceMusic() {
         model.spaceMusic.play();
+    }
+
+    public void drawElapsedTime(SpriteBatch batch, BitmapFont font) {
+        int elapsedTimeInSeconds = (int) (model.elapsedTime / 1000);
+
+        String text = "Verbleibende Zeit: " + Long.toString(elapsedTimeInSeconds) + " Sekunden";
+
+        model.elapsedTimeLayout.setText(font, text);
+
+        font.draw(
+                batch,
+                text,
+                (Gdx.graphics.getWidth() - model.elapsedTimeLayout.width) / 2f,
+                Gdx.graphics.getHeight() - 10
+        );
+    }
+
+    public void decreaseElapsedTime(float delta, SpaceshipGameScreen screen) {
+        if (model.elapsedTime < 0) {
+            screen.game.setScreen(new MicroMacroGameScreen(screen.game));
+            screen.dispose();
+        }
+
+        model.elapsedTime -= delta * 1000;
     }
 }

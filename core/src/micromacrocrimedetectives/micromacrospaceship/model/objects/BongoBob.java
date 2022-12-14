@@ -23,8 +23,8 @@ public class BongoBob {
     public Direction direction;
     public float velocity;
 
-    public Sound whobbleSound;
-    public boolean whobbleSoundIsPlaying;
+    public Sound robotSound;
+    public boolean robotMakesSound;
 
     public BongoBob(TextureAtlas atlas) {
         ringStateTime = 0;
@@ -62,14 +62,14 @@ public class BongoBob {
         velocity = 300;
         direction = Direction.DOWN;
 
-        whobbleSound = Gdx.audio.newSound(Gdx.files.internal("sounds/robot sounds.mp3"));
-        whobbleSound.loop();
-        whobbleSound.pause();
+        robotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/robot sounds.mp3"));
+        robotSound.loop();
+        robotSound.pause();
 
-        whobbleSoundIsPlaying = false;
+        robotMakesSound = false;
     }
 
     public void dispose() {
-        whobbleSound.dispose();
+        robotSound.dispose();
     }
 }

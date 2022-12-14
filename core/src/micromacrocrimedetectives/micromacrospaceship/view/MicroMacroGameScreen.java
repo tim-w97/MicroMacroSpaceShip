@@ -49,7 +49,10 @@ public class MicroMacroGameScreen implements Screen {
 
         game.batch.end();
 
+        game.microMacroGameController.setCursor(fixedCamera);
+
         handleUserInput(delta);
+
         movingCamera.position.set(game.microMacroGameController.getCameraPosition());
     }
 
@@ -60,10 +63,10 @@ public class MicroMacroGameScreen implements Screen {
         boolean playerGoesDown = Gdx.input.isKeyPressed(Input.Keys.DOWN);
 
         if (playerGoesLeft || playerGoesRight || playerGoesUp || playerGoesDown) {
-            game.microMacroGameController.playWhobbleSound();
+            game.microMacroGameController.playRobotSound();
             game.microMacroGameController.playerMoves(delta);
         } else {
-            game.microMacroGameController.stopWhobbleSound();
+            game.microMacroGameController.stopRobotSound();
         }
 
         if (playerGoesLeft && playerGoesUp) {
@@ -83,11 +86,16 @@ public class MicroMacroGameScreen implements Screen {
         } else if (playerGoesDown) {
             game.microMacroGameController.goDown(delta);
         }
+
+        if (Gdx.input.justTouched()) {
+            game.microMacroGameController.handleUserClick(fixedCamera);
+        }
     }
 
     @Override
     public void show() {
         game.microMacroGameController.playSpaceshipAmbienceMusic();
+        game.microMacroGameController.playWelcomeMessage();
     }
 
     @Override

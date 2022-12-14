@@ -32,13 +32,12 @@ public class SpaceshipGameScreen implements Screen {
 
         game.shapeRenderer.setProjectionMatrix(camera.combined);
         game.shapeRenderer.setColor(CustomColors.pink);
-
-        if (Gdx.input.isKeyPressed(Keys.C)) {
-            game.spaceshipGameController.switchToMicroMacroGameScreen(this);
-        }
+        game.font.setColor(CustomColors.pink);
 
         moveObjects(delta);
         drawObjects();
+
+        game.spaceshipGameController.decreaseElapsedTime(delta, this);
     }
 
     private void moveObjects(float delta) {
@@ -94,6 +93,8 @@ public class SpaceshipGameScreen implements Screen {
                 game.spaceshipGameController.getUfo().frame.x,
                 game.spaceshipGameController.getUfo().frame.y
         );
+
+        game.spaceshipGameController.drawElapsedTime(game.batch, game.font);
 
         game.batch.end();
 

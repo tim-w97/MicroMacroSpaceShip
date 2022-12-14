@@ -1,8 +1,11 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Cursor.SystemCursor;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import micromacrocrimedetectives.micromacrospaceship.Direction;
 import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroGameModel;
@@ -150,11 +153,29 @@ public class MicroMacroGameController {
     }
 
     public void drawPhone(SpriteBatch batch) {
+        if (model.phoneIsClosed) {
+            batch.draw(
+                    model.closedPhone.texture,
+                    model.closedPhone.frame.x,
+                    model.closedPhone.frame.y
+            );
+
+            return;
+        }
+
         batch.draw(
-                model.phone.texture,
-                model.phone.position.x,
-                model.phone.position.y
+                model.openedPhone.texture,
+                model.openedPhone.frame.x,
+                model.openedPhone.frame.y
         );
+
+        // draw the current case
+        batch.draw(
+                model.openedPhone.caseTexture,
+                model.openedPhone.frame.x,
+                model.openedPhone.frame.y
+        );
+
     }
 
     public void drawMiniMap(SpriteBatch batch) {
@@ -176,15 +197,53 @@ public class MicroMacroGameController {
         model.spaceshipAmbienceMusic.play();
     }
 
-    public void playWhobbleSound() {
-        if (!model.bongoBob.whobbleSoundIsPlaying) {
-            model.bongoBob.whobbleSoundIsPlaying = true;
-            model.bongoBob.whobbleSound.resume();
+    public void playRobotSound() {
+        if (!model.bongoBob.robotMakesSound) {
+            model.bongoBob.robotMakesSound = true;
+            model.bongoBob.robotSound.resume();
         }
     }
 
-    public void stopWhobbleSound() {
-        model.bongoBob.whobbleSoundIsPlaying = false;
-        model.bongoBob.whobbleSound.pause();
+    public void stopRobotSound() {
+        model.bongoBob.robotMakesSound = false;
+        model.bongoBob.robotSound.pause();
+    }
+
+    private Vector2 getUnprojectedCursorPosition(OrthographicCamera camera) {
+        Vector3 cursorPosition = new Vector3(
+                Gdx.input.getX(),
+                Gdx.input.getY(),
+                0
+        );
+
+        Vector3 unprojectedCursorPosition = camera.unproject(cursorPosition);
+
+        return new Vector2(unprojectedCursorPosition.x, unprojectedCursorPosition.y);
+    }
+
+    public void setCursor(OrthographicCamera camera) {
+        Vector2 cursorPosition = getUnprojectedCursorPosition(camera);
+
+        if (model.phoneIsClosed && model.closedPhone.frame.contains(cursorPosition) ||
+                !model.phoneIsClosed && model.openedPhone.frame.contains(cursorPosition)) {
+            Gdx.graphics.setSystemCursor(SystemCursor.Hand);
+        } else {
+            Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
+        }
+    }
+
+    public void handleUserClick(OrthographicCamera camera) {
+        Vector2 cursorPosition = getUnprojectedCursorPosition(camera);
+
+        if (model.phoneIsClosed && model.closedPhone.frame.contains(cursorPosition)) {
+            model.fernandoCase.play();
+            model.phoneIsClosed = false;
+        } else if (!model.phoneIsClosed && model.openedPhone.frame.contains(cursorPosition)) {
+            model.phoneIsClosed = true;
+        }
+    }
+
+    public void playWelcomeMessage() {
+        model.welcomeMessage.play();
     }
 }

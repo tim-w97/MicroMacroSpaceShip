@@ -18,6 +18,7 @@ public class MenuModel {
     public final float buttonHeight;
 
     public Texture ufoTexture;
+    public Texture gearTexture;
     public float ufoX, ufoY;
 
     public float ufoLightX1, ufoLightY1, ufoLightX2, ufoLightY2, ufoLightX3, ufoLightY3;
@@ -36,6 +37,8 @@ public class MenuModel {
                 (Gdx.graphics.getWidth() - buttonWidth) / 2,
                 (Gdx.graphics.getHeight() - buttonHeight) / 2
         );
+
+        gearTexture = new Texture("gear.png");
 
         ufoTexture = new Texture("ufo.png");
         ufoX = (Gdx.graphics.getWidth() - ufoTexture.getWidth()) / 2f;
