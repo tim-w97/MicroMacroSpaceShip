@@ -49,7 +49,10 @@ public class MicroMacroGameScreen implements Screen {
 
         game.batch.end();
 
+        game.microMacroGameController.setCursor(fixedCamera);
+
         handleUserInput(delta);
+
         movingCamera.position.set(game.microMacroGameController.getCameraPosition());
     }
 

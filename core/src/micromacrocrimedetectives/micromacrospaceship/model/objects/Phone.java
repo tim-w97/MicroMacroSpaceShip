@@ -2,11 +2,11 @@ package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Phone {
     public TextureRegion texture;
-    public Vector2 position;
+    public Rectangle frame;
     public float margin;
 
     public Phone(TextureRegion texture) {
@@ -14,9 +14,11 @@ public class Phone {
 
         this.texture = texture;
 
-        position = new Vector2(
+        frame = new Rectangle(
                 Gdx.graphics.getWidth() - texture.getRegionWidth() - margin,
-                margin
+                margin,
+                texture.getRegionWidth(),
+                texture.getRegionHeight()
         );
     }
 

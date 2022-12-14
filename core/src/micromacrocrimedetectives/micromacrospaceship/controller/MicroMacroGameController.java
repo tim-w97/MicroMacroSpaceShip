@@ -1,8 +1,11 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Cursor.SystemCursor;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import micromacrocrimedetectives.micromacrospaceship.Direction;
 import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroGameModel;
@@ -152,8 +155,8 @@ public class MicroMacroGameController {
     public void drawPhone(SpriteBatch batch) {
         batch.draw(
                 model.phone.texture,
-                model.phone.position.x,
-                model.phone.position.y
+                model.phone.frame.x,
+                model.phone.frame.y
         );
     }
 
@@ -186,5 +189,24 @@ public class MicroMacroGameController {
     public void stopWhobbleSound() {
         model.bongoBob.whobbleSoundIsPlaying = false;
         model.bongoBob.whobbleSound.pause();
+    }
+
+    public void setCursor(OrthographicCamera camera) {
+        Vector3 cursorPosition = new Vector3(
+                Gdx.input.getX(),
+                Gdx.input.getY(),
+                0
+        );
+
+        Vector3 unprojectedCursorPosition = camera.unproject(cursorPosition);
+
+        if (model.phone.frame.contains(
+                unprojectedCursorPosition.x,
+                unprojectedCursorPosition.y
+        )) {
+            Gdx.graphics.setSystemCursor(SystemCursor.Hand);
+        } else {
+            Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
+        }
     }
 }
