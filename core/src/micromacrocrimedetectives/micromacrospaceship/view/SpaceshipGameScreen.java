@@ -34,14 +34,10 @@ public class SpaceshipGameScreen implements Screen {
         game.shapeRenderer.setColor(CustomColors.pink);
         game.font.setColor(CustomColors.pink);
 
-        if (Gdx.input.isKeyPressed(Keys.C)) {
-            game.spaceshipGameController.switchToMicroMacroGameScreen(this);
-        }
-
         moveObjects(delta);
         drawObjects();
 
-        game.spaceshipGameController.decreaseElapsedTime(delta);
+        game.spaceshipGameController.decreaseElapsedTime(delta, this);
     }
 
     private void moveObjects(float delta) {

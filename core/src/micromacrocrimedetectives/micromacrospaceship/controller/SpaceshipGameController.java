@@ -131,11 +131,6 @@ public class SpaceshipGameController {
         model.asteroids.removeAll(shotAsteroids);
     }
 
-    public void switchToMicroMacroGameScreen(SpaceshipGameScreen screen) {
-        screen.game.setScreen(new MicroMacroGameScreen(screen.game));
-        screen.dispose();
-    }
-
     public void dispose() {
         model.dispose();
     }
@@ -159,7 +154,12 @@ public class SpaceshipGameController {
         );
     }
 
-    public void decreaseElapsedTime(float delta) {
+    public void decreaseElapsedTime(float delta, SpaceshipGameScreen screen) {
+        if (model.elapsedTime < 0) {
+            screen.game.setScreen(new MicroMacroGameScreen(screen.game));
+            screen.dispose();
+        }
+
         model.elapsedTime -= delta * 1000;
     }
 }
