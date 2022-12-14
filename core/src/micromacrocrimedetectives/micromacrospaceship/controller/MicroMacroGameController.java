@@ -169,6 +169,12 @@ public class MicroMacroGameController {
                 model.openedPhone.frame.y
         );
 
+        // draw the current case
+        batch.draw(
+                model.openedPhone.caseTexture,
+                model.openedPhone.frame.x,
+                model.openedPhone.frame.y
+        );
 
     }
 
