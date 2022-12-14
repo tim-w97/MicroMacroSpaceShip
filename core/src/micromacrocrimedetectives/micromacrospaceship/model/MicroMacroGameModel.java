@@ -7,12 +7,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.BongoBob;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.MiniMap;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Phone;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.ClosedPhone;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.OpenedPhone;
 
 public class MicroMacroGameModel {
     public BongoBob bongoBob;
 
-    public Phone phone;
+    public OpenedPhone openedPhone;
+    public ClosedPhone closedPhone;
 
     public MiniMap miniMap;
 
@@ -23,11 +25,13 @@ public class MicroMacroGameModel {
     public float mapWalkFactor;
 
     public Music spaceshipAmbienceMusic;
+    public boolean phoneIsClosed;
 
     public MicroMacroGameModel() {
         TextureAtlas atlas = new TextureAtlas("MicroMacroGame/MicroMacroGame.atlas");
 
-        phone = new Phone(atlas.findRegion("screen/phoneIcon"));
+        openedPhone = new OpenedPhone(atlas.findRegion("screen/phone"));
+        closedPhone = new ClosedPhone(atlas.findRegion("screen/phoneIcon"));
 
         bongoBob = new BongoBob(atlas);
 
@@ -41,11 +45,13 @@ public class MicroMacroGameModel {
 
         spaceshipAmbienceMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/spaceship ambience.mp3"));
         spaceshipAmbienceMusic.setVolume(0.3f);
+
+        phoneIsClosed = true;
     }
 
     public void dispose() {
         bongoBob.dispose();
-        phone.dispose();
+        closedPhone.dispose();
         miniMap.dispose();
         map.dispose();
         spaceshipAmbienceMusic.dispose();

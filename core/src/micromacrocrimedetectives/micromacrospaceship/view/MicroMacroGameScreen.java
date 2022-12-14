@@ -63,10 +63,10 @@ public class MicroMacroGameScreen implements Screen {
         boolean playerGoesDown = Gdx.input.isKeyPressed(Input.Keys.DOWN);
 
         if (playerGoesLeft || playerGoesRight || playerGoesUp || playerGoesDown) {
-            game.microMacroGameController.playWhobbleSound();
+            game.microMacroGameController.playRobotSound();
             game.microMacroGameController.playerMoves(delta);
         } else {
-            game.microMacroGameController.stopWhobbleSound();
+            game.microMacroGameController.stopRobotSound();
         }
 
         if (playerGoesLeft && playerGoesUp) {
@@ -85,6 +85,10 @@ public class MicroMacroGameScreen implements Screen {
             game.microMacroGameController.goUp(delta);
         } else if (playerGoesDown) {
             game.microMacroGameController.goDown(delta);
+        }
+
+        if (Gdx.input.justTouched()) {
+            game.microMacroGameController.handleUserClick(fixedCamera);
         }
     }
 

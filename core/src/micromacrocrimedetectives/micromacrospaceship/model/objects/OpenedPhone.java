@@ -4,12 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Phone {
+public class OpenedPhone {
     public TextureRegion texture;
     public Rectangle frame;
     public float margin;
 
-    public Phone(TextureRegion texture) {
+    public OpenedPhone(TextureRegion texture) {
         margin = 10;
 
         this.texture = texture;
@@ -23,6 +23,5 @@ public class Phone {
     }
 
     public void dispose() {
-
     }
 }

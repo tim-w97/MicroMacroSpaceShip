@@ -153,11 +153,23 @@ public class MicroMacroGameController {
     }
 
     public void drawPhone(SpriteBatch batch) {
+        if (model.phoneIsClosed) {
+            batch.draw(
+                    model.closedPhone.texture,
+                    model.closedPhone.frame.x,
+                    model.closedPhone.frame.y
+            );
+
+            return;
+        }
+
         batch.draw(
-                model.phone.texture,
-                model.phone.frame.x,
-                model.phone.frame.y
+                model.openedPhone.texture,
+                model.openedPhone.frame.x,
+                model.openedPhone.frame.y
         );
+
+
     }
 
     public void drawMiniMap(SpriteBatch batch) {
@@ -179,19 +191,19 @@ public class MicroMacroGameController {
         model.spaceshipAmbienceMusic.play();
     }
 
-    public void playWhobbleSound() {
-        if (!model.bongoBob.whobbleSoundIsPlaying) {
-            model.bongoBob.whobbleSoundIsPlaying = true;
-            model.bongoBob.whobbleSound.resume();
+    public void playRobotSound() {
+        if (!model.bongoBob.robotMakesSound) {
+            model.bongoBob.robotMakesSound = true;
+            model.bongoBob.robotSound.resume();
         }
     }
 
-    public void stopWhobbleSound() {
-        model.bongoBob.whobbleSoundIsPlaying = false;
-        model.bongoBob.whobbleSound.pause();
+    public void stopRobotSound() {
+        model.bongoBob.robotMakesSound = false;
+        model.bongoBob.robotSound.pause();
     }
 
-    public void setCursor(OrthographicCamera camera) {
+    private Vector2 getUnprojectedCursorPosition(OrthographicCamera camera) {
         Vector3 cursorPosition = new Vector3(
                 Gdx.input.getX(),
                 Gdx.input.getY(),
@@ -200,13 +212,27 @@ public class MicroMacroGameController {
 
         Vector3 unprojectedCursorPosition = camera.unproject(cursorPosition);
 
-        if (model.phone.frame.contains(
-                unprojectedCursorPosition.x,
-                unprojectedCursorPosition.y
-        )) {
+        return new Vector2(unprojectedCursorPosition.x, unprojectedCursorPosition.y);
+    }
+
+    public void setCursor(OrthographicCamera camera) {
+        Vector2 cursorPosition = getUnprojectedCursorPosition(camera);
+
+        if (model.phoneIsClosed && model.closedPhone.frame.contains(cursorPosition) ||
+                !model.phoneIsClosed && model.openedPhone.frame.contains(cursorPosition)) {
             Gdx.graphics.setSystemCursor(SystemCursor.Hand);
         } else {
             Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
+        }
+    }
+
+    public void handleUserClick(OrthographicCamera camera) {
+        Vector2 cursorPosition = getUnprojectedCursorPosition(camera);
+
+        if (model.phoneIsClosed && model.closedPhone.frame.contains(cursorPosition)) {
+            model.phoneIsClosed = false;
+        } else if (!model.phoneIsClosed && model.openedPhone.frame.contains(cursorPosition)) {
+            model.phoneIsClosed = true;
         }
     }
 }
