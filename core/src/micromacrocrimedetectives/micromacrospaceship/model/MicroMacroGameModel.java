@@ -2,6 +2,7 @@ package micromacrocrimedetectives.micromacrospaceship.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector3;
@@ -25,6 +26,9 @@ public class MicroMacroGameModel {
     public float mapWalkFactor;
 
     public Music spaceshipAmbienceMusic;
+
+    public Sound welcomeMessage;
+    public Sound fernandoCase;
     public boolean phoneIsClosed;
 
     public MicroMacroGameModel() {
@@ -46,6 +50,9 @@ public class MicroMacroGameModel {
         spaceshipAmbienceMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/spaceship ambience.mp3"));
         spaceshipAmbienceMusic.setVolume(0.3f);
 
+        welcomeMessage = Gdx.audio.newSound(Gdx.files.internal("MicroMacroGame/welcome.mp3"));
+        fernandoCase = Gdx.audio.newSound(Gdx.files.internal("MicroMacroGame/cases/fernando.mp3"));
+
         phoneIsClosed = true;
     }
 
@@ -55,5 +62,7 @@ public class MicroMacroGameModel {
         miniMap.dispose();
         map.dispose();
         spaceshipAmbienceMusic.dispose();
+        welcomeMessage.dispose();
+        fernandoCase.dispose();
     }
 }

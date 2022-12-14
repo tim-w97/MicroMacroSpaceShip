@@ -236,9 +236,14 @@ public class MicroMacroGameController {
         Vector2 cursorPosition = getUnprojectedCursorPosition(camera);
 
         if (model.phoneIsClosed && model.closedPhone.frame.contains(cursorPosition)) {
+            model.fernandoCase.play();
             model.phoneIsClosed = false;
         } else if (!model.phoneIsClosed && model.openedPhone.frame.contains(cursorPosition)) {
             model.phoneIsClosed = true;
         }
+    }
+
+    public void playWelcomeMessage() {
+        model.welcomeMessage.play();
     }
 }
