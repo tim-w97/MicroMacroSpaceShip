@@ -17,7 +17,7 @@ public class FriendlyBullet {
         frame.setWidth(texture.getRegionWidth());
         frame.setHeight(texture.getRegionHeight());
 
-        velocity = 600;
+        velocity = 200;
     }
 
     public void dispose() {
