@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBullet;
 
 public class SpaceshipGameScreen implements Screen {
@@ -56,9 +55,11 @@ public class SpaceshipGameScreen implements Screen {
 
         game.spaceshipGameController.movePlanetsBackground(delta);
 
-        game.spaceshipGameController.generateAsteroids();
-        game.spaceshipGameController.moveAndRotateAsteroids(delta);
-        game.spaceshipGameController.checkAsteroidFriendlyBulletCollision();
+        game.spaceshipGameController.generateOpponentUfos();
+
+        game.spaceshipGameController.moveOpponentUfos(delta);
+
+        game.spaceshipGameController.checkForCollisions();
     }
 
     private void drawObjects() {
@@ -70,26 +71,13 @@ public class SpaceshipGameScreen implements Screen {
                 game.spaceshipGameController.getPlanetsBackground().y
         );
 
-        for (Asteroid asteroid : game.spaceshipGameController.getCurrentAsteroids()) {
-            game.batch.draw(
-                    asteroid.texture,
-                    asteroid.frame.x,
-                    asteroid.frame.y,
-                    asteroid.originX,
-                    asteroid.originY,
-                    asteroid.frame.width,
-                    asteroid.frame.height,
-                    1,
-                    1,
-                    asteroid.rotation
-            );
-        }
-
         game.batch.draw(
                 game.spaceshipGameController.getUfo().texture,
                 game.spaceshipGameController.getUfo().frame.x,
                 game.spaceshipGameController.getUfo().frame.y
         );
+
+        game.spaceshipGameController.drawOpponentUfo(game.batch);
 
         for (FriendlyBullet friendlyBullet : game.spaceshipGameController.getCurrentFriendlyBullets()) {
             game.batch.draw(

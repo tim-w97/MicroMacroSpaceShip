@@ -3,17 +3,14 @@ package micromacrocrimedetectives.micromacrospaceship.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.PlanetsBackground;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBullet;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.*;
 import micromacrocrimedetectives.micromacrospaceship.view.MicroMacroGameScreen;
 import micromacrocrimedetectives.micromacrospaceship.view.SpaceshipGameScreen;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SpaceshipGameController {
     private final SpaceshipGameModel model;
@@ -72,10 +69,6 @@ public class SpaceshipGameController {
         return model.friendlyBullets;
     }
 
-    public ArrayList<Asteroid> getCurrentAsteroids() {
-        return model.asteroids;
-    }
-
     public void moveFriendlyBullets(float delta) {
         ArrayList<FriendlyBullet> offScreenFriendlyBullets = new ArrayList<>();
 
@@ -89,46 +82,27 @@ public class SpaceshipGameController {
         model.friendlyBullets.removeAll(offScreenFriendlyBullets);
     }
 
-    public void generateAsteroids() {
-        model.lastAsteroidSpawnPosition = (int) (Math.random() * model.asteroidRows);
-
-        if (TimeUtils.timeSinceMillis(model.lastAsteroidSpawnTime) > model.asteroidSpawnDelay) {
-            model.asteroids.add(new Asteroid(model.lastAsteroidSpawnPosition));
-            model.lastAsteroidSpawnTime = TimeUtils.millis();
-        }
-    }
-
-    public void moveAndRotateAsteroids(float delta) {
-        ArrayList<Asteroid> offScreenAsteroids = new ArrayList<>();
-
-        for (Asteroid asteroid : model.asteroids) {
-            asteroid.frame.y -= delta * asteroid.velocity;
-
-            if (asteroid.rotateClockwise) {
-                asteroid.rotation += delta * asteroid.rotationVelocity;
-            } else {
-                asteroid.rotation -= delta * asteroid.rotationVelocity;
-            }
-
-            if (asteroid.frame.y < -asteroid.frame.getHeight()) {
-                offScreenAsteroids.add(asteroid);
-            }
-        }
-        model.asteroids.removeAll(offScreenAsteroids);
-    }
-
-    public void checkAsteroidFriendlyBulletCollision() {
-        ArrayList<Asteroid> shotAsteroids = new ArrayList<>();
+    public void checkForCollisions() {
+        List<FriendlyBullet> friendlyBulletsToRemove = new ArrayList<>();
+        List<OpponentUfo> deadOpponentUfos = new ArrayList<>();
 
         for (FriendlyBullet friendlyBullet : model.friendlyBullets) {
-            for (Asteroid asteroid : model.asteroids) {
-                if (Intersector.overlaps(friendlyBullet.frame, asteroid.frame)) {
+            for (OpponentUfo opponentUfo : model.opponentUfos) {
+                if (friendlyBullet.frame.overlaps(opponentUfo.frame)) {
+                    friendlyBulletsToRemove.add(friendlyBullet);
+
+                    opponentUfo.lives--;
+
+                    if (opponentUfo.lives == 0) {
+                        deadOpponentUfos.add(opponentUfo);
+                    }
+
                     model.ufo.crumbleSound.play();
-                    shotAsteroids.add(asteroid);
                 }
             }
         }
-        model.asteroids.removeAll(shotAsteroids);
+        model.friendlyBullets.removeAll(friendlyBulletsToRemove);
+        model.opponentUfos.removeAll(deadOpponentUfos);
     }
 
     public void dispose() {
@@ -161,5 +135,43 @@ public class SpaceshipGameController {
         }
 
         model.elapsedTime -= delta * 1000;
+    }
+
+    public void drawOpponentUfo(SpriteBatch batch) {
+        for (OpponentUfo opponentUfo : model.opponentUfos) {
+            batch.draw(
+                    opponentUfo.texture,
+                    opponentUfo.frame.x,
+                    opponentUfo.frame.y
+            );
+        }
+    }
+
+    public void moveOpponentUfos(float delta) {
+        for (OpponentUfo opponentUfo : model.opponentUfos) {
+            opponentUfo.frame.y -= opponentUfo.verticalVelocity * delta;
+
+            // only follow the player if the opponent is fully on screen
+            if (opponentUfo.frame.y > Gdx.graphics.getHeight() - opponentUfo.frame.height) {
+                return;
+            }
+
+            if (model.ufo.frame.x > opponentUfo.frame.x) {
+                opponentUfo.frame.x += delta * opponentUfo.horizontalVelocity;
+            }
+
+            if (model.ufo.frame.x < opponentUfo.frame.x) {
+                opponentUfo.frame.x -= delta * opponentUfo.horizontalVelocity;
+            }
+        }
+    }
+
+    public void generateOpponentUfos() {
+        if (TimeUtils.timeSinceMillis(model.lastOpponentUfoSpawn) > model.opponentUfoSpawnDelay) {
+            OpponentUfo opponentUfo = new OpponentUfo();
+            model.opponentUfos.add(opponentUfo);
+
+            model.lastOpponentUfoSpawn = TimeUtils.millis();
+        }
     }
 }

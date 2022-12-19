@@ -3,24 +3,19 @@ package micromacrocrimedetectives.micromacrospaceship.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.PlanetsBackground;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBullet;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.*;
 
 import java.util.ArrayList;
 
 public class SpaceshipGameModel {
     public PlanetsBackground planetsBackground;
     public Ufo ufo;
+    public ArrayList<OpponentUfo> opponentUfos;
+    public long lastOpponentUfoSpawn;
+    public int opponentUfoSpawnDelay;
     public final ArrayList<FriendlyBullet> friendlyBullets;
-    public final ArrayList<Asteroid> asteroids;
     public long lastShootTime;
     public final int shootDelay;
-
-    public long lastAsteroidSpawnTime;
-    public final int asteroidSpawnDelay;
-    public int lastAsteroidSpawnPosition;
     public final int asteroidRows;
 
     public Music spaceMusic;
@@ -30,13 +25,15 @@ public class SpaceshipGameModel {
 
     public SpaceshipGameModel() {
         planetsBackground = new PlanetsBackground();
+
         ufo = new Ufo();
+
+        opponentUfos = new ArrayList<>();
+        opponentUfoSpawnDelay = 3000;
 
         friendlyBullets = new ArrayList<>();
         shootDelay = 400;
 
-        asteroids = new ArrayList<>();
-        asteroidSpawnDelay = 1000;
         asteroidRows = 6;
 
         spaceMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/space music.mp3"));
@@ -55,8 +52,8 @@ public class SpaceshipGameModel {
             friendlyBullet.dispose();
         }
 
-        for (Asteroid asteroid : asteroids) {
-            asteroid.dispose();
+        for (OpponentUfo opponentUfo : opponentUfos) {
+            opponentUfo.dispose();
         }
     }
 }
