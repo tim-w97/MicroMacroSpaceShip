@@ -13,7 +13,6 @@ public class SpaceshipGameModel {
     public ArrayList<OpponentUfo> opponentUfos;
     public long lastOpponentUfoSpawn;
     public int opponentUfoSpawnDelay;
-    public final ArrayList<FriendlyBullet> friendlyBullets;
     public long lastShootTime;
     public final int shootDelay;
     public final int asteroidRows;
@@ -31,7 +30,6 @@ public class SpaceshipGameModel {
         opponentUfos = new ArrayList<>();
         opponentUfoSpawnDelay = 3000;
 
-        friendlyBullets = new ArrayList<>();
         shootDelay = 400;
 
         asteroidRows = 6;
@@ -47,10 +45,6 @@ public class SpaceshipGameModel {
         planetsBackground.dispose();
         ufo.dispose();
         spaceMusic.dispose();
-
-        for (FriendlyBullet friendlyBullet : friendlyBullets) {
-            friendlyBullet.dispose();
-        }
 
         for (OpponentUfo opponentUfo : opponentUfos) {
             opponentUfo.dispose();

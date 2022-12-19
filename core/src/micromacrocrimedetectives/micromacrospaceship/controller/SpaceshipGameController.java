@@ -61,33 +61,29 @@ public class SpaceshipGameController {
             friendlyBullet.frame.setX(model.ufo.frame.x + (model.ufo.frame.width - friendlyBullet.frame.width) / 2);
             friendlyBullet.frame.setY(model.ufo.frame.height + Ufo.bottomMargin);
 
-            model.friendlyBullets.add(friendlyBullet);
+            model.ufo.bullets.add(friendlyBullet);
             model.lastShootTime = TimeUtils.millis();
         }
-    }
-
-    public ArrayList<FriendlyBullet> getCurrentFriendlyBullets() {
-        return model.friendlyBullets;
     }
 
     public void moveFriendlyBullets(float delta) {
         ArrayList<FriendlyBullet> offScreenFriendlyBullets = new ArrayList<>();
 
-        for (FriendlyBullet friendlyBullet : model.friendlyBullets) {
+        for (FriendlyBullet friendlyBullet : model.ufo.bullets) {
             friendlyBullet.frame.y += delta * friendlyBullet.velocity;
 
             if (friendlyBullet.frame.y > Gdx.graphics.getHeight()) {
                 offScreenFriendlyBullets.add(friendlyBullet);
             }
         }
-        model.friendlyBullets.removeAll(offScreenFriendlyBullets);
+        model.ufo.bullets.removeAll(offScreenFriendlyBullets);
     }
 
     public void checkForCollisions() {
         List<FriendlyBullet> friendlyBulletsToRemove = new ArrayList<>();
         List<OpponentUfo> deadOpponentUfos = new ArrayList<>();
 
-        for (FriendlyBullet friendlyBullet : model.friendlyBullets) {
+        for (FriendlyBullet friendlyBullet : model.ufo.bullets) {
             for (OpponentUfo opponentUfo : model.opponentUfos) {
                 if (friendlyBullet.frame.overlaps(opponentUfo.frame)) {
                     friendlyBulletsToRemove.add(friendlyBullet);
@@ -102,7 +98,7 @@ public class SpaceshipGameController {
                 }
             }
         }
-        model.friendlyBullets.removeAll(friendlyBulletsToRemove);
+        model.ufo.bullets.removeAll(friendlyBulletsToRemove);
         model.opponentUfos.removeAll(deadOpponentUfos);
     }
 
@@ -182,6 +178,16 @@ public class SpaceshipGameController {
             model.opponentUfos.add(opponentUfo);
 
             model.lastOpponentUfoSpawn = TimeUtils.millis();
+        }
+    }
+
+    public void drawBullets(SpriteBatch batch) {
+        for (FriendlyBullet friendlyBullet : model.ufo.bullets) {
+            batch.draw(
+                    friendlyBullet.texture,
+                    friendlyBullet.frame.x,
+                    friendlyBullet.frame.y
+            );
         }
     }
 }

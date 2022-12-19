@@ -6,7 +6,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Rectangle;
 import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 
+import java.util.ArrayList;
+
 public class Ufo {
+    public final ArrayList<FriendlyBullet> bullets;
+
     public final AtlasRegion texture;
     public final Rectangle frame;
     public final float velocity;
@@ -17,6 +21,8 @@ public class Ufo {
     public Sound crumbleSound;
 
     public Ufo() {
+        bullets = new ArrayList<>();
+
         texture = MicroMacroAssets.getInstance().atlas.findRegion("ufo");
 
         frame = new Rectangle(
@@ -35,5 +41,9 @@ public class Ufo {
     public void dispose() {
         crumbleSound.dispose();
         laserSound.dispose();
+
+        for (FriendlyBullet friendlyBullet : bullets) {
+            friendlyBullet.dispose();
+        }
     }
 }

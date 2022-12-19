@@ -79,13 +79,7 @@ public class SpaceshipGameScreen implements Screen {
 
         game.spaceshipGameController.drawOpponentUfo(game.batch);
 
-        for (FriendlyBullet friendlyBullet : game.spaceshipGameController.getCurrentFriendlyBullets()) {
-            game.batch.draw(
-                    friendlyBullet.texture,
-                    friendlyBullet.frame.x,
-                    friendlyBullet.frame.y
-            );
-        }
+        game.spaceshipGameController.drawBullets(game.batch);
 
         game.spaceshipGameController.drawElapsedTime(game.batch, game.font);
 
