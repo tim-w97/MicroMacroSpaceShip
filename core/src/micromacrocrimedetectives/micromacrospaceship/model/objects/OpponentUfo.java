@@ -3,10 +3,9 @@ package micromacrocrimedetectives.micromacrospaceship.model.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 
-public class OpponentUfo implements Disposable {
+public class OpponentUfo {
     public Rectangle frame;
 
     public AtlasRegion texture;
@@ -32,8 +31,6 @@ public class OpponentUfo implements Disposable {
         lives = 3;
     }
 
-    @Override
     public void dispose() {
-        texture.getTexture().dispose();
     }
 }

@@ -3,7 +3,6 @@ package micromacrocrimedetectives.micromacrospaceship;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import micromacrocrimedetectives.micromacrospaceship.controller.MenuController;
 import micromacrocrimedetectives.micromacrospaceship.controller.MicroMacroGameController;
