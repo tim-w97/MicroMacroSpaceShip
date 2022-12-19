@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBullet;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.OpponentUfo;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.PlanetsBackground;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.*;
 import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 import micromacrocrimedetectives.micromacrospaceship.view.MicroMacroGameScreen;
 import micromacrocrimedetectives.micromacrospaceship.view.SpaceshipGameScreen;
@@ -157,6 +154,8 @@ public class SpaceshipGameController {
     }
 
     public void moveOpponentUfos(float delta) {
+        List<OpponentUfo> offScreenUfos = new ArrayList<>();
+
         for (OpponentUfo opponentUfo : model.opponentUfos) {
             opponentUfo.frame.y -= opponentUfo.verticalVelocity * delta;
 
@@ -172,7 +171,13 @@ public class SpaceshipGameController {
             if (model.ufo.frame.x < opponentUfo.frame.x) {
                 opponentUfo.frame.x -= delta * opponentUfo.horizontalVelocity;
             }
+
+            if (opponentUfo.frame.y < -opponentUfo.frame.height) {
+                offScreenUfos.add(opponentUfo);
+            }
         }
+
+        model.opponentUfos.removeAll(offScreenUfos);
     }
 
     public void generateOpponentUfos() {
@@ -191,6 +196,52 @@ public class SpaceshipGameController {
                     friendlyBullet.frame.x,
                     friendlyBullet.frame.y
             );
+        }
+
+        for (OpponentUfo opponentUfo : model.opponentUfos) {
+            for (AngryBullet angryBullet : opponentUfo.bullets) {
+                batch.draw(
+                        angryBullet.texture,
+                        angryBullet.frame.x,
+                        angryBullet.frame.y
+                );
+            }
+        }
+    }
+
+    public void generateAngryBullets() {
+        for (OpponentUfo opponentUfo : model.opponentUfos) {
+            // only begin to shoot if the opponent is fully on screen
+            if (opponentUfo.frame.y > Gdx.graphics.getHeight() - opponentUfo.frame.height) {
+                return;
+            }
+
+            if (TimeUtils.timeSinceMillis(opponentUfo.lastShootTime) > opponentUfo.shootDelay) {
+                AngryBullet newBullet = new AngryBullet();
+
+                newBullet.frame.setX(opponentUfo.frame.x + (opponentUfo.frame.width - newBullet.frame.width) / 2);
+                newBullet.frame.setY(opponentUfo.frame.y - newBullet.frame.height);
+
+                opponentUfo.bullets.add(newBullet);
+
+                opponentUfo.lastShootTime = TimeUtils.millis();
+            }
+        }
+    }
+
+    public void moveAngryBullets(float delta) {
+        for (OpponentUfo opponentUfo : model.opponentUfos) {
+            List<AngryBullet> offScreenBullets = new ArrayList<>();
+
+            for (AngryBullet bullet : opponentUfo.bullets) {
+                bullet.frame.y -= bullet.velocity * delta;
+
+                if (bullet.frame.y < -bullet.frame.height) {
+                    offScreenBullets.add(bullet);
+                }
+            }
+
+            opponentUfo.bullets.removeAll(offScreenBullets);
         }
     }
 }

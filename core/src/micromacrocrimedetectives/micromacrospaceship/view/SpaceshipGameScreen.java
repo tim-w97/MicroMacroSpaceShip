@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBullet;
 
 public class SpaceshipGameScreen implements Screen {
 
@@ -56,8 +55,10 @@ public class SpaceshipGameScreen implements Screen {
         game.spaceshipGameController.movePlanetsBackground(delta);
 
         game.spaceshipGameController.generateOpponentUfos();
+        game.spaceshipGameController.generateAngryBullets();
 
         game.spaceshipGameController.moveOpponentUfos(delta);
+        game.spaceshipGameController.moveAngryBullets(delta);
 
         game.spaceshipGameController.checkForCollisions();
     }

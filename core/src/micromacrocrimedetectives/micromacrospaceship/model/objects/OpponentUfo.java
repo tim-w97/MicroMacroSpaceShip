@@ -19,6 +19,9 @@ public class OpponentUfo {
 
     public int lives;
 
+    public long lastShootTime;
+    public int shootDelay;
+
     public OpponentUfo() {
         bullets = new ArrayList<>();
 
@@ -35,6 +38,8 @@ public class OpponentUfo {
         horizontalVelocity = 80;
 
         lives = 3;
+
+        shootDelay = 3000;
     }
 
     public void dispose() {
