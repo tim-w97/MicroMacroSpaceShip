@@ -11,7 +11,7 @@ public class MicroMacroAssets {
     private static MicroMacroAssets instance;
 
     private MicroMacroAssets() {
-       atlas = new TextureAtlas("images/atlas/MicroMacroAssets.txt");
+       atlas = new TextureAtlas("images/atlas/Atlas.atlas");
        map = new Texture("images/map.jpg");
        planetsBackground = new Texture("images/planetsBackground.png");
     }

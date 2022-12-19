@@ -16,7 +16,7 @@ public class OpponentUfo {
     public int lives;
 
     public OpponentUfo() {
-        texture = MicroMacroAssets.getInstance().atlas.findRegion("opponentUfo");
+        texture = MicroMacroAssets.getInstance().atlas.findRegion("OpponentUfo/threeLives");
 
         frame = new Rectangle(
                 (float) (Math.random() * (Gdx.graphics.getWidth() - texture.getRegionWidth())),

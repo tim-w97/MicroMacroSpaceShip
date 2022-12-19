@@ -10,7 +10,7 @@ public class FriendlyBullet {
     public float velocity;
 
     public FriendlyBullet() {
-        texture = MicroMacroAssets.getInstance().atlas.findRegion("friendlyBullet");
+        texture = MicroMacroAssets.getInstance().atlas.findRegion("Bullet/friendly");
 
         frame = new Rectangle();
 

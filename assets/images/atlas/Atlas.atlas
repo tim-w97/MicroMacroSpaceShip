@@ -1,193 +1,200 @@
-MicroMacroAssets.png
-size: 982, 730
+Spritesheet.png
+size: 804, 786
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-angryBullet
-  rotate: false
-  xy: 0, 0
-  size: 32, 40
-  orig: 32, 40
-  offset: 0, 0
-  index: -1
-asteroid
-  rotate: false
-  xy: 32, 0
-  size: 120, 120
-  orig: 120, 120
-  offset: 0, 0
-  index: -1
 BongoBob/Body/back
   rotate: false
-  xy: 152, 0
+  xy: 120, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Body/front
   rotate: false
-  xy: 266, 0
+  xy: 234, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Body/side
   rotate: false
-  xy: 380, 0
+  xy: 348, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Face/cool
   rotate: false
-  xy: 494, 0
+  xy: 462, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Face/crazy
   rotate: false
-  xy: 608, 0
+  xy: 576, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Face/sad
   rotate: false
-  xy: 722, 0
+  xy: 690, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Face/surprised
   rotate: false
-  xy: 836, 0
+  xy: 0, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Ring/ring
   rotate: false
-  xy: 0, 153
+  xy: 114, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 1
 BongoBob/Ring/ring
   rotate: false
-  xy: 114, 153
+  xy: 228, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 2
 BongoBob/Ring/ring
   rotate: false
-  xy: 228, 153
+  xy: 342, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 3
 BongoBob/Ring/ring
   rotate: false
-  xy: 342, 153
+  xy: 456, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 4
 BongoBob/Ring/ring
   rotate: false
-  xy: 456, 153
+  xy: 570, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 5
 BongoBob/Ring/ring
   rotate: false
-  xy: 570, 153
+  xy: 684, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 6
 BongoBob/Ring/ring
   rotate: false
-  xy: 684, 153
+  xy: 0, 426
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 7
 BongoBob/Ring/ring
   rotate: false
-  xy: 798, 153
+  xy: 114, 426
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 8
-Cases/kneipe
+Bullet/angry
   rotate: false
-  xy: 0, 306
-  size: 191, 360
-  orig: 191, 360
-  offset: 0, 0
-  index: -1
-friendlyBullet
-  rotate: false
-  xy: 191, 306
+  xy: 32, 0
   size: 32, 40
   orig: 32, 40
   offset: 0, 0
   index: -1
+Bullet/friendly
+  rotate: false
+  xy: 64, 0
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+Cases/kneipe
+  rotate: false
+  xy: 388, 426
+  size: 191, 360
+  orig: 191, 360
+  offset: 0, 0
+  index: -1
 gear
   rotate: false
-  xy: 223, 306
+  xy: 96, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 MiniMap/background
   rotate: false
-  xy: 287, 306
+  xy: 228, 426
   size: 160, 120
   orig: 160, 120
   offset: 0, 0
   index: -1
 MiniMap/bongoBob
   rotate: false
-  xy: 447, 306
+  xy: 0, 0
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-opponentUfo
+OpponentUfo/oneLife
   rotate: false
-  xy: 479, 306
+  xy: 224, 0
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+OpponentUfo/threeLives
+  rotate: false
+  xy: 352, 0
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+OpponentUfo/twoLives
+  rotate: false
+  xy: 480, 0
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
 Phone/closed
   rotate: false
-  xy: 607, 306
+  xy: 160, 0
   size: 64, 120
   orig: 64, 120
   offset: 0, 0
   index: -1
 Phone/opened
   rotate: false
-  xy: 671, 306
+  xy: 579, 426
   size: 191, 360
   orig: 191, 360
   offset: 0, 0
   index: -1
 pin
   rotate: false
-  xy: 862, 306
+  xy: 0, 120
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ufo
   rotate: false
-  xy: 0, 666
+  xy: 608, 0
   size: 128, 64
   orig: 128, 64
   offset: 0, 0

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.*;
+import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 import micromacrocrimedetectives.micromacrospaceship.view.MicroMacroGameScreen;
 import micromacrocrimedetectives.micromacrospaceship.view.SpaceshipGameScreen;
 
@@ -139,6 +140,15 @@ public class SpaceshipGameController {
 
     public void drawOpponentUfo(SpriteBatch batch) {
         for (OpponentUfo opponentUfo : model.opponentUfos) {
+
+            if (opponentUfo.lives == 3) {
+                opponentUfo.texture = MicroMacroAssets.getInstance().atlas.findRegion("OpponentUfo/threeLives");
+            } else if (opponentUfo.lives == 2) {
+                opponentUfo.texture = MicroMacroAssets.getInstance().atlas.findRegion("OpponentUfo/twoLives");
+            } else {
+                opponentUfo.texture = MicroMacroAssets.getInstance().atlas.findRegion("OpponentUfo/oneLife");
+            }
+
             batch.draw(
                     opponentUfo.texture,
                     opponentUfo.frame.x,

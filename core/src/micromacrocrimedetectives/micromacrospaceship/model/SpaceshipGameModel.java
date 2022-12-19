@@ -40,7 +40,7 @@ public class SpaceshipGameModel {
         spaceMusic.setVolume(0.1f);
 
         elapsedTimeLayout = new GlyphLayout();
-        elapsedTime = 1000 * 4;
+        elapsedTime = 1000 * 61;
     }
 
     public void dispose() {
