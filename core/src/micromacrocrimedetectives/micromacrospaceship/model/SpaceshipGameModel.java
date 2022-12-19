@@ -13,9 +13,6 @@ public class SpaceshipGameModel {
     public ArrayList<OpponentUfo> opponentUfos;
     public long lastOpponentUfoSpawn;
     public int opponentUfoSpawnDelay;
-    public long lastShootTime;
-    public final int shootDelay;
-    public final int asteroidRows;
 
     public Music spaceMusic;
 
@@ -29,10 +26,6 @@ public class SpaceshipGameModel {
 
         opponentUfos = new ArrayList<>();
         opponentUfoSpawnDelay = 3000;
-
-        shootDelay = 400;
-
-        asteroidRows = 6;
 
         spaceMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/space music.mp3"));
         spaceMusic.setVolume(0.1f);

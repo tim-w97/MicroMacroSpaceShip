@@ -5,7 +5,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Rectangle;
 import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class OpponentUfo {
+    public List<AngryBullet> bullets;
     public Rectangle frame;
 
     public AtlasRegion texture;
@@ -16,6 +20,8 @@ public class OpponentUfo {
     public int lives;
 
     public OpponentUfo() {
+        bullets = new ArrayList<>();
+
         texture = MicroMacroAssets.getInstance().atlas.findRegion("OpponentUfo/threeLives");
 
         frame = new Rectangle(

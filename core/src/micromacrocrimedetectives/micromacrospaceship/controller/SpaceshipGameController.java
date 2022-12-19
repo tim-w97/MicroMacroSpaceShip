@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.*;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBullet;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.OpponentUfo;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.PlanetsBackground;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
 import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 import micromacrocrimedetectives.micromacrospaceship.view.MicroMacroGameScreen;
 import micromacrocrimedetectives.micromacrospaceship.view.SpaceshipGameScreen;
@@ -53,7 +56,7 @@ public class SpaceshipGameController {
     }
 
     public void shootFriendlyBullet() {
-        if (TimeUtils.timeSinceMillis(model.lastShootTime) > model.shootDelay) {
+        if (TimeUtils.timeSinceMillis(model.ufo.lastShootTime) > model.ufo.shootDelay) {
             model.ufo.laserSound.play();
 
             FriendlyBullet friendlyBullet = new FriendlyBullet();
@@ -62,7 +65,7 @@ public class SpaceshipGameController {
             friendlyBullet.frame.setY(model.ufo.frame.height + Ufo.bottomMargin);
 
             model.ufo.bullets.add(friendlyBullet);
-            model.lastShootTime = TimeUtils.millis();
+            model.ufo.lastShootTime = TimeUtils.millis();
         }
     }
 

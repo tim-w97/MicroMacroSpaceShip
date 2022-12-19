@@ -20,6 +20,9 @@ public class Ufo {
     public Sound laserSound;
     public Sound crumbleSound;
 
+    public long lastShootTime;
+    public final int shootDelay;
+
     public Ufo() {
         bullets = new ArrayList<>();
 
@@ -36,6 +39,8 @@ public class Ufo {
 
         laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
         crumbleSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
+
+        shootDelay = 400;
     }
 
     public void dispose() {
