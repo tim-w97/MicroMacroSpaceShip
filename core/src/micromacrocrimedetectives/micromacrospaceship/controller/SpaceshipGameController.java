@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.PlanetsBackground;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Projectile;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBullet;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
 import micromacrocrimedetectives.micromacrospaceship.view.MicroMacroGameScreen;
 import micromacrocrimedetectives.micromacrospaceship.view.SpaceshipGameScreen;
@@ -54,39 +54,39 @@ public class SpaceshipGameController {
         }
     }
 
-    public void shootProjectile() {
+    public void shootFriendlyBullet() {
         if (TimeUtils.timeSinceMillis(model.lastShootTime) > model.shootDelay) {
             model.ufo.laserSound.play();
 
-            Projectile projectile = new Projectile(
-                    model.ufo.frame.x + model.ufo.frame.width / 2,
-                    model.ufo.frame.height + Ufo.bottomMargin
-            );
+            FriendlyBullet friendlyBullet = new FriendlyBullet();
 
-            model.projectiles.add(projectile);
+            friendlyBullet.frame.setX(model.ufo.frame.x + (model.ufo.frame.width - friendlyBullet.frame.width) / 2);
+            friendlyBullet.frame.setY(model.ufo.frame.height + Ufo.bottomMargin);
+
+            model.friendlyBullets.add(friendlyBullet);
             model.lastShootTime = TimeUtils.millis();
         }
     }
 
-    public ArrayList<Projectile> getCurrentProjectiles() {
-        return model.projectiles;
+    public ArrayList<FriendlyBullet> getCurrentFriendlyBullets() {
+        return model.friendlyBullets;
     }
 
     public ArrayList<Asteroid> getCurrentAsteroids() {
         return model.asteroids;
     }
 
-    public void moveProjectiles(float delta) {
-        ArrayList<Projectile> offScreenProjectiles = new ArrayList<>();
+    public void moveFriendlyBullets(float delta) {
+        ArrayList<FriendlyBullet> offScreenFriendlyBullets = new ArrayList<>();
 
-        for (Projectile projectile : model.projectiles) {
-            projectile.frame.y += delta * projectile.velocity;
+        for (FriendlyBullet friendlyBullet : model.friendlyBullets) {
+            friendlyBullet.frame.y += delta * friendlyBullet.velocity;
 
-            if (projectile.frame.y > Gdx.graphics.getHeight() + projectile.frame.radius) {
-                offScreenProjectiles.add(projectile);
+            if (friendlyBullet.frame.y > Gdx.graphics.getHeight()) {
+                offScreenFriendlyBullets.add(friendlyBullet);
             }
         }
-        model.projectiles.removeAll(offScreenProjectiles);
+        model.friendlyBullets.removeAll(offScreenFriendlyBullets);
     }
 
     public void generateAsteroids() {
@@ -117,12 +117,12 @@ public class SpaceshipGameController {
         model.asteroids.removeAll(offScreenAsteroids);
     }
 
-    public void checkAsteroidProjectileCollision() {
+    public void checkAsteroidFriendlyBulletCollision() {
         ArrayList<Asteroid> shotAsteroids = new ArrayList<>();
 
-        for (Projectile projectile : model.projectiles) {
+        for (FriendlyBullet friendlyBullet : model.friendlyBullets) {
             for (Asteroid asteroid : model.asteroids) {
-                if (Intersector.overlaps(projectile.frame, asteroid.frame)) {
+                if (Intersector.overlaps(friendlyBullet.frame, asteroid.frame)) {
                     model.ufo.crumbleSound.play();
                     shotAsteroids.add(asteroid);
                 }

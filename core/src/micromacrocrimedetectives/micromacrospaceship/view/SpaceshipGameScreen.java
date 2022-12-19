@@ -4,12 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Projectile;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBullet;
 
 public class SpaceshipGameScreen implements Screen {
 
@@ -30,8 +29,6 @@ public class SpaceshipGameScreen implements Screen {
 
         game.batch.setProjectionMatrix(camera.combined);
 
-        game.shapeRenderer.setProjectionMatrix(camera.combined);
-        game.shapeRenderer.setColor(CustomColors.pink);
         game.font.setColor(CustomColors.pink);
 
         moveObjects(delta);
@@ -52,16 +49,16 @@ public class SpaceshipGameScreen implements Screen {
         }
 
         if (playerShoots) {
-            game.spaceshipGameController.shootProjectile();
+            game.spaceshipGameController.shootFriendlyBullet();
         }
 
-        game.spaceshipGameController.moveProjectiles(delta);
+        game.spaceshipGameController.moveFriendlyBullets(delta);
 
         game.spaceshipGameController.movePlanetsBackground(delta);
 
         game.spaceshipGameController.generateAsteroids();
         game.spaceshipGameController.moveAndRotateAsteroids(delta);
-        game.spaceshipGameController.checkAsteroidProjectileCollision();
+        game.spaceshipGameController.checkAsteroidFriendlyBulletCollision();
     }
 
     private void drawObjects() {
@@ -94,21 +91,17 @@ public class SpaceshipGameScreen implements Screen {
                 game.spaceshipGameController.getUfo().frame.y
         );
 
-        game.spaceshipGameController.drawElapsedTime(game.batch, game.font);
-
-        game.batch.end();
-
-        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        for (Projectile projectile : game.spaceshipGameController.getCurrentProjectiles()) {
-            game.shapeRenderer.circle(
-                    projectile.frame.x,
-                    projectile.frame.y,
-                    projectile.frame.radius
+        for (FriendlyBullet friendlyBullet : game.spaceshipGameController.getCurrentFriendlyBullets()) {
+            game.batch.draw(
+                    friendlyBullet.texture,
+                    friendlyBullet.frame.x,
+                    friendlyBullet.frame.y
             );
         }
 
-        game.shapeRenderer.end();
+        game.spaceshipGameController.drawElapsedTime(game.batch, game.font);
+
+        game.batch.end();
     }
 
     @Override
