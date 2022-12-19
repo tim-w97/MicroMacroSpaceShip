@@ -39,11 +39,11 @@ public class SpaceshipGameModel {
         asteroidSpawnDelay = 1000;
         asteroidRows = 6;
 
-        spaceMusic = Gdx.audio.newMusic(Gdx.files.internal("music/space music.mp3"));
+        spaceMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/space music.mp3"));
         spaceMusic.setVolume(0.1f);
 
         elapsedTimeLayout = new GlyphLayout();
-        elapsedTime = 1000 * 61;
+        elapsedTime = 1000 * 4;
     }
 
     public void dispose() {

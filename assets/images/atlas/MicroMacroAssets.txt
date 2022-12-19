@@ -1,145 +1,194 @@
-MicroMacroGame.png
-size: 228, 1824
+MicroMacroAssets.png
+size: 982, 730
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-bongoBob/body/back
+angryBullet
   rotate: false
-  xy: 96, 0
+  xy: 0, 0
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+asteroid
+  rotate: false
+  xy: 32, 0
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+BongoBob/Body/back
+  rotate: false
+  xy: 152, 0
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
-bongoBob/body/front
+BongoBob/Body/front
+  rotate: false
+  xy: 266, 0
+  size: 114, 153
+  orig: 114, 153
+  offset: 0, 0
+  index: -1
+BongoBob/Body/side
+  rotate: false
+  xy: 380, 0
+  size: 114, 153
+  orig: 114, 153
+  offset: 0, 0
+  index: -1
+BongoBob/Face/cool
+  rotate: false
+  xy: 494, 0
+  size: 114, 153
+  orig: 114, 153
+  offset: 0, 0
+  index: -1
+BongoBob/Face/crazy
+  rotate: false
+  xy: 608, 0
+  size: 114, 153
+  orig: 114, 153
+  offset: 0, 0
+  index: -1
+BongoBob/Face/sad
+  rotate: false
+  xy: 722, 0
+  size: 114, 153
+  orig: 114, 153
+  offset: 0, 0
+  index: -1
+BongoBob/Face/surprised
+  rotate: false
+  xy: 836, 0
+  size: 114, 153
+  orig: 114, 153
+  offset: 0, 0
+  index: -1
+BongoBob/Ring/ring
   rotate: false
   xy: 0, 153
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
-  index: -1
-bongoBob/body/side
+  index: 1
+BongoBob/Ring/ring
   rotate: false
   xy: 114, 153
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
-  index: -1
-bongoBob/face/cool
-  rotate: false
-  xy: 0, 306
-  size: 114, 153
-  orig: 114, 153
-  offset: 0, 0
-  index: -1
-bongoBob/face/crazy
-  rotate: false
-  xy: 114, 306
-  size: 114, 153
-  orig: 114, 153
-  offset: 0, 0
-  index: -1
-bongoBob/face/sad
-  rotate: false
-  xy: 0, 459
-  size: 114, 153
-  orig: 114, 153
-  offset: 0, 0
-  index: -1
-bongoBob/face/surprised
-  rotate: false
-  xy: 114, 459
-  size: 114, 153
-  orig: 114, 153
-  offset: 0, 0
-  index: -1
-bongoBob/ring/ring
-  rotate: false
-  xy: 0, 612
-  size: 114, 153
-  orig: 114, 153
-  offset: 0, 0
-  index: 1
-bongoBob/ring/ring
-  rotate: false
-  xy: 114, 612
-  size: 114, 153
-  orig: 114, 153
-  offset: 0, 0
   index: 2
-bongoBob/ring/ring
+BongoBob/Ring/ring
   rotate: false
-  xy: 0, 765
+  xy: 228, 153
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 3
-bongoBob/ring/ring
+BongoBob/Ring/ring
   rotate: false
-  xy: 114, 765
+  xy: 342, 153
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 4
-bongoBob/ring/ring
+BongoBob/Ring/ring
   rotate: false
-  xy: 0, 918
+  xy: 456, 153
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 5
-bongoBob/ring/ring
+BongoBob/Ring/ring
   rotate: false
-  xy: 114, 918
+  xy: 570, 153
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 6
-bongoBob/ring/ring
+BongoBob/Ring/ring
   rotate: false
-  xy: 0, 1071
+  xy: 684, 153
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 7
-bongoBob/ring/ring
+BongoBob/Ring/ring
   rotate: false
-  xy: 114, 1071
+  xy: 798, 153
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 8
-screen/miniMap/background
+Cases/kneipe
   rotate: false
-  xy: 0, 1344
-  size: 160, 120
-  orig: 160, 120
-  offset: 0, 0
-  index: -1
-screen/miniMap/bongoBob
-  rotate: false
-  xy: 0, 0
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-screen/phone
-  rotate: false
-  xy: 0, 1464
+  xy: 0, 306
   size: 191, 360
   orig: 191, 360
   offset: 0, 0
   index: -1
-screen/phoneIcon
+friendlyBullet
   rotate: false
-  xy: 32, 0
+  xy: 191, 306
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+gear
+  rotate: false
+  xy: 223, 306
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+MiniMap/background
+  rotate: false
+  xy: 287, 306
+  size: 160, 120
+  orig: 160, 120
+  offset: 0, 0
+  index: -1
+MiniMap/bongoBob
+  rotate: false
+  xy: 447, 306
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+opponentUfo
+  rotate: false
+  xy: 479, 306
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+Phone/closed
+  rotate: false
+  xy: 607, 306
   size: 64, 120
   orig: 64, 120
   offset: 0, 0
   index: -1
-screen/pinIcon
+Phone/opened
   rotate: false
-  xy: 0, 1224
+  xy: 671, 306
+  size: 191, 360
+  orig: 191, 360
+  offset: 0, 0
+  index: -1
+pin
+  rotate: false
+  xy: 862, 306
   size: 120, 120
   orig: 120, 120
+  offset: 0, 0
+  index: -1
+ufo
+  rotate: false
+  xy: 0, 666
+  size: 128, 64
+  orig: 128, 64
   offset: 0, 0
   index: -1

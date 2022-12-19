@@ -1,13 +1,12 @@
 package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Rectangle;
+import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 
 public class Asteroid {
-    public final Texture texture;
-    public final TextureRegion textureRegion;
+    public final AtlasRegion texture;
     public final Rectangle frame;
 
     public float originX, originY;
@@ -19,14 +18,13 @@ public class Asteroid {
     public final boolean rotateClockwise;
 
     public Asteroid(int spawnPosition) {
-        texture = new Texture("asteroid.png");
-        textureRegion = new TextureRegion(texture);
+        texture = MicroMacroAssets.getInstance().atlas.findRegion("asteroid");
 
         frame = new Rectangle(
-                spawnPosition * texture.getWidth(),
+                spawnPosition * texture.getRegionWidth(),
                 Gdx.graphics.getHeight(),
-                texture.getWidth(),
-                texture.getHeight()
+                texture.getRegionWidth(),
+                texture.getRegionHeight()
         );
 
         originX = frame.width / 2;
@@ -40,6 +38,5 @@ public class Asteroid {
     }
 
     public void dispose() {
-        texture.dispose();
     }
 }

@@ -1,6 +1,7 @@
 package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.graphics.Texture;
+import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 
 public class PlanetsBackground {
     public Texture texture;
@@ -8,7 +9,7 @@ public class PlanetsBackground {
     public float velocity;
 
     public PlanetsBackground() {
-        texture = new Texture("planetsBackground.png");
+        texture = MicroMacroAssets.getInstance().planetsBackground;
         x = 0;
         y = 0;
         velocity = 50;

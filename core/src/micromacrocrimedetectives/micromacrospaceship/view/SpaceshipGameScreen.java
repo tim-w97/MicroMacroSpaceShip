@@ -75,7 +75,7 @@ public class SpaceshipGameScreen implements Screen {
 
         for (Asteroid asteroid : game.spaceshipGameController.getCurrentAsteroids()) {
             game.batch.draw(
-                    asteroid.textureRegion,
+                    asteroid.texture,
                     asteroid.frame.x,
                     asteroid.frame.y,
                     asteroid.originX,
