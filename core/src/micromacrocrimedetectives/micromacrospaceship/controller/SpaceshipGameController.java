@@ -1,17 +1,17 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.PlanetsBackground;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Projectile;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.*;
+import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 import micromacrocrimedetectives.micromacrospaceship.view.MicroMacroGameScreen;
 import micromacrocrimedetectives.micromacrospaceship.view.SpaceshipGameScreen;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SpaceshipGameController {
     private final SpaceshipGameModel model;
@@ -52,86 +52,54 @@ public class SpaceshipGameController {
         }
     }
 
-    public void shootProjectile() {
-        if (TimeUtils.timeSinceMillis(model.lastShootTime) > model.shootDelay) {
+    public void shootFriendlyBullet() {
+        if (TimeUtils.timeSinceMillis(model.ufo.lastShootTime) > model.ufo.shootDelay) {
             model.ufo.laserSound.play();
 
-            Projectile projectile = new Projectile(
-                    model.ufo.frame.x + model.ufo.frame.width / 2,
-                    model.ufo.frame.height + Ufo.bottomMargin
-            );
+            FriendlyBullet friendlyBullet = new FriendlyBullet();
 
-            model.projectiles.add(projectile);
-            model.lastShootTime = TimeUtils.millis();
+            friendlyBullet.frame.setX(model.ufo.frame.x + (model.ufo.frame.width - friendlyBullet.frame.width) / 2);
+            friendlyBullet.frame.setY(model.ufo.frame.height + Ufo.bottomMargin);
+
+            model.ufo.bullets.add(friendlyBullet);
+            model.ufo.lastShootTime = TimeUtils.millis();
         }
     }
 
-    public ArrayList<Projectile> getCurrentProjectiles() {
-        return model.projectiles;
-    }
+    public void moveFriendlyBullets(float delta) {
+        ArrayList<FriendlyBullet> offScreenFriendlyBullets = new ArrayList<>();
 
-    public ArrayList<Asteroid> getCurrentAsteroids() {
-        return model.asteroids;
-    }
+        for (FriendlyBullet friendlyBullet : model.ufo.bullets) {
+            friendlyBullet.frame.y += delta * friendlyBullet.velocity;
 
-    public void moveProjectiles(float delta) {
-        ArrayList<Projectile> offScreenProjectiles = new ArrayList<>();
-
-        for (Projectile projectile : model.projectiles) {
-            projectile.frame.y += delta * projectile.velocity;
-
-            if (projectile.frame.y > Gdx.graphics.getHeight() + projectile.frame.radius) {
-                offScreenProjectiles.add(projectile);
+            if (friendlyBullet.frame.y > Gdx.graphics.getHeight()) {
+                offScreenFriendlyBullets.add(friendlyBullet);
             }
         }
-        model.projectiles.removeAll(offScreenProjectiles);
+        model.ufo.bullets.removeAll(offScreenFriendlyBullets);
     }
 
-    public void generateAsteroids() {
-        model.lastAsteroidSpawnPosition = (int) (Math.random() * model.asteroidRows);
+    public void checkForCollisions() {
+        List<FriendlyBullet> friendlyBulletsToRemove = new ArrayList<>();
+        List<OpponentUfo> deadOpponentUfos = new ArrayList<>();
 
-        if (TimeUtils.timeSinceMillis(model.lastAsteroidSpawnTime) > model.asteroidSpawnDelay) {
-            model.asteroids.add(new Asteroid(model.lastAsteroidSpawnPosition));
-            model.lastAsteroidSpawnTime = TimeUtils.millis();
-        }
-    }
+        for (FriendlyBullet friendlyBullet : model.ufo.bullets) {
+            for (OpponentUfo opponentUfo : model.opponentUfos) {
+                if (friendlyBullet.frame.overlaps(opponentUfo.frame)) {
+                    friendlyBulletsToRemove.add(friendlyBullet);
 
-    public void moveAndRotateAsteroids(float delta) {
-        ArrayList<Asteroid> offScreenAsteroids = new ArrayList<>();
+                    opponentUfo.lives--;
 
-        for (Asteroid asteroid : model.asteroids) {
-            asteroid.frame.y -= delta * asteroid.velocity;
+                    if (opponentUfo.lives == 0) {
+                        deadOpponentUfos.add(opponentUfo);
+                    }
 
-            if (asteroid.rotateClockwise) {
-                asteroid.rotation += delta * asteroid.rotationVelocity;
-            } else {
-                asteroid.rotation -= delta * asteroid.rotationVelocity;
-            }
-
-            if (asteroid.frame.y < -asteroid.frame.getHeight()) {
-                offScreenAsteroids.add(asteroid);
-            }
-        }
-        model.asteroids.removeAll(offScreenAsteroids);
-    }
-
-    public void checkAsteroidProjectileCollision() {
-        ArrayList<Asteroid> shotAsteroids = new ArrayList<>();
-
-        for (Projectile projectile : model.projectiles) {
-            for (Asteroid asteroid : model.asteroids) {
-                if (Intersector.overlaps(projectile.frame, asteroid.frame)) {
                     model.ufo.crumbleSound.play();
-                    shotAsteroids.add(asteroid);
                 }
             }
         }
-        model.asteroids.removeAll(shotAsteroids);
-    }
-
-    public void switchToMicroMacroGameScreen(SpaceshipGameScreen screen) {
-        screen.game.setScreen(new MicroMacroGameScreen(screen.game));
-        screen.dispose();
+        model.ufo.bullets.removeAll(friendlyBulletsToRemove);
+        model.opponentUfos.removeAll(deadOpponentUfos);
     }
 
     public void dispose() {
@@ -140,5 +108,140 @@ public class SpaceshipGameController {
 
     public void playSpaceMusic() {
         model.spaceMusic.play();
+    }
+
+    public void drawElapsedTime(SpriteBatch batch, BitmapFont font) {
+        int elapsedTimeInSeconds = (int) (model.elapsedTime / 1000);
+
+        String text = "Verbleibende Zeit: " + Long.toString(elapsedTimeInSeconds) + " Sekunden";
+
+        model.elapsedTimeLayout.setText(font, text);
+
+        font.draw(
+                batch,
+                text,
+                (Gdx.graphics.getWidth() - model.elapsedTimeLayout.width) / 2f,
+                Gdx.graphics.getHeight() - 10
+        );
+    }
+
+    public void decreaseElapsedTime(float delta, SpaceshipGameScreen screen) {
+        if (model.elapsedTime < 0) {
+            screen.game.setScreen(new MicroMacroGameScreen(screen.game));
+            screen.dispose();
+        }
+
+        model.elapsedTime -= delta * 1000;
+    }
+
+    public void drawOpponentUfo(SpriteBatch batch) {
+        for (OpponentUfo opponentUfo : model.opponentUfos) {
+
+            if (opponentUfo.lives == 3) {
+                opponentUfo.texture = MicroMacroAssets.getInstance().atlas.findRegion("OpponentUfo/threeLives");
+            } else if (opponentUfo.lives == 2) {
+                opponentUfo.texture = MicroMacroAssets.getInstance().atlas.findRegion("OpponentUfo/twoLives");
+            } else {
+                opponentUfo.texture = MicroMacroAssets.getInstance().atlas.findRegion("OpponentUfo/oneLife");
+            }
+
+            batch.draw(
+                    opponentUfo.texture,
+                    opponentUfo.frame.x,
+                    opponentUfo.frame.y
+            );
+        }
+    }
+
+    public void moveOpponentUfos(float delta) {
+        List<OpponentUfo> offScreenUfos = new ArrayList<>();
+
+        for (OpponentUfo opponentUfo : model.opponentUfos) {
+            opponentUfo.frame.y -= opponentUfo.verticalVelocity * delta;
+
+            // only follow the player if the opponent is fully on screen
+            if (opponentUfo.frame.y > Gdx.graphics.getHeight() - opponentUfo.frame.height) {
+                return;
+            }
+
+            if (model.ufo.frame.x > opponentUfo.frame.x) {
+                opponentUfo.frame.x += delta * opponentUfo.horizontalVelocity;
+            }
+
+            if (model.ufo.frame.x < opponentUfo.frame.x) {
+                opponentUfo.frame.x -= delta * opponentUfo.horizontalVelocity;
+            }
+
+            if (opponentUfo.frame.y < -opponentUfo.frame.height) {
+                offScreenUfos.add(opponentUfo);
+            }
+        }
+
+        model.opponentUfos.removeAll(offScreenUfos);
+    }
+
+    public void generateOpponentUfos() {
+        if (TimeUtils.timeSinceMillis(model.lastOpponentUfoSpawn) > model.opponentUfoSpawnDelay) {
+            OpponentUfo opponentUfo = new OpponentUfo();
+            model.opponentUfos.add(opponentUfo);
+
+            model.lastOpponentUfoSpawn = TimeUtils.millis();
+        }
+    }
+
+    public void drawBullets(SpriteBatch batch) {
+        for (FriendlyBullet friendlyBullet : model.ufo.bullets) {
+            batch.draw(
+                    friendlyBullet.texture,
+                    friendlyBullet.frame.x,
+                    friendlyBullet.frame.y
+            );
+        }
+
+        for (OpponentUfo opponentUfo : model.opponentUfos) {
+            for (AngryBullet angryBullet : opponentUfo.bullets) {
+                batch.draw(
+                        angryBullet.texture,
+                        angryBullet.frame.x,
+                        angryBullet.frame.y
+                );
+            }
+        }
+    }
+
+    public void generateAngryBullets() {
+        for (OpponentUfo opponentUfo : model.opponentUfos) {
+            // only begin to shoot if the opponent is fully on screen
+            if (opponentUfo.frame.y > Gdx.graphics.getHeight() - opponentUfo.frame.height) {
+                return;
+            }
+
+            if (TimeUtils.timeSinceMillis(opponentUfo.lastShootTime) > opponentUfo.shootDelay) {
+                AngryBullet newBullet = new AngryBullet();
+
+                newBullet.frame.setX(opponentUfo.frame.x + (opponentUfo.frame.width - newBullet.frame.width) / 2);
+                newBullet.frame.setY(opponentUfo.frame.y - newBullet.frame.height);
+
+                opponentUfo.bullets.add(newBullet);
+
+                opponentUfo.lastShootTime = TimeUtils.millis();
+            }
+        }
+    }
+
+    public void moveAngryBullets(float delta) {
+        for (OpponentUfo opponentUfo : model.opponentUfos) {
+            List<AngryBullet> offScreenBullets = new ArrayList<>();
+
+            for (AngryBullet bullet : opponentUfo.bullets) {
+                bullet.frame.y -= bullet.velocity * delta;
+
+                if (bullet.frame.y < -bullet.frame.height) {
+                    offScreenBullets.add(bullet);
+                }
+            }
+
+            opponentUfo.bullets.removeAll(offScreenBullets);
+        }
     }
 }

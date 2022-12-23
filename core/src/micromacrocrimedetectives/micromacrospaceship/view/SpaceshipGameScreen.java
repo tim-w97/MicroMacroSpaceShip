@@ -4,12 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Asteroid;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Projectile;
 
 public class SpaceshipGameScreen implements Screen {
 
@@ -30,15 +27,12 @@ public class SpaceshipGameScreen implements Screen {
 
         game.batch.setProjectionMatrix(camera.combined);
 
-        game.shapeRenderer.setProjectionMatrix(camera.combined);
-        game.shapeRenderer.setColor(CustomColors.pink);
-
-        if (Gdx.input.isKeyPressed(Keys.C)) {
-            game.spaceshipGameController.switchToMicroMacroGameScreen(this);
-        }
+        game.font.setColor(CustomColors.pink);
 
         moveObjects(delta);
         drawObjects();
+
+        game.spaceshipGameController.decreaseElapsedTime(delta, this);
     }
 
     private void moveObjects(float delta) {
@@ -53,16 +47,20 @@ public class SpaceshipGameScreen implements Screen {
         }
 
         if (playerShoots) {
-            game.spaceshipGameController.shootProjectile();
+            game.spaceshipGameController.shootFriendlyBullet();
         }
 
-        game.spaceshipGameController.moveProjectiles(delta);
+        game.spaceshipGameController.moveFriendlyBullets(delta);
 
         game.spaceshipGameController.movePlanetsBackground(delta);
 
-        game.spaceshipGameController.generateAsteroids();
-        game.spaceshipGameController.moveAndRotateAsteroids(delta);
-        game.spaceshipGameController.checkAsteroidProjectileCollision();
+        game.spaceshipGameController.generateOpponentUfos();
+        game.spaceshipGameController.generateAngryBullets();
+
+        game.spaceshipGameController.moveOpponentUfos(delta);
+        game.spaceshipGameController.moveAngryBullets(delta);
+
+        game.spaceshipGameController.checkForCollisions();
     }
 
     private void drawObjects() {
@@ -74,40 +72,19 @@ public class SpaceshipGameScreen implements Screen {
                 game.spaceshipGameController.getPlanetsBackground().y
         );
 
-        for (Asteroid asteroid : game.spaceshipGameController.getCurrentAsteroids()) {
-            game.batch.draw(
-                    asteroid.textureRegion,
-                    asteroid.frame.x,
-                    asteroid.frame.y,
-                    asteroid.originX,
-                    asteroid.originY,
-                    asteroid.frame.width,
-                    asteroid.frame.height,
-                    1,
-                    1,
-                    asteroid.rotation
-            );
-        }
-
         game.batch.draw(
                 game.spaceshipGameController.getUfo().texture,
                 game.spaceshipGameController.getUfo().frame.x,
                 game.spaceshipGameController.getUfo().frame.y
         );
 
+        game.spaceshipGameController.drawOpponentUfo(game.batch);
+
+        game.spaceshipGameController.drawBullets(game.batch);
+
+        game.spaceshipGameController.drawElapsedTime(game.batch, game.font);
+
         game.batch.end();
-
-        game.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        for (Projectile projectile : game.spaceshipGameController.getCurrentProjectiles()) {
-            game.shapeRenderer.circle(
-                    projectile.frame.x,
-                    projectile.frame.y,
-                    projectile.frame.radius
-            );
-        }
-
-        game.shapeRenderer.end();
     }
 
     @Override

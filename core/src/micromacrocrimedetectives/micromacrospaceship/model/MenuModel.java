@@ -2,11 +2,13 @@ package micromacrocrimedetectives.micromacrospaceship.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 
 public class MenuModel {
     public Stage stage;
@@ -17,7 +19,8 @@ public class MenuModel {
     public final float buttonWidth;
     public final float buttonHeight;
 
-    public Texture ufoTexture;
+    public AtlasRegion ufoTexture;
+    public AtlasRegion gearTexture;
     public float ufoX, ufoY;
 
     public float ufoLightX1, ufoLightY1, ufoLightX2, ufoLightY2, ufoLightX3, ufoLightY3;
@@ -37,9 +40,11 @@ public class MenuModel {
                 (Gdx.graphics.getHeight() - buttonHeight) / 2
         );
 
-        ufoTexture = new Texture("ufo.png");
-        ufoX = (Gdx.graphics.getWidth() - ufoTexture.getWidth()) / 2f;
-        ufoY = Gdx.graphics.getHeight() - ufoTexture.getHeight() - 20;
+        gearTexture = MicroMacroAssets.getInstance().atlas.findRegion("gear");
+        ufoTexture = MicroMacroAssets.getInstance().atlas.findRegion("ufo");
+
+        ufoX = (Gdx.graphics.getWidth() - ufoTexture.getRegionWidth()) / 2f;
+        ufoY = Gdx.graphics.getHeight() - ufoTexture.getRegionHeight() - 20;
 
         ufoLightX1 = Gdx.graphics.getWidth() / 2f;
         ufoLightY1 = Gdx.graphics.getHeight() - 65;

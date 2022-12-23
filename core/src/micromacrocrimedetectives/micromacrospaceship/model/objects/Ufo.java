@@ -2,11 +2,16 @@ package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Rectangle;
+import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
+
+import java.util.ArrayList;
 
 public class Ufo {
-    public final Texture texture;
+    public final ArrayList<FriendlyBullet> bullets;
+
+    public final AtlasRegion texture;
     public final Rectangle frame;
     public final float velocity;
 
@@ -15,25 +20,35 @@ public class Ufo {
     public Sound laserSound;
     public Sound crumbleSound;
 
+    public long lastShootTime;
+    public final int shootDelay;
+
     public Ufo() {
-        texture = new Texture("ufo.png");
+        bullets = new ArrayList<>();
+
+        texture = MicroMacroAssets.getInstance().atlas.findRegion("ufo");
 
         frame = new Rectangle(
-                (Gdx.graphics.getWidth() - texture.getWidth()) / 2f,
+                (Gdx.graphics.getWidth() - texture.getRegionWidth()) / 2f,
                 bottomMargin,
-                texture.getWidth(),
-                texture.getHeight()
+                texture.getRegionWidth(),
+                texture.getRegionHeight()
         );
 
         velocity = 300;
 
         laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
         crumbleSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
+
+        shootDelay = 400;
     }
 
     public void dispose() {
-        texture.dispose();
         crumbleSound.dispose();
         laserSound.dispose();
+
+        for (FriendlyBullet friendlyBullet : bullets) {
+            friendlyBullet.dispose();
+        }
     }
 }

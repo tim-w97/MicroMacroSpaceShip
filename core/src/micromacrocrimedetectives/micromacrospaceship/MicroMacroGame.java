@@ -16,6 +16,8 @@ public class MicroMacroGame extends Game {
     public SpriteBatch batch;
     public ShapeRenderer shapeRenderer;
     public BitmapFont font;
+
+    // TODO: Put controller instances inside the screens (View)
     public SpaceshipGameController spaceshipGameController;
     public MenuController menuController;
     public MicroMacroGameController microMacroGameController;
