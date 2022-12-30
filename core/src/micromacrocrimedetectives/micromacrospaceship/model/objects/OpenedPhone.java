@@ -25,7 +25,7 @@ public class OpenedPhone {
                 texture.getRegionHeight()
         );
 
-        caseTexture = MicroMacroAssets.getInstance().atlas.findRegion("Cases/kneipe");
+        caseTexture = MicroMacroAssets.getInstance().atlas.findRegion("Cases/fernando");
     }
 
     public void dispose() {
