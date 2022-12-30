@@ -82,7 +82,7 @@ public class SpaceshipGameScreen implements Screen {
 
         game.spaceshipGameController.drawBullets(game.batch);
 
-        game.spaceshipGameController.drawElapsedTime(game.batch, game.font);
+        game.spaceshipGameController.drawElapsedTime(game.batch);
 
         game.batch.end();
     }

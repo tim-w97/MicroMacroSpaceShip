@@ -2,8 +2,12 @@ package micromacrocrimedetectives.micromacrospaceship.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.OpponentUfo;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.PlanetsBackground;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
+import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 
 import java.util.ArrayList;
 
@@ -15,9 +19,9 @@ public class SpaceshipGameModel {
     public int opponentUfoSpawnDelay;
 
     public Music spaceMusic;
-
-    public GlyphLayout elapsedTimeLayout;
     public long elapsedTime;
+
+    public Label elapsedTimeLabel;
 
     public SpaceshipGameModel() {
         planetsBackground = new PlanetsBackground();
@@ -30,8 +34,12 @@ public class SpaceshipGameModel {
         spaceMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/space music.mp3"));
         spaceMusic.setVolume(0.1f);
 
-        elapsedTimeLayout = new GlyphLayout();
-        elapsedTime = 1000 * 61;
+        elapsedTime = 1000 * 4;
+
+        elapsedTimeLabel = new Label(null, MicroMacroAssets.getInstance().skin);
+        elapsedTimeLabel.setWidth(Gdx.graphics.getWidth());
+        elapsedTimeLabel.setAlignment(Align.center);
+        elapsedTimeLabel.setY(Gdx.graphics.getHeight() - 20);
     }
 
     public void dispose() {

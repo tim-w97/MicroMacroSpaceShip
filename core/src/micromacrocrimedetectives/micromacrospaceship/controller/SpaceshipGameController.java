@@ -1,7 +1,6 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
@@ -110,19 +109,11 @@ public class SpaceshipGameController {
         model.spaceMusic.play();
     }
 
-    public void drawElapsedTime(SpriteBatch batch, BitmapFont font) {
+    public void drawElapsedTime(SpriteBatch batch) {
         int elapsedTimeInSeconds = (int) (model.elapsedTime / 1000);
 
-        String text = "Verbleibende Zeit: " + Long.toString(elapsedTimeInSeconds) + " Sekunden";
-
-        model.elapsedTimeLayout.setText(font, text);
-
-        font.draw(
-                batch,
-                text,
-                (Gdx.graphics.getWidth() - model.elapsedTimeLayout.width) / 2f,
-                Gdx.graphics.getHeight() - 10
-        );
+        model.elapsedTimeLabel.setText(elapsedTimeInSeconds + " Sekunden");
+        model.elapsedTimeLabel.draw(batch, 1);
     }
 
     public void decreaseElapsedTime(float delta, SpaceshipGameScreen screen) {

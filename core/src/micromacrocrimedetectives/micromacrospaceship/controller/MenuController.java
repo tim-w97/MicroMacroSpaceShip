@@ -56,7 +56,6 @@ public class MenuController {
 
     public void dispose() {
         model.stage.dispose();
-        model.skin.dispose();
     }
 
     public void drawGear(SpriteBatch batch) {
