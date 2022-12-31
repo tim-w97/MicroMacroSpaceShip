@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
 
 public class MicroMacroAssets implements Disposable {
+    // TODO: Put also all Sounds in here
     public TextureAtlas atlas;
     public Texture map;
     public Texture planetsBackground;

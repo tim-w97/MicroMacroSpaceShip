@@ -1,109 +1,109 @@
 Spritesheet.png
-size: 1016, 993
+size: 955, 786
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 BongoBob/Body/back
   rotate: false
-  xy: 0, 120
+  xy: 120, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Body/front
   rotate: false
-  xy: 114, 120
+  xy: 234, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Body/side
   rotate: false
-  xy: 228, 120
+  xy: 348, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Face/cool
   rotate: false
-  xy: 342, 120
+  xy: 462, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Face/crazy
   rotate: false
-  xy: 456, 120
+  xy: 576, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Face/sad
   rotate: false
-  xy: 570, 120
+  xy: 690, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Face/surprised
   rotate: false
-  xy: 684, 120
+  xy: 804, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Ring/ring
   rotate: false
-  xy: 798, 120
+  xy: 0, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 1
 BongoBob/Ring/ring
   rotate: false
-  xy: 0, 273
+  xy: 114, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 2
 BongoBob/Ring/ring
   rotate: false
-  xy: 114, 273
+  xy: 228, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 3
 BongoBob/Ring/ring
   rotate: false
-  xy: 228, 273
+  xy: 342, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 4
 BongoBob/Ring/ring
   rotate: false
-  xy: 342, 273
+  xy: 456, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 5
 BongoBob/Ring/ring
   rotate: false
-  xy: 456, 273
+  xy: 570, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 6
 BongoBob/Ring/ring
   rotate: false
-  xy: 570, 273
+  xy: 684, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: 7
 BongoBob/Ring/ring
   rotate: false
-  xy: 684, 273
+  xy: 798, 273
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
@@ -124,39 +124,32 @@ Bullet/friendly
   index: -1
 Cases/fernando
   rotate: false
-  xy: 798, 273
+  xy: 0, 426
   size: 191, 360
   orig: 191, 360
   offset: 0, 0
   index: 1
 Cases/fernando
   rotate: false
-  xy: 0, 633
+  xy: 191, 426
   size: 191, 360
   orig: 191, 360
   offset: 0, 0
   index: 2
 Cases/fernando
   rotate: false
-  xy: 191, 633
+  xy: 382, 426
   size: 191, 360
   orig: 191, 360
   offset: 0, 0
   index: 3
 Cases/fernando
   rotate: false
-  xy: 382, 633
+  xy: 573, 426
   size: 191, 360
   orig: 191, 360
   offset: 0, 0
   index: 4
-Cases/fernando
-  rotate: false
-  xy: 573, 633
-  size: 191, 360
-  orig: 191, 360
-  offset: 0, 0
-  index: 5
 gear
   rotate: false
   xy: 96, 0
@@ -208,14 +201,14 @@ Phone/closed
   index: -1
 Phone/opened
   rotate: false
-  xy: 764, 633
+  xy: 764, 426
   size: 191, 360
   orig: 191, 360
   offset: 0, 0
   index: -1
 pin
   rotate: false
-  xy: 896, 0
+  xy: 0, 120
   size: 120, 120
   orig: 120, 120
   offset: 0, 0

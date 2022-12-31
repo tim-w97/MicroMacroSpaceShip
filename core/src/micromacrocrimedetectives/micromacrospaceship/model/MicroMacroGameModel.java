@@ -41,6 +41,7 @@ public class MicroMacroGameModel {
 
     // TODO: Dispose cases with sounds etc.
     public List<Case> cases;
+    public Case currentCase;
 
     public MicroMacroGameModel(MicroMacroGame game) {
         this.game = game;
@@ -67,6 +68,8 @@ public class MicroMacroGameModel {
         phoneIsClosed = true;
 
         initCases();
+
+        currentCase = cases.get(0);
     }
 
     private void initCases() {
@@ -93,6 +96,8 @@ public class MicroMacroGameModel {
                 game.assets.atlas.findRegion("Cases/fernando", 4),
                 new Vector2(10389, 7303)
         ));
+
+        cases.add(fernandoCase);
     }
 
     public void dispose() {
