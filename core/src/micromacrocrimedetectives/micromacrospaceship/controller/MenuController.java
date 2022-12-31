@@ -8,8 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.model.MenuModel;
-import micromacrocrimedetectives.micromacrospaceship.view.MenuScreen;
-import micromacrocrimedetectives.micromacrospaceship.view.SpaceshipGameScreen;
+import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
+import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
 
 public class MenuController {
     private final MenuModel model;

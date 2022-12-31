@@ -246,4 +246,13 @@ public class MicroMacroGameController {
     public void playWelcomeMessage() {
         model.welcomeMessage.play();
     }
+
+    public void checkForCaseStepAreaCollision() {
+        if (model.currentCase.currentStep.area.contains(
+                model.cameraPosition.x,
+                model.cameraPosition.y
+        )) {
+            System.out.println("FOUND!!!");
+        }
+    }
 }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroAssets;
-import micromacrocrimedetectives.micromacrospaceship.view.MenuScreen;
+import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
 
 public class MicroMacroGame extends Game {
     public SpriteBatch batch;

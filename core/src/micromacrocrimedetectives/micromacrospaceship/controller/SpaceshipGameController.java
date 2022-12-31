@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.*;
-import micromacrocrimedetectives.micromacrospaceship.view.MicroMacroGameScreen;
-import micromacrocrimedetectives.micromacrospaceship.view.SpaceshipGameScreen;
+import micromacrocrimedetectives.micromacrospaceship.screens.MicroMacroGameScreen;
+import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
 
 import java.util.ArrayList;
 import java.util.List;

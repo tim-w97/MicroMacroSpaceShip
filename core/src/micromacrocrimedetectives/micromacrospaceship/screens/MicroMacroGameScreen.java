@@ -1,4 +1,4 @@
-package micromacrocrimedetectives.micromacrospaceship.view;
+package micromacrocrimedetectives.micromacrospaceship.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -59,6 +59,8 @@ public class MicroMacroGameScreen implements Screen {
         handleUserInput(delta);
 
         movingCamera.position.set(controller.getCameraPosition());
+
+        controller.checkForCaseStepAreaCollision();
     }
 
     private void handleUserInput(float delta) {

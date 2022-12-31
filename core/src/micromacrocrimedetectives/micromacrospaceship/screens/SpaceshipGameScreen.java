@@ -1,4 +1,4 @@
-package micromacrocrimedetectives.micromacrospaceship.view;
+package micromacrocrimedetectives.micromacrospaceship.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;

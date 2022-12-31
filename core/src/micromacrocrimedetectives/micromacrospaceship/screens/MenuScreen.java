@@ -1,4 +1,4 @@
-package micromacrocrimedetectives.micromacrospaceship.view;
+package micromacrocrimedetectives.micromacrospaceship.screens;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
