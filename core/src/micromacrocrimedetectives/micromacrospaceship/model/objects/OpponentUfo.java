@@ -3,7 +3,8 @@ package micromacrocrimedetectives.micromacrospaceship.model.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Rectangle;
-import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
+import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
+import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroAssets;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,10 @@ public class OpponentUfo {
     public long lastShootTime;
     public int shootDelay;
 
-    public OpponentUfo() {
+    public OpponentUfo(MicroMacroAssets assets) {
         bullets = new ArrayList<>();
 
-        texture = MicroMacroAssets.getInstance().atlas.findRegion("OpponentUfo/threeLives");
+        texture = assets.atlas.findRegion("OpponentUfo/threeLives");
 
         frame = new Rectangle(
                 (float) (Math.random() * (Gdx.graphics.getWidth() - texture.getRegionWidth())),

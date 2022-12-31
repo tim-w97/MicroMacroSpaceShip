@@ -6,18 +6,20 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 import micromacrocrimedetectives.micromacrospaceship.model.cases.Case;
 import micromacrocrimedetectives.micromacrospaceship.model.cases.Step;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.BongoBob;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.MiniMap;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.ClosedPhone;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.OpenedPhone;
-import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MicroMacroGameModel {
+    public MicroMacroGame game;
+
     public BongoBob bongoBob;
 
     public OpenedPhone openedPhone;
@@ -40,19 +42,21 @@ public class MicroMacroGameModel {
     // TODO: Dispose cases with sounds etc.
     public List<Case> cases;
 
-    public MicroMacroGameModel() {
-        openedPhone = new OpenedPhone(MicroMacroAssets.getInstance().atlas.findRegion("Phone/opened"));
-        closedPhone = new ClosedPhone(MicroMacroAssets.getInstance().atlas.findRegion("Phone/closed"));
+    public MicroMacroGameModel(MicroMacroGame game) {
+        this.game = game;
 
-        bongoBob = new BongoBob();
+        openedPhone = new OpenedPhone(game.assets);
+        closedPhone = new ClosedPhone(game.assets);
 
-        miniMap = new MiniMap();
+        bongoBob = new BongoBob(game.assets);
+
+        miniMap = new MiniMap(game.assets);
 
         cameraPosition = new Vector3();
 
         mapWalkFactor = (float) (Math.PI / 180 * 33);
 
-        map = MicroMacroAssets.getInstance().map;
+        map = game.assets.map;
 
         spaceshipAmbienceMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/spaceship ambience.mp3"));
         spaceshipAmbienceMusic.setVolume(0.3f);
@@ -71,22 +75,22 @@ public class MicroMacroGameModel {
         Case fernandoCase = new Case();
 
         fernandoCase.addStep(new Step(
-                MicroMacroAssets.getInstance().atlas.findRegion("Cases/fernando", 1),
+                game.assets.atlas.findRegion("Cases/fernando", 1),
                 new Vector2(10271, 6075)
         ));
 
         fernandoCase.addStep(new Step(
-                MicroMacroAssets.getInstance().atlas.findRegion("Cases/fernando", 2),
+                game.assets.atlas.findRegion("Cases/fernando", 2),
                 new Vector2(12004, 7245)
         ));
 
         fernandoCase.addStep(new Step(
-                MicroMacroAssets.getInstance().atlas.findRegion("Cases/fernando", 3),
+                game.assets.atlas.findRegion("Cases/fernando", 3),
                 new Vector2(11353, 6778)
         ));
 
         fernandoCase.addStep(new Step(
-                MicroMacroAssets.getInstance().atlas.findRegion("Cases/fernando", 4),
+                game.assets.atlas.findRegion("Cases/fernando", 4),
                 new Vector2(10389, 7303)
         ));
     }

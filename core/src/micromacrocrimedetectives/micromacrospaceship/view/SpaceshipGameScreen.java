@@ -7,17 +7,22 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
+import micromacrocrimedetectives.micromacrospaceship.controller.SpaceshipGameController;
+import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
 
 public class SpaceshipGameScreen implements Screen {
 
     public final MicroMacroGame game;
     private final OrthographicCamera camera;
+    private final SpaceshipGameController controller;
 
     public SpaceshipGameScreen(MicroMacroGame game) {
         this.game = game;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        controller = new SpaceshipGameController(new SpaceshipGameModel(game));
     }
 
     @Override
@@ -32,7 +37,7 @@ public class SpaceshipGameScreen implements Screen {
         moveObjects(delta);
         drawObjects();
 
-        game.spaceshipGameController.decreaseElapsedTime(delta, this);
+        controller.decreaseElapsedTime(delta, this);
     }
 
     private void moveObjects(float delta) {
@@ -41,55 +46,55 @@ public class SpaceshipGameScreen implements Screen {
         boolean playerShoots = Gdx.input.isKeyPressed(Keys.SPACE);
 
         if (playerGoesLeft) {
-            game.spaceshipGameController.moveUfoLeft(delta);
+            controller.moveUfoLeft(delta);
         } else if (playerGoesRight) {
-            game.spaceshipGameController.moveUfoRight(delta);
+            controller.moveUfoRight(delta);
         }
 
         if (playerShoots) {
-            game.spaceshipGameController.shootFriendlyBullet();
+            controller.shootFriendlyBullet();
         }
 
-        game.spaceshipGameController.moveFriendlyBullets(delta);
+        controller.moveFriendlyBullets(delta);
 
-        game.spaceshipGameController.movePlanetsBackground(delta);
+        controller.movePlanetsBackground(delta);
 
-        game.spaceshipGameController.generateOpponentUfos();
-        game.spaceshipGameController.generateAngryBullets();
+        controller.generateOpponentUfos();
+        controller.generateAngryBullets();
 
-        game.spaceshipGameController.moveOpponentUfos(delta);
-        game.spaceshipGameController.moveAngryBullets(delta);
+        controller.moveOpponentUfos(delta);
+        controller.moveAngryBullets(delta);
 
-        game.spaceshipGameController.checkForCollisions();
+        controller.checkForCollisions();
     }
 
     private void drawObjects() {
         game.batch.begin();
 
         game.batch.draw(
-                game.spaceshipGameController.getPlanetsBackground().texture,
-                game.spaceshipGameController.getPlanetsBackground().x,
-                game.spaceshipGameController.getPlanetsBackground().y
+                controller.getPlanetsBackground().texture,
+                controller.getPlanetsBackground().x,
+                controller.getPlanetsBackground().y
         );
 
         game.batch.draw(
-                game.spaceshipGameController.getUfo().texture,
-                game.spaceshipGameController.getUfo().frame.x,
-                game.spaceshipGameController.getUfo().frame.y
+                controller.getUfo().texture,
+                controller.getUfo().frame.x,
+                controller.getUfo().frame.y
         );
 
-        game.spaceshipGameController.drawOpponentUfo(game.batch);
+        controller.drawOpponentUfo(game.batch);
 
-        game.spaceshipGameController.drawBullets(game.batch);
+        controller.drawBullets(game.batch);
 
-        game.spaceshipGameController.drawElapsedTime(game.batch);
+        controller.drawElapsedTime(game.batch);
 
         game.batch.end();
     }
 
     @Override
     public void show() {
-        game.spaceshipGameController.playSpaceMusic();
+        controller.playSpaceMusic();
     }
 
     @Override
@@ -114,6 +119,6 @@ public class SpaceshipGameScreen implements Screen {
 
     @Override
     public void dispose() {
-        game.spaceshipGameController.dispose();
+        controller.dispose();
     }
 }

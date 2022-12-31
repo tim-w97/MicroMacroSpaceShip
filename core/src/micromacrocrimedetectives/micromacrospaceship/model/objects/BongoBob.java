@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import micromacrocrimedetectives.micromacrospaceship.Direction;
-import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
+import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroAssets;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,27 +26,27 @@ public class BongoBob {
     public Sound robotSound;
     public boolean robotMakesSound;
 
-    public BongoBob() {
+    public BongoBob(MicroMacroAssets assets) {
         ringStateTime = 0;
 
         float ringFrameDuration = 0.03f;
 
         ringAnimation = new Animation<TextureRegion>(
                 ringFrameDuration,
-                MicroMacroAssets.getInstance().atlas.findRegions("BongoBob/Ring/ring"),
+                assets.atlas.findRegions("BongoBob/Ring/ring"),
                 Animation.PlayMode.LOOP
         );
 
-        face = MicroMacroAssets.getInstance().atlas.findRegion("BongoBob/Face/cool");
+        face = assets.atlas.findRegion("BongoBob/Face/cool");
 
         bodyTextures = new HashMap<>();
 
-        bodyTextures.put(Direction.UP, MicroMacroAssets.getInstance().atlas.findRegion("BongoBob/Body/back"));
-        bodyTextures.put(Direction.DOWN, MicroMacroAssets.getInstance().atlas.findRegion("BongoBob/Body/front"));
-        bodyTextures.put(Direction.LEFT, MicroMacroAssets.getInstance().atlas.findRegion("BongoBob/Body/side"));
+        bodyTextures.put(Direction.UP, assets.atlas.findRegion("BongoBob/Body/back"));
+        bodyTextures.put(Direction.DOWN, assets.atlas.findRegion("BongoBob/Body/front"));
+        bodyTextures.put(Direction.LEFT, assets.atlas.findRegion("BongoBob/Body/side"));
 
         TextureRegion flippedSide = new TextureRegion(
-                MicroMacroAssets.getInstance().atlas.findRegion("BongoBob/Body/side")
+                assets.atlas.findRegion("BongoBob/Body/side")
         );
 
         flippedSide.flip(true, false);

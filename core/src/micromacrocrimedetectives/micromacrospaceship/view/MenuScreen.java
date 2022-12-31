@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.ScreenUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
+import micromacrocrimedetectives.micromacrospaceship.controller.MenuController;
+import micromacrocrimedetectives.micromacrospaceship.model.MenuModel;
 
 public class MenuScreen implements Screen {
     public final MicroMacroGame game;
-
     private final OrthographicCamera camera;
+    private final MenuController controller;
 
     public MenuScreen(MicroMacroGame game) {
         this.game = game;
@@ -18,7 +20,8 @@ public class MenuScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 720, 480);
 
-        game.menuController.initStage(this);
+        controller = new MenuController(new MenuModel(game));
+        controller.initStage(this);
     }
 
     @Override
@@ -30,16 +33,16 @@ public class MenuScreen implements Screen {
         game.shapeRenderer.setProjectionMatrix(camera.combined);
 
         game.shapeRenderer.begin(ShapeType.Filled);
-        game.menuController.drawUfoLight(game.shapeRenderer);
+        controller.drawUfoLight(game.shapeRenderer);
         game.shapeRenderer.end();
 
         game.batch.begin();
-        game.menuController.drawUfo(game.batch);
-        game.menuController.drawGear(game.batch);
+        controller.drawUfo(game.batch);
+        controller.drawGear(game.batch);
         game.batch.end();
 
-        game.menuController.getStage().act();
-        game.menuController.getStage().draw();
+        controller.getStage().act();
+        controller.getStage().draw();
     }
 
     @Override
@@ -69,6 +72,6 @@ public class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
-        game.menuController.dispose();
+        controller.dispose();
     }
 }

@@ -2,15 +2,15 @@ package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Rectangle;
-import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
+import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroAssets;
 
 public class AngryBullet {
     public Rectangle frame;
     public AtlasRegion texture;
     public float velocity;
 
-    public AngryBullet() {
-        texture = MicroMacroAssets.getInstance().atlas.findRegion("Bullet/angry");
+    public AngryBullet(MicroMacroAssets assets) {
+        texture = assets.atlas.findRegion("Bullet/angry");
 
         frame = new Rectangle();
 

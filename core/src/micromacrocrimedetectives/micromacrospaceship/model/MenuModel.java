@@ -6,9 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
+import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 
 public class MenuModel {
+    public MicroMacroGame game;
+
     public Stage stage;
 
     public Button startGameButton;
@@ -22,13 +24,15 @@ public class MenuModel {
 
     public float ufoLightX1, ufoLightY1, ufoLightX2, ufoLightY2, ufoLightX3, ufoLightY3;
 
-    public MenuModel() {
+    public MenuModel(MicroMacroGame game) {
+        this.game = game;
+
         stage = new Stage(new ScreenViewport());
 
         buttonWidth = 300;
         buttonHeight = 80;
 
-        startGameButton = new TextButton("Spiel starten", MicroMacroAssets.getInstance().skin);
+        startGameButton = new TextButton("Spiel starten", game.assets.skin);
         startGameButton.setSize(buttonWidth, buttonHeight);
 
         startGameButton.setPosition(
@@ -36,8 +40,8 @@ public class MenuModel {
                 (Gdx.graphics.getHeight() - buttonHeight) / 2
         );
 
-        gearTexture = MicroMacroAssets.getInstance().atlas.findRegion("gear");
-        ufoTexture = MicroMacroAssets.getInstance().atlas.findRegion("ufo");
+        gearTexture = game.assets.atlas.findRegion("gear");
+        ufoTexture = game.assets.atlas.findRegion("ufo");
 
         ufoX = (Gdx.graphics.getWidth() - ufoTexture.getRegionWidth()) / 2f;
         ufoY = Gdx.graphics.getHeight() - ufoTexture.getRegionHeight() - 20;

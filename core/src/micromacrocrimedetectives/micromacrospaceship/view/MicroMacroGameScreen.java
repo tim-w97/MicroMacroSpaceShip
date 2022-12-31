@@ -7,12 +7,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
+import micromacrocrimedetectives.micromacrospaceship.controller.MicroMacroGameController;
+import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroGameModel;
 
 public class MicroMacroGameScreen implements Screen {
     private final MicroMacroGame game;
 
     private final OrthographicCamera movingCamera;
     private final OrthographicCamera fixedCamera;
+    private final MicroMacroGameController controller;
 
     public MicroMacroGameScreen(MicroMacroGame game) {
         this.game = game;
@@ -22,6 +25,8 @@ public class MicroMacroGameScreen implements Screen {
 
         fixedCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         movingCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        controller = new MicroMacroGameController(new MicroMacroGameModel(game));
     }
 
     @Override
@@ -35,7 +40,7 @@ public class MicroMacroGameScreen implements Screen {
 
         game.batch.begin();
 
-        game.microMacroGameController.drawMap(game.batch);
+        controller.drawMap(game.batch);
 
         game.batch.end();
 
@@ -43,17 +48,17 @@ public class MicroMacroGameScreen implements Screen {
 
         game.batch.begin();
 
-        game.microMacroGameController.drawBongoBob(game.batch);
-        game.microMacroGameController.drawPhone(game.batch);
-        game.microMacroGameController.drawMiniMap(game.batch);
+        controller.drawBongoBob(game.batch);
+        controller.drawPhone(game.batch);
+        controller.drawMiniMap(game.batch);
 
         game.batch.end();
 
-        game.microMacroGameController.setCursor(fixedCamera);
+        controller.setCursor(fixedCamera);
 
         handleUserInput(delta);
 
-        movingCamera.position.set(game.microMacroGameController.getCameraPosition());
+        movingCamera.position.set(controller.getCameraPosition());
     }
 
     private void handleUserInput(float delta) {
@@ -63,39 +68,39 @@ public class MicroMacroGameScreen implements Screen {
         boolean playerGoesDown = Gdx.input.isKeyPressed(Input.Keys.DOWN);
 
         if (playerGoesLeft || playerGoesRight || playerGoesUp || playerGoesDown) {
-            game.microMacroGameController.playRobotSound();
-            game.microMacroGameController.playerMoves(delta);
+            controller.playRobotSound();
+            controller.playerMoves(delta);
         } else {
-            game.microMacroGameController.stopRobotSound();
+            controller.stopRobotSound();
         }
 
         if (playerGoesLeft && playerGoesUp) {
-            game.microMacroGameController.goDiagonalUp(delta);
+            controller.goDiagonalUp(delta);
         } else if (playerGoesLeft && playerGoesDown) {
-            game.microMacroGameController.goDiagonalLeft(delta);
+            controller.goDiagonalLeft(delta);
         } else if (playerGoesRight && playerGoesUp) {
-            game.microMacroGameController.goDiagonalRight(delta);
+            controller.goDiagonalRight(delta);
         } else if (playerGoesRight && playerGoesDown) {
-            game.microMacroGameController.goDiagonalDown(delta);
+            controller.goDiagonalDown(delta);
         } else if (playerGoesLeft) {
-            game.microMacroGameController.goLeft(delta);
+            controller.goLeft(delta);
         } else if (playerGoesRight) {
-            game.microMacroGameController.goRight(delta);
+            controller.goRight(delta);
         } else if (playerGoesUp) {
-            game.microMacroGameController.goUp(delta);
+            controller.goUp(delta);
         } else if (playerGoesDown) {
-            game.microMacroGameController.goDown(delta);
+            controller.goDown(delta);
         }
 
         if (Gdx.input.justTouched()) {
-            game.microMacroGameController.handleUserClick(fixedCamera);
+            controller.handleUserClick(fixedCamera);
         }
     }
 
     @Override
     public void show() {
-        game.microMacroGameController.playSpaceshipAmbienceMusic();
-        game.microMacroGameController.playWelcomeMessage();
+        controller.playSpaceshipAmbienceMusic();
+        controller.playWelcomeMessage();
     }
 
     @Override

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Rectangle;
-import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
+import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroAssets;
 
 import java.util.ArrayList;
 
@@ -23,10 +23,10 @@ public class Ufo {
     public long lastShootTime;
     public final int shootDelay;
 
-    public Ufo() {
+    public Ufo(MicroMacroAssets assets) {
         bullets = new ArrayList<>();
 
-        texture = MicroMacroAssets.getInstance().atlas.findRegion("ufo");
+        texture = assets.atlas.findRegion("ufo");
 
         frame = new Rectangle(
                 (Gdx.graphics.getWidth() - texture.getRegionWidth()) / 2f,
