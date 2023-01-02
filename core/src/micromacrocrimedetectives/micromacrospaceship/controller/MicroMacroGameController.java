@@ -171,7 +171,7 @@ public class MicroMacroGameController {
 
         // draw the current case
         batch.draw(
-                model.openedPhone.caseTexture,
+                model.currentCase.currentStep.mobileImage,
                 model.openedPhone.frame.x,
                 model.openedPhone.frame.y
         );
@@ -252,7 +252,15 @@ public class MicroMacroGameController {
                 model.cameraPosition.x,
                 model.cameraPosition.y
         )) {
-            System.out.println("FOUND!!!");
+            model.currentCase.moveToNextStep();
         }
+    }
+
+    public void activateTurboDrive() {
+        model.bongoBob.velocity = model.bongoBob.turboVelocity;
+    }
+
+    public void deactivateTurboDrive() {
+        model.bongoBob.velocity = model.bongoBob.defaultVelocity;
     }
 }

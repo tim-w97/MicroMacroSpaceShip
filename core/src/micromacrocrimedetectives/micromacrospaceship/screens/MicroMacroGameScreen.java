@@ -68,6 +68,7 @@ public class MicroMacroGameScreen implements Screen {
         boolean playerGoesRight = Gdx.input.isKeyPressed(Input.Keys.RIGHT);
         boolean playerGoesUp = Gdx.input.isKeyPressed(Input.Keys.UP);
         boolean playerGoesDown = Gdx.input.isKeyPressed(Input.Keys.DOWN);
+        boolean playerUsesTurbo = Gdx.input.isKeyPressed(Input.Keys.SPACE);
 
         if (playerGoesLeft || playerGoesRight || playerGoesUp || playerGoesDown) {
             controller.playRobotSound();
@@ -92,6 +93,12 @@ public class MicroMacroGameScreen implements Screen {
             controller.goUp(delta);
         } else if (playerGoesDown) {
             controller.goDown(delta);
+        }
+
+        if (playerUsesTurbo) {
+            controller.activateTurboDrive();
+        } else {
+            controller.deactivateTurboDrive();
         }
 
         if (Gdx.input.justTouched()) {

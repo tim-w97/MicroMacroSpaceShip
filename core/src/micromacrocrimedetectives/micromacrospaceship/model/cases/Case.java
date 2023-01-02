@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Case {
-    List<Step> steps;
+    private final List<Step> steps;
     public Step currentStep;
 
     public Case() {
@@ -17,5 +17,18 @@ public class Case {
         }
 
         steps.add(step);
+    }
+
+    public boolean moveToNextStep() {
+        int index = steps.indexOf(currentStep);
+
+        index++;
+
+        if (index == steps.size()) {
+            return false;
+        }
+
+        currentStep = steps.get(index);
+        return true;
     }
 }

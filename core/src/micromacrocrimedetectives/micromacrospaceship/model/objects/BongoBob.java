@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BongoBob {
+    public final float defaultVelocity = 300;
+    public final float turboVelocity = 1200;
+
     public Rectangle frame;
 
     public float ringStateTime;
@@ -62,7 +65,7 @@ public class BongoBob {
                 misusedTextureRegion.getRegionHeight()
         );
 
-        velocity = 300;
+        velocity = defaultVelocity;
         direction = Direction.DOWN;
 
         robotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/robot sounds.mp3"));
