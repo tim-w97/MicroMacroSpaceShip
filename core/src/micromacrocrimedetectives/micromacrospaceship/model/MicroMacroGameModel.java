@@ -2,7 +2,6 @@ package micromacrocrimedetectives.micromacrospaceship.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -11,8 +10,8 @@ import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 import micromacrocrimedetectives.micromacrospaceship.model.cases.Case;
 import micromacrocrimedetectives.micromacrospaceship.model.cases.Step;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.BongoBob;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.MiniMap;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.ClosedPhone;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.MiniMap;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.OpenedPhone;
 
 import java.util.ArrayList;
@@ -36,8 +35,6 @@ public class MicroMacroGameModel {
 
     public Music spaceshipAmbienceMusic;
 
-    public Sound welcomeMessage;
-    public Sound fernandoCase;
     public boolean phoneIsClosed;
 
     // TODO: Dispose cases with sounds etc.
@@ -65,9 +62,6 @@ public class MicroMacroGameModel {
 
         spaceshipAmbienceMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/spaceship ambience.mp3"));
         spaceshipAmbienceMusic.setVolume(0.3f);
-
-        welcomeMessage = Gdx.audio.newSound(Gdx.files.internal("sounds/welcome.mp3"));
-        fernandoCase = Gdx.audio.newSound(Gdx.files.internal("sounds/cases/fernando.mp3"));
 
         phoneIsClosed = true;
 
@@ -114,7 +108,5 @@ public class MicroMacroGameModel {
         miniMap.dispose();
         map.dispose();
         spaceshipAmbienceMusic.dispose();
-        welcomeMessage.dispose();
-        fernandoCase.dispose();
     }
 }

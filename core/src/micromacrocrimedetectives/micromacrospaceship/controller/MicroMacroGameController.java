@@ -246,7 +246,6 @@ public class MicroMacroGameController {
 
         if (model.phoneIsClosed && model.closedPhone.frame.contains(cursorPosition)) {
             model.foundHintLabelIsVisible = false;
-            model.fernandoCase.play();
             model.phoneIsClosed = false;
         } else if (!model.phoneIsClosed && model.openedPhone.frame.contains(cursorPosition)) {
             model.phoneIsClosed = true;
@@ -259,7 +258,14 @@ public class MicroMacroGameController {
                 model.cameraPosition.y
         )) {
             model.foundHintLabelIsVisible = true;
-            model.currentCase.moveToNextStep();
+            model.game.assets.foundHintSound.play();
+
+            boolean allStepsSolved = model.currentCase.moveToNextStep();
+
+            if(allStepsSolved) {
+                model.game.assets.caseSolvedSound.play();
+            }
+
             setMiniMapHintPosition();
         }
     }
@@ -295,7 +301,7 @@ public class MicroMacroGameController {
         model.spaceshipAmbienceMusic.setLooping(true);
         model.spaceshipAmbienceMusic.play();
 
-        model.welcomeMessage.play();
+        model.game.assets.welcomeSound.play();
     }
 
     public void drawFoundHintLabel(SpriteBatch batch) {

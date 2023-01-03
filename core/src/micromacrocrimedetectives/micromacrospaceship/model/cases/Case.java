@@ -25,10 +25,10 @@ public class Case {
         index++;
 
         if (index == steps.size()) {
-            return false;
+            return true;
         }
 
         currentStep = steps.get(index);
-        return true;
+        return false;
     }
 }
