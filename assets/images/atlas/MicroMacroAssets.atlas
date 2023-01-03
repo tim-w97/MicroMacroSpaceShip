@@ -1,53 +1,53 @@
 Spritesheet.png
-size: 955, 786
+size: 992, 786
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 BongoBob/Body/back
   rotate: false
-  xy: 120, 120
+  xy: 184, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Body/front
   rotate: false
-  xy: 234, 120
+  xy: 298, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Body/side
   rotate: false
-  xy: 348, 120
+  xy: 412, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Face/cool
   rotate: false
-  xy: 462, 120
+  xy: 526, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Face/crazy
   rotate: false
-  xy: 576, 120
+  xy: 640, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Face/sad
   rotate: false
-  xy: 690, 120
+  xy: 754, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
   index: -1
 BongoBob/Face/surprised
   rotate: false
-  xy: 804, 120
+  xy: 868, 120
   size: 114, 153
   orig: 114, 153
   offset: 0, 0
@@ -152,14 +152,14 @@ Cases/fernando
   index: 4
 gear
   rotate: false
-  xy: 96, 0
+  xy: 256, 0
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 MiniMap/background
   rotate: false
-  xy: 672, 0
+  xy: 832, 0
   size: 160, 120
   orig: 160, 120
   offset: 0, 0
@@ -171,30 +171,58 @@ MiniMap/bongoBob
   orig: 32, 32
   offset: 0, 0
   index: -1
+MiniMap/Hint/hint
+  rotate: false
+  xy: 96, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 1
+MiniMap/Hint/hint
+  rotate: false
+  xy: 136, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 2
+MiniMap/Hint/hint
+  rotate: false
+  xy: 176, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 3
+MiniMap/Hint/hint
+  rotate: false
+  xy: 216, 0
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 4
 OpponentUfo/oneLife
   rotate: false
-  xy: 160, 0
+  xy: 320, 0
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
 OpponentUfo/threeLives
   rotate: false
-  xy: 288, 0
+  xy: 448, 0
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
 OpponentUfo/twoLives
   rotate: false
-  xy: 416, 0
+  xy: 576, 0
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
 Phone/closed
   rotate: false
-  xy: 832, 0
+  xy: 0, 120
   size: 64, 120
   orig: 64, 120
   offset: 0, 0
@@ -208,14 +236,14 @@ Phone/opened
   index: -1
 pin
   rotate: false
-  xy: 0, 120
+  xy: 64, 120
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 ufo
   rotate: false
-  xy: 544, 0
+  xy: 704, 0
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
