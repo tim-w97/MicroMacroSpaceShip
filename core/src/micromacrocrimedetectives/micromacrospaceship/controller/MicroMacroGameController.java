@@ -245,6 +245,7 @@ public class MicroMacroGameController {
         Vector2 cursorPosition = getUnprojectedCursorPosition(camera);
 
         if (model.phoneIsClosed && model.closedPhone.frame.contains(cursorPosition)) {
+            model.foundHintLabelIsVisible = false;
             model.fernandoCase.play();
             model.phoneIsClosed = false;
         } else if (!model.phoneIsClosed && model.openedPhone.frame.contains(cursorPosition)) {
@@ -257,6 +258,7 @@ public class MicroMacroGameController {
                 model.cameraPosition.x,
                 model.cameraPosition.y
         )) {
+            model.foundHintLabelIsVisible = true;
             model.currentCase.moveToNextStep();
             setMiniMapHintPosition();
         }
@@ -294,5 +296,11 @@ public class MicroMacroGameController {
         model.spaceshipAmbienceMusic.play();
 
         model.welcomeMessage.play();
+    }
+
+    public void drawFoundHintLabel(SpriteBatch batch) {
+        if (model.foundHintLabelIsVisible) {
+            model.foundHintLabel.draw(batch, 1f);
+        }
     }
 }

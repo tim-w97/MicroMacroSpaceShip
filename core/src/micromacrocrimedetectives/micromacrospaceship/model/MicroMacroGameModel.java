@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 import micromacrocrimedetectives.micromacrospaceship.model.cases.Case;
 import micromacrocrimedetectives.micromacrospaceship.model.cases.Step;
@@ -43,6 +44,9 @@ public class MicroMacroGameModel {
     public List<Case> cases;
     public Case currentCase;
 
+    public Label foundHintLabel;
+    public boolean foundHintLabelIsVisible;
+
     public MicroMacroGameModel(MicroMacroGame game) {
         this.game = game;
 
@@ -68,8 +72,12 @@ public class MicroMacroGameModel {
         phoneIsClosed = true;
 
         initCases();
-
         currentCase = cases.get(0);
+
+        foundHintLabel = new Label("Du hast den Ort gefunden!", game.assets.skin);
+        foundHintLabel.setFontScale(2f);
+        foundHintLabel.setPosition(20, 20);
+        foundHintLabelIsVisible = false;
     }
 
     private void initCases() {
