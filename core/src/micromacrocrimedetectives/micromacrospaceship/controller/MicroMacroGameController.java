@@ -136,20 +136,24 @@ public class MicroMacroGameController {
     public void playerMoves(float delta) {
         model.bongoBob.ringAnimationStateTime += delta;
 
-        refreshMiniMap();
+        refreshMiniMapBongoBob();
     }
 
-    private void refreshMiniMap() {
-        model.miniMap.bongoBobPosition.x = model.miniMap.margin +
-                model.cameraPosition.x / model.map.getWidth()
-                        * (model.miniMap.background.getRegionWidth() - model.miniMap.bongoBob.getRegionWidth());
+    private void refreshMiniMapBongoBob() {
+        model.miniMap.bongoBobPosition.x = model.miniMap.margin
+                + model.cameraPosition.x
+                / model.map.getWidth()
+                * (model.miniMap.background.getRegionWidth()
+                - model.miniMap.bongoBob.getRegionWidth());
 
 
-        model.miniMap.bongoBobPosition.y = Gdx.graphics.getHeight() - model.miniMap.margin
-                - model.miniMap.background.getRegionHeight() +
-                model.cameraPosition.y
-                        / model.map.getHeight() * (model.miniMap.background.getRegionHeight()
-                        - model.miniMap.bongoBob.getRegionHeight());
+        model.miniMap.bongoBobPosition.y = Gdx.graphics.getHeight()
+                - model.miniMap.margin
+                - model.miniMap.background.getRegionHeight()
+                + model.cameraPosition.y
+                / model.map.getHeight()
+                * (model.miniMap.background.getRegionHeight()
+                - model.miniMap.bongoBob.getRegionHeight());
     }
 
     public void drawPhone(SpriteBatch batch) {
@@ -189,8 +193,8 @@ public class MicroMacroGameController {
 
         batch.draw(
                 hint,
-                20,
-                Gdx.graphics.getHeight() - hint.getRegionHeight() - 20
+                model.miniMap.hintPosition.x,
+                model.miniMap.hintPosition.y
         );
 
         model.miniMap.hintAnimationStateTime += delta;
@@ -200,11 +204,6 @@ public class MicroMacroGameController {
                 model.miniMap.bongoBobPosition.x,
                 model.miniMap.bongoBobPosition.y
         );
-    }
-
-    public void playSpaceshipAmbienceMusic() {
-        model.spaceshipAmbienceMusic.setLooping(true);
-        model.spaceshipAmbienceMusic.play();
     }
 
     public void playRobotSound() {
@@ -253,17 +252,31 @@ public class MicroMacroGameController {
         }
     }
 
-    public void playWelcomeMessage() {
-        model.welcomeMessage.play();
-    }
-
     public void checkForCaseStepAreaCollision() {
         if (model.currentCase.currentStep.area.contains(
                 model.cameraPosition.x,
                 model.cameraPosition.y
         )) {
             model.currentCase.moveToNextStep();
+            setMiniMapHintPosition();
         }
+    }
+
+    private void setMiniMapHintPosition() {
+        model.miniMap.hintPosition.x = model.miniMap.margin
+                + model.currentCase.currentStep.area.x
+                / model.map.getWidth()
+                * (model.miniMap.background.getRegionWidth()
+                - model.miniMap.hintSize);
+
+
+        model.miniMap.hintPosition.y = Gdx.graphics.getHeight()
+                - model.miniMap.margin
+                - model.miniMap.background.getRegionHeight()
+                + model.currentCase.currentStep.area.y
+                / model.map.getHeight()
+                * (model.miniMap.background.getRegionHeight()
+                - model.miniMap.hintSize);
     }
 
     public void activateTurboDrive() {
@@ -272,5 +285,14 @@ public class MicroMacroGameController {
 
     public void deactivateTurboDrive() {
         model.bongoBob.velocity = model.bongoBob.defaultVelocity;
+    }
+
+    public void initMicroMacroGame() {
+        setMiniMapHintPosition();
+
+        model.spaceshipAmbienceMusic.setLooping(true);
+        model.spaceshipAmbienceMusic.play();
+
+        model.welcomeMessage.play();
     }
 }

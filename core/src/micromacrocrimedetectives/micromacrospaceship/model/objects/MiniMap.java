@@ -8,11 +8,14 @@ import com.badlogic.gdx.math.Vector2;
 import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroAssets;
 
 public class MiniMap {
+    public final float hintSize = 40;
+
     public TextureRegion background;
     public TextureRegion bongoBob;
 
     public Vector2 position;
     public Vector2 bongoBobPosition;
+    public Vector2 hintPosition;
 
     public float margin;
 
@@ -37,12 +40,14 @@ public class MiniMap {
                 Gdx.graphics.getHeight() - 10 - background.getRegionHeight()
         );
 
+        hintPosition = new Vector2();
+
         float hintAnimationFrameDuration = 0.5f;
 
         hintAnimation = new Animation<TextureRegion>(
                 hintAnimationFrameDuration,
                 assets.atlas.findRegions("MiniMap/Hint/hint"),
-                Animation.PlayMode.LOOP_PINGPONG
+                Animation.PlayMode.LOOP_REVERSED
         );
 
         hintAnimationStateTime = 0;

@@ -108,8 +108,7 @@ public class MicroMacroGameScreen implements Screen {
 
     @Override
     public void show() {
-        controller.playSpaceshipAmbienceMusic();
-        controller.playWelcomeMessage();
+        controller.initMicroMacroGame();
     }
 
     @Override
