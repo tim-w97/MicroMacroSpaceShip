@@ -1,6 +1,7 @@
 package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -14,6 +15,9 @@ public class MiniMap {
     public Vector2 bongoBobPosition;
 
     public float margin;
+
+    public Animation<TextureRegion> hintAnimation;
+    public float hintAnimationStateTime;
 
     public MiniMap(MicroMacroAssets assets) {
         TextureAtlas atlas = assets.atlas;
@@ -32,6 +36,16 @@ public class MiniMap {
                 10,
                 Gdx.graphics.getHeight() - 10 - background.getRegionHeight()
         );
+
+        float hintAnimationFrameDuration = 0.5f;
+
+        hintAnimation = new Animation<TextureRegion>(
+                hintAnimationFrameDuration,
+                assets.atlas.findRegions("MiniMap/Hint/hint"),
+                Animation.PlayMode.LOOP_PINGPONG
+        );
+
+        hintAnimationStateTime = 0;
     }
 
     public void dispose() {

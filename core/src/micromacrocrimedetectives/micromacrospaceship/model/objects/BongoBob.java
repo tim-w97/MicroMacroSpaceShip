@@ -17,11 +17,11 @@ public class BongoBob {
 
     public Rectangle frame;
 
-    public float ringStateTime;
     public Map<Direction, TextureRegion> bodyTextures;
     public TextureRegion face;
 
     public Animation<TextureRegion> ringAnimation;
+    public float ringAnimationStateTime;
 
     public Direction direction;
     public float velocity;
@@ -30,7 +30,7 @@ public class BongoBob {
     public boolean robotMakesSound;
 
     public BongoBob(MicroMacroAssets assets) {
-        ringStateTime = 0;
+        ringAnimationStateTime = 0;
 
         float ringFrameDuration = 0.03f;
 

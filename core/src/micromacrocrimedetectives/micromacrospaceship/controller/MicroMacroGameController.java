@@ -109,7 +109,7 @@ public class MicroMacroGameController {
     }
 
     public void drawBongoBob(SpriteBatch batch) {
-        TextureRegion ring = model.bongoBob.ringAnimation.getKeyFrame(model.bongoBob.ringStateTime);
+        TextureRegion ring = model.bongoBob.ringAnimation.getKeyFrame(model.bongoBob.ringAnimationStateTime);
 
         batch.draw(
                 ring,
@@ -134,7 +134,7 @@ public class MicroMacroGameController {
     }
 
     public void playerMoves(float delta) {
-        model.bongoBob.ringStateTime += delta;
+        model.bongoBob.ringAnimationStateTime += delta;
 
         refreshMiniMap();
     }
@@ -178,12 +178,22 @@ public class MicroMacroGameController {
 
     }
 
-    public void drawMiniMap(SpriteBatch batch) {
+    public void drawMiniMap(SpriteBatch batch, float delta) {
         batch.draw(
                 model.miniMap.background,
                 model.miniMap.position.x,
                 model.miniMap.position.y
         );
+
+        TextureRegion hint = model.miniMap.hintAnimation.getKeyFrame(model.miniMap.hintAnimationStateTime);
+
+        batch.draw(
+                hint,
+                20,
+                Gdx.graphics.getHeight() - hint.getRegionHeight() - 20
+        );
+
+        model.miniMap.hintAnimationStateTime += delta;
 
         batch.draw(
                 model.miniMap.bongoBob,
