@@ -134,5 +134,6 @@ public class MicroMacroGameScreen implements Screen {
 
     @Override
     public void dispose() {
+        controller.dispose();
     }
 }

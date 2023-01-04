@@ -39,7 +39,7 @@ public class SpaceshipGameModel implements Disposable {
         spaceMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/space music.mp3"));
         spaceMusic.setVolume(0.1f);
 
-        elapsedTime = 1000 * 4;
+        elapsedTime = 1000 * 61;
 
         elapsedTimeLabel = new Label(null, game.skin);
         elapsedTimeLabel.setWidth(Gdx.graphics.getWidth());
@@ -53,7 +53,7 @@ public class SpaceshipGameModel implements Disposable {
         ufo.dispose();
         spaceMusic.dispose();
 
-        for (OpponentUfo opponentUfo : opponentUfos) {
+        for (Disposable opponentUfo : opponentUfos) {
             opponentUfo.dispose();
         }
     }

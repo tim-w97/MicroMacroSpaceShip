@@ -1,6 +1,7 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.model.MenuModel;
 import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
+import micromacrocrimedetectives.micromacrospaceship.screens.MicroMacroGameScreen;
 import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
 
 public class MenuController implements Disposable {
@@ -29,7 +31,12 @@ public class MenuController implements Disposable {
         model.startGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                menuScreen.game.setScreen(new SpaceshipGameScreen(menuScreen.game));
+                if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                    menuScreen.game.setScreen(new MicroMacroGameScreen(menuScreen.game));
+                } else {
+                    menuScreen.game.setScreen(new SpaceshipGameScreen(menuScreen.game));
+                }
+
                 menuScreen.dispose();
             }
         });

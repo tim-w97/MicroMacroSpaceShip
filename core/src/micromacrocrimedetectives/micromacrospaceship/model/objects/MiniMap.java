@@ -36,6 +36,7 @@ public class MiniMap implements Disposable {
 
     @Override
     public void dispose() {
+        background.dispose();
         hint.dispose();
         bongoBob.dispose();
     }

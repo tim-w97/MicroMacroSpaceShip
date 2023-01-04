@@ -4,10 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Disposable;
 
 import java.util.ArrayList;
 
-public class Ufo {
+public class Ufo implements Disposable {
     public final Texture texture = new Texture("images/spaceship-game/ufo.png");
 
     public final ArrayList<FriendlyBullet> bullets;
@@ -40,12 +41,14 @@ public class Ufo {
         shootDelay = 400;
     }
 
+    @Override
     public void dispose() {
+        texture.dispose();
         crumbleSound.dispose();
         laserSound.dispose();
 
-        for (FriendlyBullet friendlyBullet : bullets) {
-            friendlyBullet.dispose();
+        for (Disposable bullet : bullets) {
+            bullet.dispose();
         }
     }
 }

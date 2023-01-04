@@ -44,14 +44,11 @@ public class BongoBob implements Disposable {
         bodyTextures.put(Direction.LEFT, new Texture("images/micro-macro-game/bongo-bob/body/left-side.png"));
         bodyTextures.put(Direction.RIGHT, new Texture("images/micro-macro-game/bongo-bob/body/right-side.png"));
 
-        // TODO: This is shit!!, maybe add the flipped side as an extra asset
-        Texture misusedTextureRegion = bodyTextures.get(Direction.DOWN);
-
         frame = new Rectangle(
-                (Gdx.graphics.getWidth() - misusedTextureRegion.getWidth()) / 2f,
-                (Gdx.graphics.getHeight() - misusedTextureRegion.getHeight()) / 2f,
-                misusedTextureRegion.getWidth(),
-                misusedTextureRegion.getHeight()
+                (Gdx.graphics.getWidth() - face.getWidth()) / 2f,
+                (Gdx.graphics.getHeight() - face.getHeight()) / 2f,
+                face.getWidth(),
+                face.getHeight()
         );
 
         velocity = defaultVelocity;
@@ -69,7 +66,6 @@ public class BongoBob implements Disposable {
 
         Array<Texture> frames = new Array<>();
 
-        // TODO: don't forget to dispose!
         for (int i = 1; i <= 8; i++) {
             frames.add(new Texture("images/micro-macro-game/bongo-bob/ring/ring_" + i + ".png"));
         }
@@ -85,5 +81,13 @@ public class BongoBob implements Disposable {
     public void dispose() {
         robotSound.dispose();
         face.dispose();
+
+        for (Texture ring : ringAnimation.getKeyFrames()) {
+            ring.dispose();
+        }
+
+        for (Texture bodyTexture : bodyTextures.values()) {
+            bodyTexture.dispose();
+        }
     }
 }

@@ -7,10 +7,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.Direction;
 import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroGameModel;
 
-public class MicroMacroGameController {
+public class MicroMacroGameController implements Disposable {
     private final MicroMacroGameModel model;
 
     public MicroMacroGameController(MicroMacroGameModel model) {
@@ -253,6 +254,7 @@ public class MicroMacroGameController {
                 model.cameraPosition.x,
                 model.cameraPosition.y
         )) {
+            model.phoneIsClosed = true;
             model.foundHintLabelIsVisible = true;
             model.foundHintSound.play();
 
@@ -305,5 +307,10 @@ public class MicroMacroGameController {
         if (model.foundHintLabelIsVisible) {
             model.foundHintLabel.draw(batch, 1f);
         }
+    }
+
+    @Override
+    public void dispose() {
+        model.dispose();
     }
 }

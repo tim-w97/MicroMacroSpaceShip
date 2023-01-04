@@ -2,6 +2,7 @@ package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.*;
@@ -11,7 +12,7 @@ import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpaceshipGameController {
+public class SpaceshipGameController implements Disposable {
     private final SpaceshipGameModel model;
 
     public SpaceshipGameController(SpaceshipGameModel model) {
@@ -74,7 +75,11 @@ public class SpaceshipGameController {
                 offScreenFriendlyBullets.add(friendlyBullet);
             }
         }
-        // TODO: also dispose!
+
+        for (Disposable bullet : offScreenFriendlyBullets) {
+            bullet.dispose();
+        }
+
         model.ufo.bullets.removeAll(offScreenFriendlyBullets);
     }
 
@@ -99,10 +104,6 @@ public class SpaceshipGameController {
         }
         model.ufo.bullets.removeAll(friendlyBulletsToRemove);
         model.opponentUfos.removeAll(deadOpponentUfos);
-    }
-
-    public void dispose() {
-        model.dispose();
     }
 
     public void playSpaceMusic() {
@@ -165,6 +166,10 @@ public class SpaceshipGameController {
             if (opponentUfo.frame.y < -opponentUfo.frame.height) {
                 offScreenUfos.add(opponentUfo);
             }
+        }
+
+        for (Disposable ufo : offScreenUfos) {
+            ufo.dispose();
         }
 
         model.opponentUfos.removeAll(offScreenUfos);
@@ -231,7 +236,15 @@ public class SpaceshipGameController {
                 }
             }
 
+            for (Disposable bullet : offScreenBullets) {
+                bullet.dispose();
+            }
+
             opponentUfo.bullets.removeAll(offScreenBullets);
         }
+    }
+
+    public void dispose() {
+        model.dispose();
     }
 }

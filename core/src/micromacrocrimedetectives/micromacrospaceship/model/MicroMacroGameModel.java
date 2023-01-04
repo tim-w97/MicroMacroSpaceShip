@@ -42,7 +42,6 @@ public class MicroMacroGameModel implements Disposable {
 
     public boolean phoneIsClosed;
 
-    // TODO: Dispose cases with sounds etc.
     public List<Case> cases;
     public Case currentCase;
 
@@ -113,8 +112,6 @@ public class MicroMacroGameModel implements Disposable {
 
     @Override
     public void dispose() {
-        // TODO: Check if everything get's disposed!
-        // TODO: every model shoud dispose himself, not on controller side!
         bongoBob.dispose();
         openedPhone.dispose();
         closedPhone.dispose();

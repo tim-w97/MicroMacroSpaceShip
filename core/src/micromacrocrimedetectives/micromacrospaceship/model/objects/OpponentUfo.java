@@ -53,6 +53,8 @@ public class OpponentUfo implements Disposable {
         oneLifeTexture.dispose();
         currentTexture.dispose();
 
-        // TODO: also dispose remaining bullets!
+        for (Disposable bullet : bullets) {
+            bullet.dispose();
+        }
     }
 }
