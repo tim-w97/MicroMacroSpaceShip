@@ -1,22 +1,19 @@
 package micromacrocrimedetectives.micromacrospaceship.model.cases;
 
-import java.util.ArrayList;
+import com.badlogic.gdx.graphics.Texture;
+
 import java.util.List;
 
 public class Case {
     private final List<Step> steps;
     public Step currentStep;
+    public Texture cover;
 
-    public Case() {
-        steps = new ArrayList<>();
-    }
+    public Case(List<Step> steps, Texture cover) {
+        this.steps = steps;
+        this.cover = cover;
 
-    public void addStep(Step step) {
-        if (currentStep == null) {
-            currentStep = step;
-        }
-
-        steps.add(step);
+        currentStep = steps.get(0);
     }
 
     public boolean moveToNextStep() {

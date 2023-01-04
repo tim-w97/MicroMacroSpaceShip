@@ -85,27 +85,27 @@ public class MicroMacroGameModel implements Disposable {
     private void initCases() {
         cases = new ArrayList<>();
 
-        Case cylinderCase = new Case();
-
-        cylinderCase.addStep(new Step(
-                new Texture("images/micro-macro-game/cases/cylinder/step_1.png"),
-                new Vector2(10271, 6075)
-        ));
-
-        cylinderCase.addStep(new Step(
-                new Texture("images/micro-macro-game/cases/cylinder/step_2.png"),
-                new Vector2(12004, 7245)
-        ));
-
-        cylinderCase.addStep(new Step(
-                new Texture("images/micro-macro-game/cases/cylinder/step_3.png"),
-                new Vector2(11353, 6778)
-        ));
-
-        cylinderCase.addStep(new Step(
-                new Texture("images/micro-macro-game/cases/cylinder/step_4.png"),
-                new Vector2(10389, 7303)
-        ));
+        Case cylinderCase = new Case(
+                List.of(
+                        new Step(
+                                new Texture("images/micro-macro-game/cases/cylinder/step_1.png"),
+                                new Vector2(10271, 6075)
+                        ),
+                        new Step(
+                                new Texture("images/micro-macro-game/cases/cylinder/step_2.png"),
+                                new Vector2(12004, 7245)
+                        ),
+                        new Step(
+                                new Texture("images/micro-macro-game/cases/cylinder/step_3.png"),
+                                new Vector2(11353, 6778)
+                        ),
+                        new Step(
+                                new Texture("images/micro-macro-game/cases/cylinder/step_4.png"),
+                                new Vector2(10389, 7303)
+                        )
+                ),
+                new Texture("images/micro-macro-game/cases/cylinder/cover.png")
+        );
 
         cases.add(cylinderCase);
     }
