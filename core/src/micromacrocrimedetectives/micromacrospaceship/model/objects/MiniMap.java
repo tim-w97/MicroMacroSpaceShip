@@ -1,17 +1,13 @@
 package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroAssets;
+import com.badlogic.gdx.utils.Disposable;
 
-public class MiniMap {
-    public final float hintSize = 40;
-
-    public TextureRegion background;
-    public TextureRegion bongoBob;
+public class MiniMap implements Disposable {
+    public Texture background;
+    public Texture bongoBob;
 
     public Vector2 position;
     public Vector2 bongoBobPosition;
@@ -19,40 +15,28 @@ public class MiniMap {
 
     public float margin;
 
-    public Animation<TextureRegion> hintAnimation;
-    public float hintAnimationStateTime;
+    public Texture hint;
 
-    public MiniMap(MicroMacroAssets assets) {
-        TextureAtlas atlas = assets.atlas;
-
+    public MiniMap() {
         margin = 10;
 
-        background = atlas.findRegion("MiniMap/background");
-        bongoBob = atlas.findRegion("MiniMap/bongoBob");
+        background = new Texture("images/micro-macro-game/mini-map/background.png");
+        bongoBob = new Texture("images/micro-macro-game/mini-map/bongo-bob.png");
 
         position = new Vector2(
                 margin,
-                Gdx.graphics.getHeight() - background.getRegionHeight() - margin
+                Gdx.graphics.getHeight() - background.getHeight() - margin
         );
 
-        bongoBobPosition = new Vector2(
-                10,
-                Gdx.graphics.getHeight() - 10 - background.getRegionHeight()
-        );
+        bongoBobPosition = new Vector2();
 
         hintPosition = new Vector2();
-
-        float hintAnimationFrameDuration = 0.5f;
-
-        hintAnimation = new Animation<TextureRegion>(
-                hintAnimationFrameDuration,
-                assets.atlas.findRegions("MiniMap/Hint/hint"),
-                Animation.PlayMode.LOOP_REVERSED
-        );
-
-        hintAnimationStateTime = 0;
+        hint = new Texture("images/micro-macro-game/mini-map/hint.png");
     }
 
+    @Override
     public void dispose() {
+        hint.dispose();
+        bongoBob.dispose();
     }
 }

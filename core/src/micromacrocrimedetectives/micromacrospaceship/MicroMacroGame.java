@@ -1,26 +1,25 @@
 package micromacrocrimedetectives.micromacrospaceship;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroAssets;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
 
 public class MicroMacroGame extends Game {
     public SpriteBatch batch;
     public ShapeRenderer shapeRenderer;
     public BitmapFont font;
-
-    public MicroMacroAssets assets;
+    public Skin skin;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
-
-        assets = new MicroMacroAssets();
+        skin = new Skin(Gdx.files.internal("skin/neon-ui.json"));
 
         this.setScreen(new MenuScreen(this));
     }
@@ -35,6 +34,6 @@ public class MicroMacroGame extends Game {
         batch.dispose();
         shapeRenderer.dispose();
         font.dispose();
-        assets.dispose();
+        skin.dispose();
     }
 }

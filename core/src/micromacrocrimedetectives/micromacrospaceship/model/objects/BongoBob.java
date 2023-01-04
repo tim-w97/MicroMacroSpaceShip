@@ -2,25 +2,26 @@ package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.Direction;
-import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroAssets;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class BongoBob {
+public class BongoBob implements Disposable {
     public final float defaultVelocity = 300;
     public final float turboVelocity = 1200;
 
     public Rectangle frame;
 
-    public Map<Direction, TextureRegion> bodyTextures;
-    public TextureRegion face;
+    public Map<Direction, Texture> bodyTextures;
+    public Texture face;
 
-    public Animation<TextureRegion> ringAnimation;
+    public Animation<Texture> ringAnimation;
     public float ringAnimationStateTime;
 
     public Direction direction;
@@ -29,40 +30,28 @@ public class BongoBob {
     public Sound robotSound;
     public boolean robotMakesSound;
 
-    public BongoBob(MicroMacroAssets assets) {
+    public BongoBob() {
         ringAnimationStateTime = 0;
 
-        float ringFrameDuration = 0.03f;
+        initRingAnimation();
 
-        ringAnimation = new Animation<TextureRegion>(
-                ringFrameDuration,
-                assets.atlas.findRegions("BongoBob/Ring/ring"),
-                Animation.PlayMode.LOOP
-        );
-
-        face = assets.atlas.findRegion("BongoBob/Face/cool");
+        face = new Texture("images/micro-macro-game/bongo-bob/face/cool.png");
 
         bodyTextures = new HashMap<>();
 
-        bodyTextures.put(Direction.UP, assets.atlas.findRegion("BongoBob/Body/back"));
-        bodyTextures.put(Direction.DOWN, assets.atlas.findRegion("BongoBob/Body/front"));
-        bodyTextures.put(Direction.LEFT, assets.atlas.findRegion("BongoBob/Body/side"));
+        bodyTextures.put(Direction.UP, new Texture("images/micro-macro-game/bongo-bob/body/back.png"));
+        bodyTextures.put(Direction.DOWN, new Texture("images/micro-macro-game/bongo-bob/body/front.png"));
+        bodyTextures.put(Direction.LEFT, new Texture("images/micro-macro-game/bongo-bob/body/left-side.png"));
+        bodyTextures.put(Direction.RIGHT, new Texture("images/micro-macro-game/bongo-bob/body/right-side.png"));
 
-        TextureRegion flippedSide = new TextureRegion(
-                assets.atlas.findRegion("BongoBob/Body/side")
-        );
-
-        flippedSide.flip(true, false);
-
-        bodyTextures.put(Direction.RIGHT, flippedSide);
-
-        TextureRegion misusedTextureRegion = bodyTextures.get(Direction.DOWN);
+        // TODO: This is shit!!, maybe add the flipped side as an extra asset
+        Texture misusedTextureRegion = bodyTextures.get(Direction.DOWN);
 
         frame = new Rectangle(
-                (Gdx.graphics.getWidth() - misusedTextureRegion.getRegionWidth()) / 2f,
-                (Gdx.graphics.getHeight() - misusedTextureRegion.getRegionHeight()) / 2f,
-                misusedTextureRegion.getRegionWidth(),
-                misusedTextureRegion.getRegionHeight()
+                (Gdx.graphics.getWidth() - misusedTextureRegion.getWidth()) / 2f,
+                (Gdx.graphics.getHeight() - misusedTextureRegion.getHeight()) / 2f,
+                misusedTextureRegion.getWidth(),
+                misusedTextureRegion.getHeight()
         );
 
         velocity = defaultVelocity;
@@ -75,7 +64,26 @@ public class BongoBob {
         robotMakesSound = false;
     }
 
+    private void initRingAnimation() {
+        float ringFrameDuration = 0.03f;
+
+        Array<Texture> frames = new Array<>();
+
+        // TODO: don't forget to dispose!
+        for (int i = 1; i <= 8; i++) {
+            frames.add(new Texture("images/micro-macro-game/bongo-bob/ring/ring_" + i + ".png"));
+        }
+
+        ringAnimation = new Animation<>(
+                ringFrameDuration,
+                frames,
+                Animation.PlayMode.LOOP
+        );
+    }
+
+    @Override
     public void dispose() {
         robotSound.dispose();
+        face.dispose();
     }
 }

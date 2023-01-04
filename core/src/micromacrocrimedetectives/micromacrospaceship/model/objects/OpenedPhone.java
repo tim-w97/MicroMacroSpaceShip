@@ -1,28 +1,30 @@
 package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroAssets;
+import com.badlogic.gdx.utils.Disposable;
 
-public class OpenedPhone {
-    public TextureRegion texture;
+public class OpenedPhone implements Disposable {
+    public Texture texture;
     public Rectangle frame;
     public float margin;
 
-    public OpenedPhone(MicroMacroAssets assets) {
+    public OpenedPhone() {
         margin = 10;
 
-        this.texture = assets.atlas.findRegion("Phone/opened");
+        texture = new Texture("images/micro-macro-game/phone/opened.png");
 
         frame = new Rectangle(
-                Gdx.graphics.getWidth() - texture.getRegionWidth() - margin,
+                Gdx.graphics.getWidth() - texture.getWidth() - margin,
                 margin,
-                texture.getRegionWidth(),
-                texture.getRegionHeight()
+                texture.getWidth(),
+                texture.getHeight()
         );
     }
 
+    @Override
     public void dispose() {
+        texture.dispose();
     }
 }

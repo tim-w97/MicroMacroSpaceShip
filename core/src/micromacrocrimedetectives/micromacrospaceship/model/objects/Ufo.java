@@ -2,16 +2,15 @@ package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroAssets;
 
 import java.util.ArrayList;
 
 public class Ufo {
-    public final ArrayList<FriendlyBullet> bullets;
+    public final Texture texture = new Texture("images/spaceship-game/ufo.png");
 
-    public final AtlasRegion texture;
+    public final ArrayList<FriendlyBullet> bullets;
     public final Rectangle frame;
     public final float velocity;
 
@@ -23,16 +22,14 @@ public class Ufo {
     public long lastShootTime;
     public final int shootDelay;
 
-    public Ufo(MicroMacroAssets assets) {
+    public Ufo() {
         bullets = new ArrayList<>();
 
-        texture = assets.atlas.findRegion("ufo");
-
         frame = new Rectangle(
-                (Gdx.graphics.getWidth() - texture.getRegionWidth()) / 2f,
+                (Gdx.graphics.getWidth() - texture.getWidth()) / 2f,
                 bottomMargin,
-                texture.getRegionWidth(),
-                texture.getRegionHeight()
+                texture.getWidth(),
+                texture.getHeight()
         );
 
         velocity = 300;

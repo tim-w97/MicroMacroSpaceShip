@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.model.MenuModel;
 import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
 import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
 
-public class MenuController {
+public class MenuController implements Disposable {
     private final MenuModel model;
 
     public MenuController(MenuModel model) {
@@ -54,15 +55,16 @@ public class MenuController {
         );
     }
 
-    public void dispose() {
-        model.stage.dispose();
-    }
-
     public void drawGear(SpriteBatch batch) {
         batch.draw(
                 model.gearTexture,
-                (Gdx.graphics.getWidth() - model.gearTexture.getRegionWidth()) / 2f,
+                (Gdx.graphics.getWidth() - model.gearTexture.getWidth()) / 2f,
                 20
         );
+    }
+
+    @Override
+    public void dispose() {
+        model.dispose();
     }
 }

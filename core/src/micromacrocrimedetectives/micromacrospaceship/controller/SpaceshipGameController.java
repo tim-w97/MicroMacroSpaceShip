@@ -54,7 +54,7 @@ public class SpaceshipGameController {
         if (TimeUtils.timeSinceMillis(model.ufo.lastShootTime) > model.ufo.shootDelay) {
             model.ufo.laserSound.play();
 
-            FriendlyBullet friendlyBullet = new FriendlyBullet(model.game.assets);
+            FriendlyBullet friendlyBullet = new FriendlyBullet();
 
             friendlyBullet.frame.setX(model.ufo.frame.x + (model.ufo.frame.width - friendlyBullet.frame.width) / 2);
             friendlyBullet.frame.setY(model.ufo.frame.height + Ufo.bottomMargin);
@@ -74,6 +74,7 @@ public class SpaceshipGameController {
                 offScreenFriendlyBullets.add(friendlyBullet);
             }
         }
+        // TODO: also dispose!
         model.ufo.bullets.removeAll(offScreenFriendlyBullets);
     }
 
@@ -126,17 +127,16 @@ public class SpaceshipGameController {
 
     public void drawOpponentUfo(SpriteBatch batch) {
         for (OpponentUfo opponentUfo : model.opponentUfos) {
-
             if (opponentUfo.lives == 3) {
-                opponentUfo.texture = model.game.assets.atlas.findRegion("OpponentUfo/threeLives");
+                opponentUfo.currentTexture = OpponentUfo.theeLivesTexture;
             } else if (opponentUfo.lives == 2) {
-                opponentUfo.texture = model.game.assets.atlas.findRegion("OpponentUfo/twoLives");
+                opponentUfo.currentTexture = OpponentUfo.twoLivesTexture;
             } else {
-                opponentUfo.texture = model.game.assets.atlas.findRegion("OpponentUfo/oneLife");
+                opponentUfo.currentTexture = OpponentUfo.oneLifeTexture;
             }
 
             batch.draw(
-                    opponentUfo.texture,
+                    opponentUfo.currentTexture,
                     opponentUfo.frame.x,
                     opponentUfo.frame.y
             );
@@ -172,7 +172,7 @@ public class SpaceshipGameController {
 
     public void generateOpponentUfos() {
         if (TimeUtils.timeSinceMillis(model.lastOpponentUfoSpawn) > model.opponentUfoSpawnDelay) {
-            OpponentUfo opponentUfo = new OpponentUfo(model.game.assets);
+            OpponentUfo opponentUfo = new OpponentUfo();
             model.opponentUfos.add(opponentUfo);
 
             model.lastOpponentUfoSpawn = TimeUtils.millis();
@@ -207,7 +207,7 @@ public class SpaceshipGameController {
             }
 
             if (TimeUtils.timeSinceMillis(opponentUfo.lastShootTime) > opponentUfo.shootDelay) {
-                AngryBullet newBullet = new AngryBullet(model.game.assets);
+                AngryBullet newBullet = new AngryBullet();
 
                 newBullet.frame.setX(opponentUfo.frame.x + (opponentUfo.frame.width - newBullet.frame.width) / 2);
                 newBullet.frame.setY(opponentUfo.frame.y - newBullet.frame.height);

@@ -3,8 +3,8 @@ package micromacrocrimedetectives.micromacrospaceship.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import micromacrocrimedetectives.micromacrospaceship.Direction;
@@ -109,7 +109,7 @@ public class MicroMacroGameController {
     }
 
     public void drawBongoBob(SpriteBatch batch) {
-        TextureRegion ring = model.bongoBob.ringAnimation.getKeyFrame(model.bongoBob.ringAnimationStateTime);
+        Texture ring = model.bongoBob.ringAnimation.getKeyFrame(model.bongoBob.ringAnimationStateTime);
 
         batch.draw(
                 ring,
@@ -136,24 +136,24 @@ public class MicroMacroGameController {
     public void playerMoves(float delta) {
         model.bongoBob.ringAnimationStateTime += delta;
 
-        refreshMiniMapBongoBob();
+        setMiniMapBongoBobPosition();
     }
 
-    private void refreshMiniMapBongoBob() {
+    private void setMiniMapBongoBobPosition() {
         model.miniMap.bongoBobPosition.x = model.miniMap.margin
                 + model.cameraPosition.x
                 / model.map.getWidth()
-                * (model.miniMap.background.getRegionWidth()
-                - model.miniMap.bongoBob.getRegionWidth());
+                * (model.miniMap.background.getWidth()
+                - model.miniMap.bongoBob.getWidth());
 
 
         model.miniMap.bongoBobPosition.y = Gdx.graphics.getHeight()
                 - model.miniMap.margin
-                - model.miniMap.background.getRegionHeight()
+                - model.miniMap.background.getHeight()
                 + model.cameraPosition.y
                 / model.map.getHeight()
-                * (model.miniMap.background.getRegionHeight()
-                - model.miniMap.bongoBob.getRegionHeight());
+                * (model.miniMap.background.getHeight()
+                - model.miniMap.bongoBob.getHeight());
     }
 
     public void drawPhone(SpriteBatch batch) {
@@ -182,22 +182,18 @@ public class MicroMacroGameController {
 
     }
 
-    public void drawMiniMap(SpriteBatch batch, float delta) {
+    public void drawMiniMap(SpriteBatch batch) {
         batch.draw(
                 model.miniMap.background,
                 model.miniMap.position.x,
                 model.miniMap.position.y
         );
 
-        TextureRegion hint = model.miniMap.hintAnimation.getKeyFrame(model.miniMap.hintAnimationStateTime);
-
         batch.draw(
-                hint,
+                model.miniMap.hint,
                 model.miniMap.hintPosition.x,
                 model.miniMap.hintPosition.y
         );
-
-        model.miniMap.hintAnimationStateTime += delta;
 
         batch.draw(
                 model.miniMap.bongoBob,
@@ -258,12 +254,12 @@ public class MicroMacroGameController {
                 model.cameraPosition.y
         )) {
             model.foundHintLabelIsVisible = true;
-            model.game.assets.foundHintSound.play();
+            model.foundHintSound.play();
 
             boolean allStepsSolved = model.currentCase.moveToNextStep();
 
-            if(allStepsSolved) {
-                model.game.assets.caseSolvedSound.play();
+            if (allStepsSolved) {
+                model.caseSolvedSound.play();
             }
 
             setMiniMapHintPosition();
@@ -274,17 +270,17 @@ public class MicroMacroGameController {
         model.miniMap.hintPosition.x = model.miniMap.margin
                 + model.currentCase.currentStep.area.x
                 / model.map.getWidth()
-                * (model.miniMap.background.getRegionWidth()
-                - model.miniMap.hintSize);
+                * (model.miniMap.background.getWidth()
+                - model.miniMap.hint.getWidth());
 
 
         model.miniMap.hintPosition.y = Gdx.graphics.getHeight()
                 - model.miniMap.margin
-                - model.miniMap.background.getRegionHeight()
+                - model.miniMap.background.getHeight()
                 + model.currentCase.currentStep.area.y
                 / model.map.getHeight()
-                * (model.miniMap.background.getRegionHeight()
-                - model.miniMap.hintSize);
+                * (model.miniMap.background.getHeight()
+                - model.miniMap.hint.getWidth());
     }
 
     public void activateTurboDrive() {
@@ -296,12 +292,13 @@ public class MicroMacroGameController {
     }
 
     public void initMicroMacroGame() {
+        setMiniMapBongoBobPosition();
         setMiniMapHintPosition();
 
         model.spaceshipAmbienceMusic.setLooping(true);
         model.spaceshipAmbienceMusic.play();
 
-        model.game.assets.welcomeSound.play();
+        model.welcomeSound.play();
     }
 
     public void drawFoundHintLabel(SpriteBatch batch) {
