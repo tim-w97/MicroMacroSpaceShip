@@ -55,7 +55,7 @@ public class BongoBob implements Disposable {
         direction = Direction.DOWN;
 
         robotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/robot sounds.mp3"));
-        robotSound.loop();
+        robotSound.loop(0.2f);
         robotSound.pause();
 
         robotMakesSound = false;

@@ -89,19 +89,23 @@ public class MicroMacroGameModel implements Disposable {
                 List.of(
                         new Step(
                                 new Texture("images/micro-macro-game/cases/cylinder/step_1.png"),
-                                new Vector2(10271, 6075)
+                                new Vector2(10271, 6075),
+                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/cylinder/step_1.mp3"))
                         ),
                         new Step(
                                 new Texture("images/micro-macro-game/cases/cylinder/step_2.png"),
-                                new Vector2(12004, 7245)
+                                new Vector2(12004, 7245),
+                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/cylinder/step_2.mp3"))
                         ),
                         new Step(
                                 new Texture("images/micro-macro-game/cases/cylinder/step_3.png"),
-                                new Vector2(11353, 6778)
+                                new Vector2(11353, 6778),
+                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/cylinder/step_3.mp3"))
                         ),
                         new Step(
                                 new Texture("images/micro-macro-game/cases/cylinder/step_4.png"),
-                                new Vector2(10389, 7303)
+                                new Vector2(10389, 7303),
+                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/cylinder/step_4.mp3"))
                         )
                 ),
                 new Texture("images/micro-macro-game/cases/cylinder/cover.png")

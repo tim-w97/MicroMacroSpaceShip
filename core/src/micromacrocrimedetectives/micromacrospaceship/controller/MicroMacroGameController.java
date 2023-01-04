@@ -180,7 +180,6 @@ public class MicroMacroGameController implements Disposable {
                 model.openedPhone.frame.x,
                 model.openedPhone.frame.y
         );
-
     }
 
     public void drawMiniMap(SpriteBatch batch) {
@@ -241,9 +240,13 @@ public class MicroMacroGameController implements Disposable {
     public void handleUserClick(OrthographicCamera camera) {
         Vector2 cursorPosition = getUnprojectedCursorPosition(camera);
 
+        // player opens phone
         if (model.phoneIsClosed && model.closedPhone.frame.contains(cursorPosition)) {
             model.foundHintLabelIsVisible = false;
             model.phoneIsClosed = false;
+            model.currentCase.currentStep.speech.play();
+
+            // player closes phone
         } else if (!model.phoneIsClosed && model.openedPhone.frame.contains(cursorPosition)) {
             model.phoneIsClosed = true;
         }
