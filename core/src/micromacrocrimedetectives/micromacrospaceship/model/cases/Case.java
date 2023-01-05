@@ -16,6 +16,7 @@ public class Case {
         currentStep = steps.get(0);
     }
 
+    // TODO: Move logic like this to the controller!
     public boolean moveToNextStep() {
         int index = steps.indexOf(currentStep);
 

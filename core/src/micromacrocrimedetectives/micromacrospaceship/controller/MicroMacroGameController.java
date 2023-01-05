@@ -265,10 +265,23 @@ public class MicroMacroGameController implements Disposable {
 
             if (allStepsSolved) {
                 model.caseSolvedSound.play();
+                moveToNextCase();
             }
 
             setMiniMapHintPosition();
         }
+    }
+
+    private void moveToNextCase() {
+        int index = model.cases.indexOf(model.currentCase);
+
+        index++;
+
+        if (index == model.cases.size()) {
+            return;
+        }
+
+        model.currentCase = model.cases.get(index);
     }
 
     private void setMiniMapHintPosition() {
