@@ -261,7 +261,7 @@ public class MicroMacroGameController implements Disposable {
             model.foundHintLabelIsVisible = true;
             model.foundHintSound.play();
 
-            boolean allStepsSolved = model.currentCase.moveToNextStep();
+            boolean allStepsSolved = moveToNextStep();
 
             if (allStepsSolved) {
                 model.caseSolvedSound.play();
@@ -270,6 +270,19 @@ public class MicroMacroGameController implements Disposable {
 
             setMiniMapHintPosition();
         }
+    }
+
+    public boolean moveToNextStep() {
+        int index = model.currentCase.steps.indexOf(model.currentCase.currentStep);
+
+        index++;
+
+        if (index == model.currentCase.steps.size()) {
+            return true;
+        }
+
+        model.currentCase.currentStep = model.currentCase.steps.get(index);
+        return false;
     }
 
     private void moveToNextCase() {
