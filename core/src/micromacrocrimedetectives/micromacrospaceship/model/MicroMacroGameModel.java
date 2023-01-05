@@ -111,7 +111,61 @@ public class MicroMacroGameModel implements Disposable {
                 new Texture("images/micro-macro-game/cases/cylinder/cover.png")
         );
 
+        Case carAccidentCase = new Case(
+                List.of(
+                        new Step(
+                                new Texture("images/micro-macro-game/cases/car-accident/step_1.png"),
+                                new Vector2(10078, 3215),
+                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/car-accident/step_1.mp3"))
+                        ),
+                        new Step(
+                                new Texture("images/micro-macro-game/cases/car-accident/step_2.png"),
+                                new Vector2(12740, 5575),
+                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/car-accident/step_2.mp3"))
+                        ),
+                        new Step(
+                                new Texture("images/micro-macro-game/cases/car-accident/step_3.png"),
+                                new Vector2(12716, 6161),
+                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/car-accident/step_3.mp3"))
+                        ),
+                        new Step(
+                                new Texture("images/micro-macro-game/cases/car-accident/step_4.png"),
+                                new Vector2(10528, 6271),
+                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/car-accident/step_4.mp3"))
+                        )
+                ),
+                new Texture("images/micro-macro-game/cases/car-accident/cover.png")
+        );
+
+        Case bankRobberyCase = new Case(
+                List.of(
+                        new Step(
+                                new Texture("images/micro-macro-game/cases/bank-robbery/step_1.png"),
+                                new Vector2(2412, 6477),
+                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_1.mp3"))
+                        ),
+                        new Step(
+                                new Texture("images/micro-macro-game/cases/bank-robbery/step_2.png"),
+                                new Vector2(928, 5271),
+                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_2.mp3"))
+                        ),
+                        new Step(
+                                new Texture("images/micro-macro-game/cases/bank-robbery/step_3.png"),
+                                new Vector2(1460, 4593),
+                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_3.mp3"))
+                        ),
+                        new Step(
+                                new Texture("images/micro-macro-game/cases/bank-robbery/step_4.png"),
+                                new Vector2(12748, 4453),
+                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_4.mp3"))
+                        )
+                ),
+                new Texture("images/micro-macro-game/cases/bank-robbery/cover.png")
+        );
+
         cases.add(cylinderCase);
+        cases.add(carAccidentCase);
+        cases.add(bankRobberyCase);
     }
 
     @Override
