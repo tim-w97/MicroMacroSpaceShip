@@ -205,11 +205,13 @@ public class MicroMacroGameController implements Disposable {
                 model.miniMap.mapUfoPosition.y
         );
 
-        batch.draw(
-                model.miniMap.hint,
-                model.miniMap.hintPosition.x,
-                model.miniMap.hintPosition.y
-        );
+        if (model.currentCase.beginningSpeechPlayed && !model.currentCase.caseIsSolved) {
+            batch.draw(
+                    model.miniMap.hint,
+                    model.miniMap.hintPosition.x,
+                    model.miniMap.hintPosition.y
+            );
+        }
 
         batch.draw(
                 model.miniMap.bongoBob,
@@ -254,6 +256,14 @@ public class MicroMacroGameController implements Disposable {
     }
 
     public void handleUserClick(OrthographicCamera camera) {
+        if (model.currentCase.caseIsSolved
+                || model.currentCase.beginningSpeech.isPlaying()
+                || model.foundHintSound.isPlaying()
+                || model.welcomeSound.isPlaying()
+        ) {
+            return;
+        }
+
         Vector2 cursorPosition = getUnprojectedCursorPosition(camera);
 
         // player opens phone
@@ -274,12 +284,13 @@ public class MicroMacroGameController implements Disposable {
 
             // player closes phone
         } else if (!model.phoneIsClosed && model.openedPhone.frame.contains(cursorPosition)) {
+            model.currentCase.currentStep.speech.stop();
             model.phoneIsClosed = true;
         }
     }
 
     public void checkForCaseStepAreaCollision() {
-        if (model.currentCase.caseIsSolved) {
+        if (model.currentCase.caseIsSolved || !model.currentCase.beginningSpeechPlayed) {
             return;
         }
 
@@ -287,6 +298,9 @@ public class MicroMacroGameController implements Disposable {
                 model.cameraPosition.x,
                 model.cameraPosition.y
         )) {
+            model.currentCase.currentStep.speech.stop();
+            model.foundHintSound.stop();
+
             boolean allStepsSolved = moveToNextStep();
 
             if (allStepsSolved) {

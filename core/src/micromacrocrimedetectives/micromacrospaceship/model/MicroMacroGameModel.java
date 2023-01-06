@@ -34,8 +34,8 @@ public class MicroMacroGameModel implements Disposable {
 
     public float mapWalkFactor;
 
-    public Sound foundHintSound;
-    public Sound welcomeSound;
+    public Music foundHintSound;
+    public Music welcomeSound;
     public Sound caseSolvedSound;
     public Music spaceshipAmbienceMusic;
 
@@ -81,8 +81,8 @@ public class MicroMacroGameModel implements Disposable {
         foundHintLabel.setPosition(20, 20);
         foundHintLabelIsVisible = false;
 
-        foundHintSound = Gdx.audio.newSound(Gdx.files.internal("sounds/speech/found-hint.mp3"));
-        welcomeSound = Gdx.audio.newSound(Gdx.files.internal("sounds/speech/welcome.mp3"));
+        foundHintSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/found-hint.mp3"));
+        welcomeSound = Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/welcome.mp3"));
         caseSolvedSound = Gdx.audio.newSound(Gdx.files.internal("sounds/speech/case-solved.mp3"));
     }
 
@@ -94,22 +94,22 @@ public class MicroMacroGameModel implements Disposable {
                         new Step(
                                 new Texture("images/micro-macro-game/cases/cylinder/step_1.png"),
                                 new Vector2(10271, 6075),
-                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/cylinder/step_1.mp3"))
+                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/step_1.mp3"))
                         ),
                         new Step(
                                 new Texture("images/micro-macro-game/cases/cylinder/step_2.png"),
                                 new Vector2(12004, 7245),
-                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/cylinder/step_2.mp3"))
+                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/step_2.mp3"))
                         ),
                         new Step(
                                 new Texture("images/micro-macro-game/cases/cylinder/step_3.png"),
                                 new Vector2(11353, 6778),
-                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/cylinder/step_3.mp3"))
+                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/step_3.mp3"))
                         ),
                         new Step(
                                 new Texture("images/micro-macro-game/cases/cylinder/step_4.png"),
                                 new Vector2(10389, 7303),
-                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/cylinder/step_4.mp3"))
+                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/step_4.mp3"))
                         )
                 ),
                 new Texture("images/micro-macro-game/cases/cylinder/cover.png"),
@@ -122,22 +122,22 @@ public class MicroMacroGameModel implements Disposable {
                         new Step(
                                 new Texture("images/micro-macro-game/cases/car-accident/step_1.png"),
                                 new Vector2(10078, 3215),
-                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/car-accident/step_1.mp3"))
+                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/step_1.mp3"))
                         ),
                         new Step(
                                 new Texture("images/micro-macro-game/cases/car-accident/step_2.png"),
                                 new Vector2(12740, 5575),
-                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/car-accident/step_2.mp3"))
+                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/step_2.mp3"))
                         ),
                         new Step(
                                 new Texture("images/micro-macro-game/cases/car-accident/step_3.png"),
                                 new Vector2(12716, 6161),
-                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/car-accident/step_3.mp3"))
+                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/step_3.mp3"))
                         ),
                         new Step(
                                 new Texture("images/micro-macro-game/cases/car-accident/step_4.png"),
                                 new Vector2(10528, 6271),
-                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/car-accident/step_4.mp3"))
+                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/step_4.mp3"))
                         )
                 ),
                 new Texture("images/micro-macro-game/cases/car-accident/cover.png"),
@@ -150,22 +150,22 @@ public class MicroMacroGameModel implements Disposable {
                         new Step(
                                 new Texture("images/micro-macro-game/cases/bank-robbery/step_1.png"),
                                 new Vector2(2412, 6477),
-                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_1.mp3"))
+                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_1.mp3"))
                         ),
                         new Step(
                                 new Texture("images/micro-macro-game/cases/bank-robbery/step_2.png"),
                                 new Vector2(928, 5271),
-                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_2.mp3"))
+                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_2.mp3"))
                         ),
                         new Step(
                                 new Texture("images/micro-macro-game/cases/bank-robbery/step_3.png"),
                                 new Vector2(1460, 4593),
-                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_3.mp3"))
+                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_3.mp3"))
                         ),
                         new Step(
                                 new Texture("images/micro-macro-game/cases/bank-robbery/step_4.png"),
                                 new Vector2(12748, 4453),
-                                Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_4.mp3"))
+                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_4.mp3"))
                         )
                 ),
                 new Texture("images/micro-macro-game/cases/bank-robbery/cover.png"),
