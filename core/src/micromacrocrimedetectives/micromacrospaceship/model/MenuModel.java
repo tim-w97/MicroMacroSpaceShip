@@ -37,7 +37,7 @@ public class MenuModel implements Disposable {
 
         startGameButton.setPosition(
                 (Gdx.graphics.getWidth() - startGameButton.getWidth()) / 2,
-                100
+                150
         );
 
 
@@ -55,14 +55,14 @@ public class MenuModel implements Disposable {
 
         caseDropdown.setPosition(
                 (Gdx.graphics.getWidth() - caseDropdown.getWidth()) / 2,
-                250
+                220
         );
 
-        caseDropdownLabel = new Label("Suche dir einen Fall aus:", game.skin);
+        caseDropdownLabel = new Label("Suche dir einen Fall aus und starte das Spiel!", game.skin);
 
         caseDropdownLabel.setPosition(
                 (Gdx.graphics.getWidth() - caseDropdownLabel.getWidth()) / 2,
-                330
+                300
         );
 
         gearTexture = new Texture("images/menu/gear.png");
