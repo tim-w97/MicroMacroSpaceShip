@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import micromacrocrimedetectives.micromacrospaceship.model.AvailableCase;
 import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
 
 public class MicroMacroGame extends Game {
@@ -13,6 +14,7 @@ public class MicroMacroGame extends Game {
     public ShapeRenderer shapeRenderer;
     public BitmapFont font;
     public Skin skin;
+    public AvailableCase selectedCase;
 
     @Override
     public void create() {

@@ -42,7 +42,15 @@ public class MenuModel implements Disposable {
 
 
         caseDropdown = new SelectBox<>(game.skin);
-        caseDropdown.setItems("Der Zylinder", "Der Autounfall", "Der Bankraub");
+
+        String[] caseDropdownItems = new String[AvailableCase.values().length];
+
+        for (int i = 0; i < caseDropdownItems.length; i++) {
+            caseDropdownItems[i] = AvailableCase.values()[i].description;
+        }
+
+        caseDropdown.setItems(caseDropdownItems);
+
         caseDropdown.setSize(200, 50);
 
         caseDropdown.setPosition(

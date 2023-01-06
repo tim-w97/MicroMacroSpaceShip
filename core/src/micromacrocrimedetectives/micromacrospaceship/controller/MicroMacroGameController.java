@@ -346,6 +346,17 @@ public class MicroMacroGameController implements Disposable {
     }
 
     public void initMicroMacroGame() {
+        switch (model.game.selectedCase) {
+            case CYLINDER:
+                model.currentCase = model.cases.get(0);
+                break;
+            case CAR_ACCIDENT:
+                model.currentCase = model.cases.get(1);
+                break;
+            case BANK_ROBBERY:
+                model.currentCase = model.cases.get(2);
+        }
+
         setMiniMapBongoBobPosition();
         setMiniMapHintPosition();
 

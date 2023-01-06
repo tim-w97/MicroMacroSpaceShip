@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
+import micromacrocrimedetectives.micromacrospaceship.model.AvailableCase;
 import micromacrocrimedetectives.micromacrospaceship.model.MenuModel;
 import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
 import micromacrocrimedetectives.micromacrospaceship.screens.MicroMacroGameScreen;
@@ -31,6 +32,12 @@ public class MenuController implements Disposable {
         model.startGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                for (AvailableCase availableCase : AvailableCase.values()) {
+                    if (availableCase.description.equals(model.caseDropdown.getSelected())) {
+                        model.game.selectedCase = availableCase;
+                    }
+                }
+
                 if (Gdx.input.isKeyPressed(Input.Keys.S)) {
                     menuScreen.game.setScreen(new MicroMacroGameScreen(menuScreen.game));
                 } else {

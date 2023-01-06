@@ -1,7 +1,6 @@
 package micromacrocrimedetectives.micromacrospaceship.model.cases;
 
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.List;

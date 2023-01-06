@@ -70,7 +70,6 @@ public class MicroMacroGameModel implements Disposable {
         phoneIsClosed = true;
 
         initCases();
-        currentCase = cases.get(0);
 
         foundHintLabel = new Label("Du hast den Ort gefunden!", game.skin);
         foundHintLabel.setFontScale(2f);
