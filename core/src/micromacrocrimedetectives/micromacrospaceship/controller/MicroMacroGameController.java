@@ -1,7 +1,6 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -199,6 +198,12 @@ public class MicroMacroGameController implements Disposable {
         );
 
         batch.draw(
+                model.miniMap.mapUfo,
+                model.miniMap.mapUfoPosition.x,
+                model.miniMap.mapUfoPosition.y
+        );
+
+        batch.draw(
                 model.miniMap.hint,
                 model.miniMap.hintPosition.x,
                 model.miniMap.hintPosition.y
@@ -340,6 +345,23 @@ public class MicroMacroGameController implements Disposable {
                 - model.miniMap.hint.getWidth());
     }
 
+    private void setMapUfoPosition() {
+        model.miniMap.mapUfoPosition.x = model.miniMap.margin
+                + model.mapUfo.frame.x
+                / model.map.getWidth()
+                * (model.miniMap.background.getWidth()
+                - model.miniMap.mapUfo.getWidth());
+
+
+        model.miniMap.mapUfoPosition.y = Gdx.graphics.getHeight()
+                - model.miniMap.margin
+                - model.miniMap.background.getHeight()
+                + model.mapUfo.frame.y
+                / model.map.getHeight()
+                * (model.miniMap.background.getHeight()
+                - model.miniMap.mapUfo.getWidth());
+    }
+
     public void activateTurboDrive() {
         model.bongoBob.velocity = model.bongoBob.turboVelocity;
     }
@@ -362,6 +384,7 @@ public class MicroMacroGameController implements Disposable {
 
         setMiniMapBongoBobPosition();
         setMiniMapHintPosition();
+        setMapUfoPosition();
 
         model.spaceshipAmbienceMusic.setLooping(true);
         model.spaceshipAmbienceMusic.play();
@@ -378,5 +401,13 @@ public class MicroMacroGameController implements Disposable {
     @Override
     public void dispose() {
         model.dispose();
+    }
+
+    public void drawMapUfo(SpriteBatch batch) {
+        batch.draw(
+                model.mapUfo.texture,
+                model.mapUfo.frame.x,
+                model.mapUfo.frame.y
+        );
     }
 }

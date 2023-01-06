@@ -11,10 +11,7 @@ import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 import micromacrocrimedetectives.micromacrospaceship.model.cases.Case;
 import micromacrocrimedetectives.micromacrospaceship.model.cases.Step;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.BongoBob;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.ClosedPhone;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.MiniMap;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.OpenedPhone;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +23,8 @@ public class MicroMacroGameModel implements Disposable {
 
     public OpenedPhone openedPhone;
     public ClosedPhone closedPhone;
+
+    public MapUfo mapUfo;
 
     public MiniMap miniMap;
 
@@ -56,13 +55,19 @@ public class MicroMacroGameModel implements Disposable {
 
         bongoBob = new BongoBob();
 
+        mapUfo = new MapUfo();
+
         miniMap = new MiniMap();
 
-        cameraPosition = new Vector3();
+        map = new Texture("images/map.jpg");
+
+        cameraPosition = new Vector3(
+                6712,
+                4455,
+                0
+        );
 
         mapWalkFactor = (float) (Math.PI / 180 * 33);
-
-        map = new Texture("images/map.jpg");
 
         spaceshipAmbienceMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/spaceship ambience.mp3"));
         spaceshipAmbienceMusic.setVolume(0.3f);

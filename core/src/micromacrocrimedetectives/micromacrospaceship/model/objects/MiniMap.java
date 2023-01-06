@@ -12,10 +12,12 @@ public class MiniMap implements Disposable {
     public Vector2 position;
     public Vector2 bongoBobPosition;
     public Vector2 hintPosition;
+    public Vector2 mapUfoPosition;
 
     public float margin;
 
     public Texture hint;
+    public Texture mapUfo;
 
     public MiniMap() {
         margin = 10;
@@ -29,9 +31,11 @@ public class MiniMap implements Disposable {
         );
 
         bongoBobPosition = new Vector2();
-
         hintPosition = new Vector2();
+        mapUfoPosition = new Vector2();
+
         hint = new Texture("images/micro-macro-game/mini-map/hint.png");
+        mapUfo = new Texture("images/micro-macro-game/mini-map/map-ufo.png");
     }
 
     @Override
@@ -39,5 +43,6 @@ public class MiniMap implements Disposable {
         background.dispose();
         hint.dispose();
         bongoBob.dispose();
+        mapUfo.dispose();
     }
 }

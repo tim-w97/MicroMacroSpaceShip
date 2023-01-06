@@ -41,6 +41,7 @@ public class MicroMacroGameScreen implements Screen {
         game.batch.begin();
 
         controller.drawMap(game.batch);
+        controller.drawMapUfo(game.batch);
 
         game.batch.end();
 
