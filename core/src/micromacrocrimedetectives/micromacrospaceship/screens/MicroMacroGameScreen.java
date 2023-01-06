@@ -63,6 +63,7 @@ public class MicroMacroGameScreen implements Screen {
         movingCamera.position.set(controller.getCameraPosition());
 
         controller.checkForCaseStepAreaCollision();
+        controller.checkForMapUfoBongoBobCollision(this);
     }
 
     private void handleUserInput(float delta) {

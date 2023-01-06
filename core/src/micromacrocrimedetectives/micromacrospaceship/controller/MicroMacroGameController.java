@@ -1,6 +1,7 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.Direction;
 import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroGameModel;
+import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
 
 public class MicroMacroGameController implements Disposable {
     private final MicroMacroGameModel model;
@@ -409,5 +411,13 @@ public class MicroMacroGameController implements Disposable {
                 model.mapUfo.frame.x,
                 model.mapUfo.frame.y
         );
+    }
+
+    public void checkForMapUfoBongoBobCollision(Screen microMacroGameScreen) {
+
+        if (model.mapUfo.frame.contains(model.cameraPosition.x, model.cameraPosition.y)) {
+            model.game.setScreen(new MenuScreen(model.game));
+            microMacroGameScreen.dispose();
+        }
     }
 }

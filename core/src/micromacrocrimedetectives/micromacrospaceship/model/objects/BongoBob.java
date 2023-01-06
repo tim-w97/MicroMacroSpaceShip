@@ -30,6 +30,7 @@ public class BongoBob implements Disposable {
     public Sound robotSound;
     public Sound nitroSound;
     public boolean robotMakesSound;
+    Array<Texture> ringAnimationKeyFrames;
 
     public BongoBob() {
         ringAnimationStateTime = 0;
@@ -70,15 +71,15 @@ public class BongoBob implements Disposable {
     private void initRingAnimation() {
         float ringFrameDuration = 0.03f;
 
-        Array<Texture> frames = new Array<>();
+        ringAnimationKeyFrames = new Array<>();
 
         for (int i = 1; i <= 8; i++) {
-            frames.add(new Texture("images/micro-macro-game/bongo-bob/ring/ring_" + i + ".png"));
+            ringAnimationKeyFrames.add(new Texture("images/micro-macro-game/bongo-bob/ring/ring_" + i + ".png"));
         }
 
         ringAnimation = new Animation<>(
                 ringFrameDuration,
-                frames,
+                ringAnimationKeyFrames,
                 Animation.PlayMode.LOOP
         );
     }
@@ -89,11 +90,11 @@ public class BongoBob implements Disposable {
         nitroSound.dispose();
         face.dispose();
 
-        for (Texture ring : ringAnimation.getKeyFrames()) {
+        for (Disposable ring : ringAnimationKeyFrames) {
             ring.dispose();
         }
 
-        for (Texture bodyTexture : bodyTextures.values()) {
+        for (Disposable bodyTexture : bodyTextures.values()) {
             bodyTexture.dispose();
         }
     }
