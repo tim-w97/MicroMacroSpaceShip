@@ -2,10 +2,11 @@ package micromacrocrimedetectives.micromacrospaceship.model.cases;
 
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Disposable;
 
 import java.util.List;
 
-public class Case {
+public class Case implements Disposable {
     public List<Step> steps;
     public Step currentStep;
     public Texture cover;
@@ -23,5 +24,17 @@ public class Case {
         this.beginningSpeech = beginningSpeech;
         this.finalSpeech = finalSpeech;
         caseIsSolved = false;
+    }
+
+    @Override
+    public void dispose() {
+        cover.dispose();
+        beginningSpeech.dispose();
+        finalSpeech.dispose();
+        currentStep.dispose();
+
+        for (Disposable step : steps) {
+            step.dispose();
+        }
     }
 }

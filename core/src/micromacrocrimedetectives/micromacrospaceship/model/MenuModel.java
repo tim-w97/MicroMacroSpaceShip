@@ -33,11 +33,11 @@ public class MenuModel implements Disposable {
         stage = new Stage(new ScreenViewport());
 
         startGameButton = new TextButton("Spiel starten", game.skin);
-        startGameButton.setSize(300, 70);
+        startGameButton.setSize(200, 60);
 
         startGameButton.setPosition(
                 (Gdx.graphics.getWidth() - startGameButton.getWidth()) / 2,
-                150
+                100
         );
 
 
@@ -51,7 +51,7 @@ public class MenuModel implements Disposable {
 
         caseDropdown.setItems(caseDropdownItems);
 
-        caseDropdown.setSize(200, 50);
+        caseDropdown.setSize(200, 60);
 
         caseDropdown.setPosition(
                 (Gdx.graphics.getWidth() - caseDropdown.getWidth()) / 2,
@@ -62,7 +62,7 @@ public class MenuModel implements Disposable {
 
         caseDropdownLabel.setPosition(
                 (Gdx.graphics.getWidth() - caseDropdownLabel.getWidth()) / 2,
-                300
+                330
         );
 
         gearTexture = new Texture("images/menu/gear.png");

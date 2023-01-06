@@ -190,6 +190,8 @@ public class MicroMacroGameModel implements Disposable {
         foundHintSound.dispose();
         caseSolvedSound.dispose();
 
-        // TODO: Dispose Cases!
+        for (Disposable disposableCase : cases) {
+            disposableCase.dispose();
+        }
     }
 }
