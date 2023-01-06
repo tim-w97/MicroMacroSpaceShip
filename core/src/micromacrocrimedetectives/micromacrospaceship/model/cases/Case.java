@@ -12,14 +12,16 @@ public class Case {
     public boolean beginningSpeechPlayed;
     public Music beginningSpeech;
     public boolean caseIsSolved;
+    public Music finalSpeech;
 
-    public Case(List<Step> steps, Texture cover, Music beginningSpeech) {
+    public Case(List<Step> steps, Texture cover, Music beginningSpeech, Music finalSpeech) {
         this.steps = steps;
         this.cover = cover;
 
         currentStep = steps.get(0);
         beginningSpeechPlayed = false;
         this.beginningSpeech = beginningSpeech;
+        this.finalSpeech = finalSpeech;
         caseIsSolved = false;
     }
 }

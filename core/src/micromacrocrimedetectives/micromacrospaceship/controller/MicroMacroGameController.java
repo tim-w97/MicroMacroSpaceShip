@@ -1,6 +1,7 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -282,7 +283,9 @@ public class MicroMacroGameController implements Disposable {
             boolean allStepsSolved = moveToNextStep();
 
             if (allStepsSolved) {
-                model.caseSolvedSound.play();
+                model.currentCase.finalSpeech.play();
+                model.currentCase.finalSpeech.setOnCompletionListener(music -> model.caseSolvedSound.play());
+
                 model.currentCase.caseIsSolved = true;
                 //moveToNextCase();
             } else {
