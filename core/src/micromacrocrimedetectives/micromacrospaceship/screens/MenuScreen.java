@@ -38,7 +38,7 @@ public class MenuScreen implements Screen {
 
         game.batch.begin();
         controller.drawUfo(game.batch);
-        controller.drawGear(game.batch);
+        //controller.drawGear(game.batch);
         game.batch.end();
 
         controller.getStage().act();

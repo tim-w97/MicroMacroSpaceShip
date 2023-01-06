@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -16,29 +18,43 @@ public class MenuModel implements Disposable {
 
     public Button startGameButton;
 
-    public final float buttonWidth;
-    public final float buttonHeight;
-
     public Texture ufoTexture;
     public Texture gearTexture;
     public float ufoX, ufoY;
 
     public float ufoLightX1, ufoLightY1, ufoLightX2, ufoLightY2, ufoLightX3, ufoLightY3;
 
+    public Label caseDropdownLabel;
+    public SelectBox<String> caseDropdown;
+
     public MenuModel(MicroMacroGame game) {
         this.game = game;
 
         stage = new Stage(new ScreenViewport());
 
-        buttonWidth = 300;
-        buttonHeight = 80;
-
         startGameButton = new TextButton("Spiel starten", game.skin);
-        startGameButton.setSize(buttonWidth, buttonHeight);
+        startGameButton.setSize(300, 70);
 
         startGameButton.setPosition(
-                (Gdx.graphics.getWidth() - buttonWidth) / 2,
-                (Gdx.graphics.getHeight() - buttonHeight) / 2
+                (Gdx.graphics.getWidth() - startGameButton.getWidth()) / 2,
+                150
+        );
+
+
+        caseDropdown = new SelectBox<>(game.skin);
+        caseDropdown.setItems("Der Zylinder", "Der Autounfall", "Der Bankraub");
+        caseDropdown.setSize(200, 50);
+
+        caseDropdown.setPosition(
+                (Gdx.graphics.getWidth() - caseDropdown.getWidth()) / 2,
+                250
+        );
+
+        caseDropdownLabel = new Label("Suche dir einen Fall aus:", game.skin);
+
+        caseDropdownLabel.setPosition(
+                (Gdx.graphics.getWidth() - caseDropdownLabel.getWidth()) / 2,
+                300
         );
 
         gearTexture = new Texture("images/menu/gear.png");

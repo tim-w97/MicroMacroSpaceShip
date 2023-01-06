@@ -42,6 +42,8 @@ public class MenuController implements Disposable {
         });
 
         model.stage.addActor(model.startGameButton);
+        model.stage.addActor(model.caseDropdown);
+        model.stage.addActor(model.caseDropdownLabel);
     }
 
     public void drawUfo(SpriteBatch batch) {
