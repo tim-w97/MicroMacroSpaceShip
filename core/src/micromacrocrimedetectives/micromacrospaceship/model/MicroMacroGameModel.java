@@ -108,7 +108,8 @@ public class MicroMacroGameModel implements Disposable {
                                 Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/cylinder/step_4.mp3"))
                         )
                 ),
-                new Texture("images/micro-macro-game/cases/cylinder/cover.png")
+                new Texture("images/micro-macro-game/cases/cylinder/cover.png"),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/beginning-speech.mp3"))
         );
 
         Case carAccidentCase = new Case(
@@ -134,8 +135,9 @@ public class MicroMacroGameModel implements Disposable {
                                 Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/car-accident/step_4.mp3"))
                         )
                 ),
-                new Texture("images/micro-macro-game/cases/car-accident/cover.png")
-        );
+                new Texture("images/micro-macro-game/cases/car-accident/cover.png"),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/beginning-speech.mp3")
+                ));
 
         Case bankRobberyCase = new Case(
                 List.of(
@@ -160,8 +162,9 @@ public class MicroMacroGameModel implements Disposable {
                                 Gdx.audio.newSound(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_4.mp3"))
                         )
                 ),
-                new Texture("images/micro-macro-game/cases/bank-robbery/cover.png")
-        );
+                new Texture("images/micro-macro-game/cases/bank-robbery/cover.png"),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/beginning-speech.mp3")
+                ));
 
         cases.add(cylinderCase);
         cases.add(carAccidentCase);

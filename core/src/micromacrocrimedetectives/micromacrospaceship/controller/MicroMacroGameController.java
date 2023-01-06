@@ -175,8 +175,16 @@ public class MicroMacroGameController implements Disposable {
         );
 
         // draw the current case
+        Texture mobileImage;
+
+        if (model.currentCase.beginningSpeechPlayed) {
+            mobileImage = model.currentCase.currentStep.mobileImage;
+        } else {
+            mobileImage = model.currentCase.cover;
+        }
+
         batch.draw(
-                model.currentCase.currentStep.mobileImage,
+                mobileImage,
                 model.openedPhone.frame.x,
                 model.openedPhone.frame.y
         );
@@ -244,7 +252,17 @@ public class MicroMacroGameController implements Disposable {
         if (model.phoneIsClosed && model.closedPhone.frame.contains(cursorPosition)) {
             model.foundHintLabelIsVisible = false;
             model.phoneIsClosed = false;
-            model.currentCase.currentStep.speech.play();
+
+            if (model.currentCase.beginningSpeechPlayed) {
+                model.currentCase.currentStep.speech.play();
+            } else {
+                model.currentCase.beginningSpeech.play();
+                model.currentCase.beginningSpeech.setOnCompletionListener(music -> {
+                    model.currentCase.beginningSpeechPlayed = true;
+                    model.currentCase.currentStep.speech.play();
+                });
+            }
+
 
             // player closes phone
         } else if (!model.phoneIsClosed && model.openedPhone.frame.contains(cursorPosition)) {
@@ -253,22 +271,27 @@ public class MicroMacroGameController implements Disposable {
     }
 
     public void checkForCaseStepAreaCollision() {
+        if (model.currentCase.caseIsSolved) {
+            return;
+        }
+
         if (model.currentCase.currentStep.area.contains(
                 model.cameraPosition.x,
                 model.cameraPosition.y
         )) {
-            model.phoneIsClosed = true;
-            model.foundHintLabelIsVisible = true;
-            model.foundHintSound.play();
-
             boolean allStepsSolved = moveToNextStep();
 
             if (allStepsSolved) {
                 model.caseSolvedSound.play();
-                moveToNextCase();
+                model.currentCase.caseIsSolved = true;
+                //moveToNextCase();
+            } else {
+                model.foundHintLabelIsVisible = true;
+                model.foundHintSound.play();
+                setMiniMapHintPosition();
             }
 
-            setMiniMapHintPosition();
+            model.phoneIsClosed = true;
         }
     }
 
