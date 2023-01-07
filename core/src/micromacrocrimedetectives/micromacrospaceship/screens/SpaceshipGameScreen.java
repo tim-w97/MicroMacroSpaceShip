@@ -65,7 +65,7 @@ public class SpaceshipGameScreen implements Screen {
         controller.moveOpponentUfos(delta);
         controller.moveAngryBullets(delta);
 
-        controller.checkForCollisions();
+        controller.checkForCollisions(this);
     }
 
     private void drawObjects() {

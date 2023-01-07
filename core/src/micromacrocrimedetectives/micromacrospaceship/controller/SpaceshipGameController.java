@@ -1,12 +1,14 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.*;
+import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
 import micromacrocrimedetectives.micromacrospaceship.screens.MicroMacroGameScreen;
 import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
 
@@ -76,7 +78,7 @@ public class SpaceshipGameController implements Disposable {
         model.ufo.bullets.removeAll(offScreenFriendlyBullets);
     }
 
-    public void checkForCollisions() {
+    public void checkForCollisions(Screen screen) {
         List<FriendlyBullet> friendlyBulletsToRemove = new ArrayList<>();
         List<OpponentUfo> deadOpponentUfos = new ArrayList<>();
 
@@ -115,7 +117,8 @@ public class SpaceshipGameController implements Disposable {
                     angryBulletsThatHit.add(bullet);
 
                     if (model.ufo.lives == 0) {
-                        // TODO: switch screen
+                        model.game.setScreen(new MenuScreen(model.game));
+                        screen.dispose();
                     }
                 }
             }
