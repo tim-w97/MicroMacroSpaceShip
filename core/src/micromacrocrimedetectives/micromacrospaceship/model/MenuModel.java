@@ -30,7 +30,7 @@ public class MenuModel implements Disposable {
     public MenuModel(MicroMacroGame game) {
         this.game = game;
 
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage();
 
         startGameButton = new TextButton("Spiel starten", game.skin);
         startGameButton.setSize(200, 60);
