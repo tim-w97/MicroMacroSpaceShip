@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OpponentUfo implements Disposable {
-    public static final Texture theeLivesTexture = new Texture("images/spaceship-game/opponent-ufo/three-lives.png");
-    public static final Texture twoLivesTexture = new Texture("images/spaceship-game/opponent-ufo/two-lives.png");
-    public static final Texture oneLifeTexture = new Texture("images/spaceship-game/opponent-ufo/one-life.png");
+    public final Texture theeLivesTexture = new Texture("images/spaceship-game/opponent-ufo/three-lives.png");
+    public final Texture twoLivesTexture = new Texture("images/spaceship-game/opponent-ufo/two-lives.png");
+    public final Texture oneLifeTexture = new Texture("images/spaceship-game/opponent-ufo/one-life.png");
 
     public List<AngryBullet> bullets;
     public Rectangle frame;

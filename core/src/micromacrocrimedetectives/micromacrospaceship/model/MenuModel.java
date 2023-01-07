@@ -66,7 +66,7 @@ public class MenuModel implements Disposable {
         );
 
         gearTexture = new Texture("images/menu/gear.png");
-        ufoTexture = new Texture("images/spaceship-game/ufo.png");
+        ufoTexture = new Texture("images/spaceship-game/ufo/three-lives.png");
 
         ufoX = (Gdx.graphics.getWidth() - ufoTexture.getWidth()) / 2f;
         ufoY = Gdx.graphics.getHeight() - ufoTexture.getHeight() - 20;

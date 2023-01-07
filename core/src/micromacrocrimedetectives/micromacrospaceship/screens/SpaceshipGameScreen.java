@@ -71,18 +71,9 @@ public class SpaceshipGameScreen implements Screen {
     private void drawObjects() {
         game.batch.begin();
 
-        game.batch.draw(
-                controller.getPlanetsBackground().texture,
-                controller.getPlanetsBackground().x,
-                controller.getPlanetsBackground().y
-        );
+        controller.drawPlanetsBackground(game.batch);
 
-        game.batch.draw(
-                controller.getUfo().texture,
-                controller.getUfo().frame.x,
-                controller.getUfo().frame.y
-        );
-
+        controller.drawUfo(game.batch);
         controller.drawOpponentUfo(game.batch);
 
         controller.drawBullets(game.batch);

@@ -1,6 +1,7 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -19,20 +20,12 @@ public class SpaceshipGameController implements Disposable {
         this.model = model;
     }
 
-    public PlanetsBackground getPlanetsBackground() {
-        return model.planetsBackground;
-    }
-
     public void movePlanetsBackground(float delta) {
         model.planetsBackground.y -= delta * model.planetsBackground.velocity;
 
         if (model.planetsBackground.y < -model.planetsBackground.texture.getHeight() + Gdx.graphics.getHeight()) {
             model.planetsBackground.y = 0;
         }
-    }
-
-    public Ufo getUfo() {
-        return model.ufo;
     }
 
     public void moveUfoLeft(float delta) {
@@ -102,8 +95,33 @@ public class SpaceshipGameController implements Disposable {
                 }
             }
         }
+
         model.ufo.bullets.removeAll(friendlyBulletsToRemove);
         model.opponentUfos.removeAll(deadOpponentUfos);
+
+        for (OpponentUfo ufo : model.opponentUfos) {
+            List<AngryBullet> angryBulletsThatHit = new ArrayList<>();
+
+            for (AngryBullet bullet : ufo.bullets) {
+                if (bullet.frame.overlaps(model.ufo.frame)) {
+                    model.ufo.lives--;
+
+                    if (model.ufo.lives == 1) {
+                        model.ufo.auaWithWarningSound.play();
+                    } else {
+                        model.ufo.auaSound.play();
+                    }
+
+                    angryBulletsThatHit.add(bullet);
+
+                    if (model.ufo.lives == 0) {
+                        // TODO: switch screen
+                    }
+                }
+            }
+
+            ufo.bullets.removeAll(angryBulletsThatHit);
+        }
     }
 
     public void playSpaceMusic() {
@@ -113,7 +131,7 @@ public class SpaceshipGameController implements Disposable {
     public void drawElapsedTime(SpriteBatch batch) {
         int elapsedTimeInSeconds = (int) (model.elapsedTime / 1000);
 
-        model.elapsedTimeLabel.setText(elapsedTimeInSeconds + " Sekunden");
+        model.elapsedTimeLabel.setText("noch " + elapsedTimeInSeconds + " Sekunden");
         model.elapsedTimeLabel.draw(batch, 1);
     }
 
@@ -129,11 +147,11 @@ public class SpaceshipGameController implements Disposable {
     public void drawOpponentUfo(SpriteBatch batch) {
         for (OpponentUfo opponentUfo : model.opponentUfos) {
             if (opponentUfo.lives == 3) {
-                opponentUfo.currentTexture = OpponentUfo.theeLivesTexture;
+                opponentUfo.currentTexture = opponentUfo.theeLivesTexture;
             } else if (opponentUfo.lives == 2) {
-                opponentUfo.currentTexture = OpponentUfo.twoLivesTexture;
+                opponentUfo.currentTexture = opponentUfo.twoLivesTexture;
             } else {
-                opponentUfo.currentTexture = OpponentUfo.oneLifeTexture;
+                opponentUfo.currentTexture = opponentUfo.oneLifeTexture;
             }
 
             batch.draw(
@@ -204,6 +222,14 @@ public class SpaceshipGameController implements Disposable {
         }
     }
 
+    public void drawPlanetsBackground(SpriteBatch batch) {
+        batch.draw(
+                model.planetsBackground.texture,
+                model.planetsBackground.x,
+                model.planetsBackground.y
+        );
+    }
+
     public void generateAngryBullets() {
         for (OpponentUfo opponentUfo : model.opponentUfos) {
             // only begin to shoot if the opponent is fully on screen
@@ -242,6 +268,24 @@ public class SpaceshipGameController implements Disposable {
 
             opponentUfo.bullets.removeAll(offScreenBullets);
         }
+    }
+
+    public void drawUfo(SpriteBatch batch) {
+        Texture ufoTexture;
+
+        if (model.ufo.lives == 3) {
+            ufoTexture = model.ufo.threeLivesTexture;
+        } else if (model.ufo.lives == 2) {
+            ufoTexture = model.ufo.twoLivesTexture;
+        } else {
+            ufoTexture = model.ufo.oneLifeTexture;
+        }
+
+        batch.draw(
+                ufoTexture,
+                model.ufo.frame.x,
+                model.ufo.frame.y
+        );
     }
 
     public void dispose() {

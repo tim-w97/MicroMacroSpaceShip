@@ -8,11 +8,11 @@ public class MapUfo {
     public Rectangle frame;
 
     public MapUfo() {
-        texture = new Texture("images/spaceship-game/ufo.png");
+        texture = new Texture("images/spaceship-game/ufo/three-lives.png");
 
         frame = new Rectangle(
                 1325,
-                6737, // ggf + 64,
+                6737,
                 texture.getWidth(),
                 texture.getHeight()
         );

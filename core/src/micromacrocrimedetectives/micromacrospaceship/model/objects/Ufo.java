@@ -9,7 +9,11 @@ import com.badlogic.gdx.utils.Disposable;
 import java.util.ArrayList;
 
 public class Ufo implements Disposable {
-    public final Texture texture = new Texture("images/spaceship-game/ufo.png");
+    public final Texture threeLivesTexture = new Texture("images/spaceship-game/ufo/three-lives.png");
+    public final Texture twoLivesTexture = new Texture("images/spaceship-game/ufo/two-lives.png");
+    public final Texture oneLifeTexture = new Texture("images/spaceship-game/ufo/one-life.png");
+
+    public int lives;
 
     public final ArrayList<FriendlyBullet> bullets;
     public final Rectangle frame;
@@ -19,6 +23,8 @@ public class Ufo implements Disposable {
 
     public Sound laserSound;
     public Sound crumbleSound;
+    public Sound auaSound;
+    public Sound auaWithWarningSound;
 
     public long lastShootTime;
     public final int shootDelay;
@@ -27,25 +33,33 @@ public class Ufo implements Disposable {
         bullets = new ArrayList<>();
 
         frame = new Rectangle(
-                (Gdx.graphics.getWidth() - texture.getWidth()) / 2f,
+                (Gdx.graphics.getWidth() - threeLivesTexture.getWidth()) / 2f,
                 bottomMargin,
-                texture.getWidth(),
-                texture.getHeight()
+                threeLivesTexture.getWidth(),
+                threeLivesTexture.getHeight()
         );
 
         velocity = 300;
 
         laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
         crumbleSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
+        auaSound = Gdx.audio.newSound(Gdx.files.internal("sounds/aua.mp3"));
+        auaWithWarningSound = Gdx.audio.newSound(Gdx.files.internal("sounds/aua-with-warning.mp3"));
 
         shootDelay = 400;
+        lives = 3;
     }
 
     @Override
     public void dispose() {
-        texture.dispose();
+        threeLivesTexture.dispose();
+        twoLivesTexture.dispose();
+        oneLifeTexture.dispose();
+
         crumbleSound.dispose();
         laserSound.dispose();
+        auaSound.dispose();
+        auaWithWarningSound.dispose();
 
         for (Disposable bullet : bullets) {
             bullet.dispose();
