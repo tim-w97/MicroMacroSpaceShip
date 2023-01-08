@@ -3,13 +3,13 @@ package micromacrocrimedetectives.micromacrospaceship.model.cutscenes;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
 
-public class IntroductionCutsceneModel extends CutsceneModel {
-    public IntroductionCutsceneModel(MicroMacroGame game) {
+public class UfoDestroyedCutsceneModel extends CutsceneModel {
+    public UfoDestroyedCutsceneModel(MicroMacroGame game) {
         super(
                 game,
-                6,
-                "introduction",
-                "Start",
+                2,
+                "ufo-destroyed",
+                "Nochmal probieren",
                 new SpaceshipGameScreen(game)
         );
     }

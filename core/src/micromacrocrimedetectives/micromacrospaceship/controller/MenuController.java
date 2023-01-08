@@ -10,7 +10,10 @@ import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.model.AvailableCase;
 import micromacrocrimedetectives.micromacrospaceship.model.MenuModel;
-import micromacrocrimedetectives.micromacrospaceship.screens.cutscenes.IntroductionCutsceneScreen;
+import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.IntroductionCutsceneModel;
+import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.TripDoneCutsceneModel;
+import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.UfoDestroyedCutsceneModel;
+import micromacrocrimedetectives.micromacrospaceship.screens.CutsceneScreen;
 import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
 
 public class MenuController implements Disposable {
@@ -36,16 +39,11 @@ public class MenuController implements Disposable {
                     }
                 }
 
-                menuScreen.game.setScreen(new IntroductionCutsceneScreen(menuScreen.game));
-
-                /*
-                if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-                    menuScreen.game.setScreen(new MicroMacroGameScreen(menuScreen.game));
-                } else {
-                    menuScreen.game.setScreen(new SpaceshipGameScreen(menuScreen.game));
-                }
-
-                 */
+                menuScreen.game.setScreen(
+                        new CutsceneScreen(
+                                new IntroductionCutsceneModel(model.game)
+                        )
+                );
 
                 menuScreen.dispose();
             }

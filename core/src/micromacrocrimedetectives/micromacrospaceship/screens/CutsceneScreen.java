@@ -1,24 +1,24 @@
-package micromacrocrimedetectives.micromacrospaceship.screens.cutscenes;
+package micromacrocrimedetectives.micromacrospaceship.screens;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
-import micromacrocrimedetectives.micromacrospaceship.controller.cutscenes.IntroductionCutsceneController;
-import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.IntroductionCutsceneModel;
+import micromacrocrimedetectives.micromacrospaceship.controller.CutsceneController;
+import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.CutsceneModel;
 
-public class IntroductionCutsceneScreen implements Screen {
+public class CutsceneScreen implements Screen {
     public final MicroMacroGame game;
     private final OrthographicCamera camera;
-    private final IntroductionCutsceneController controller;
+    private final CutsceneController controller;
 
-    public IntroductionCutsceneScreen(MicroMacroGame game) {
-        this.game = game;
+    public CutsceneScreen(CutsceneModel model) {
+        this.game = model.game;
+        controller = new CutsceneController(model, this);
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 720, 480);
-
-        controller = new IntroductionCutsceneController(new IntroductionCutsceneModel(game), this);
     }
 
     @Override

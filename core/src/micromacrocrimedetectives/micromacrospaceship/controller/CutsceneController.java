@@ -1,23 +1,22 @@
-package micromacrocrimedetectives.micromacrospaceship.controller.cutscenes;
+package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
-import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.IntroductionCutsceneModel;
-import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
+import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.CutsceneModel;
 
-public class IntroductionCutsceneController implements Disposable {
-    private final IntroductionCutsceneModel model;
+public class CutsceneController implements Disposable {
+    private final CutsceneModel model;
 
-    public IntroductionCutsceneController(IntroductionCutsceneModel model, Screen screen) {
+    public CutsceneController(CutsceneModel model, Screen screen) {
         this.model = model;
 
-        model.startButton.addListener(new ClickListener() {
+        model.button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                model.game.setScreen(new SpaceshipGameScreen(model.game));
+                model.game.setScreen(model.newScreenToSwitch);
                 screen.dispose();
             }
         });

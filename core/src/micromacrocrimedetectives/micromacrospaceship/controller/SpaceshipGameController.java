@@ -7,9 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.*;
-import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
-import micromacrocrimedetectives.micromacrospaceship.screens.MicroMacroGameScreen;
+import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.TripDoneCutsceneModel;
+import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.UfoDestroyedCutsceneModel;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.AngryBullet;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBullet;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.OpponentUfo;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
+import micromacrocrimedetectives.micromacrospaceship.screens.CutsceneScreen;
 import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
 
 import java.util.ArrayList;
@@ -117,7 +121,12 @@ public class SpaceshipGameController implements Disposable {
                     angryBulletsThatHit.add(bullet);
 
                     if (model.ufo.lives == 0) {
-                        model.game.setScreen(new MenuScreen(model.game));
+                        model.game.setScreen(
+                                new CutsceneScreen(
+                                        new UfoDestroyedCutsceneModel(model.game)
+                                )
+                        );
+
                         screen.dispose();
                     }
                 }
@@ -140,7 +149,12 @@ public class SpaceshipGameController implements Disposable {
 
     public void decreaseElapsedTime(float delta, SpaceshipGameScreen screen) {
         if (model.elapsedTime < 0) {
-            screen.game.setScreen(new MicroMacroGameScreen(screen.game));
+            screen.game.setScreen(
+                    new CutsceneScreen(
+                            new TripDoneCutsceneModel(model.game)
+                    )
+            );
+
             screen.dispose();
         }
 
