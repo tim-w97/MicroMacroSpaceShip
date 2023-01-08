@@ -3,10 +3,7 @@ package micromacrocrimedetectives.micromacrospaceship.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 
@@ -28,6 +25,8 @@ public class MenuModel implements Disposable {
 
     public Button exitGameButton;
 
+    public CheckBox skipTutorialCheckbox;
+
     public MenuModel(MicroMacroGame game) {
         this.game = game;
 
@@ -38,7 +37,7 @@ public class MenuModel implements Disposable {
 
         startGameButton.setPosition(
                 (Gdx.graphics.getWidth() - startGameButton.getWidth()) / 2,
-                150
+                120
         );
 
         exitGameButton = new TextButton("Spiel beenden", game.skin);
@@ -63,7 +62,7 @@ public class MenuModel implements Disposable {
 
         caseDropdown.setPosition(
                 (Gdx.graphics.getWidth() - caseDropdown.getWidth()) / 2,
-                220
+                240
         );
 
         caseDropdownLabel = new Label("Suche dir einen Fall aus und starte das Spiel!", game.skin);
@@ -86,10 +85,19 @@ public class MenuModel implements Disposable {
         ufoLightX3 = Gdx.graphics.getWidth() - 100;
         ufoLightY3 = 100;
 
+        skipTutorialCheckbox = new CheckBox("Zwischensequenzen weglassen", game.skin);
+        skipTutorialCheckbox.setSize(300, 60);
+
+        skipTutorialCheckbox.setPosition(
+                (Gdx.graphics.getWidth() - skipTutorialCheckbox.getWidth()) / 2,
+                160
+        );
+
         stage.addActor(startGameButton);
         stage.addActor(caseDropdown);
         stage.addActor(caseDropdownLabel);
         stage.addActor(exitGameButton);
+        stage.addActor(skipTutorialCheckbox);
     }
 
     @Override

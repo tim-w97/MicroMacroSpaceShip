@@ -15,6 +15,7 @@ import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.TripDoneCut
 import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.UfoDestroyedCutsceneModel;
 import micromacrocrimedetectives.micromacrospaceship.screens.CutsceneScreen;
 import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
+import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
 
 public class MenuController implements Disposable {
     private final MenuModel model;
@@ -39,11 +40,17 @@ public class MenuController implements Disposable {
                     }
                 }
 
-                menuScreen.game.setScreen(
-                        new CutsceneScreen(
-                                new IntroductionCutsceneModel(model.game)
-                        )
-                );
+                model.game.skipCutscenes = model.skipTutorialCheckbox.isChecked();
+
+                if (model.game.skipCutscenes) {
+                    menuScreen.game.setScreen(new SpaceshipGameScreen(model.game));
+                } else {
+                    menuScreen.game.setScreen(
+                            new CutsceneScreen(
+                                    new IntroductionCutsceneModel(model.game)
+                            )
+                    );
+                }
 
                 menuScreen.dispose();
             }

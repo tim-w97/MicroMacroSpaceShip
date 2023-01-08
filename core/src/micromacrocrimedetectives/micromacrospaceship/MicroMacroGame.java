@@ -14,7 +14,9 @@ public class MicroMacroGame extends Game {
     public ShapeRenderer shapeRenderer;
     public BitmapFont font;
     public Skin skin;
+
     public AvailableCase selectedCase;
+    public boolean skipCutscenes;
 
     @Override
     public void create() {

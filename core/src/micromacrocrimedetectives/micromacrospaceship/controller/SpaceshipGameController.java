@@ -14,6 +14,8 @@ import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBulle
 import micromacrocrimedetectives.micromacrospaceship.model.objects.OpponentUfo;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.Ufo;
 import micromacrocrimedetectives.micromacrospaceship.screens.CutsceneScreen;
+import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
+import micromacrocrimedetectives.micromacrospaceship.screens.MicroMacroGameScreen;
 import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
 
 import java.util.ArrayList;
@@ -121,11 +123,15 @@ public class SpaceshipGameController implements Disposable {
                     angryBulletsThatHit.add(bullet);
 
                     if (model.ufo.lives == 0) {
-                        model.game.setScreen(
-                                new CutsceneScreen(
-                                        new UfoDestroyedCutsceneModel(model.game)
-                                )
-                        );
+                        if (model.game.skipCutscenes) {
+                            model.game.setScreen(new MenuScreen(model.game));
+                        } else {
+                            model.game.setScreen(
+                                    new CutsceneScreen(
+                                            new UfoDestroyedCutsceneModel(model.game)
+                                    )
+                            );
+                        }
 
                         screen.dispose();
                     }
@@ -149,11 +155,15 @@ public class SpaceshipGameController implements Disposable {
 
     public void decreaseElapsedTime(float delta, SpaceshipGameScreen screen) {
         if (model.elapsedTime < 0) {
-            screen.game.setScreen(
-                    new CutsceneScreen(
-                            new TripDoneCutsceneModel(model.game)
-                    )
-            );
+            if (model.game.skipCutscenes) {
+                model.game.setScreen(new MicroMacroGameScreen(model.game));
+            } else {
+                model.game.setScreen(
+                        new CutsceneScreen(
+                                new TripDoneCutsceneModel(model.game)
+                        )
+                );
+            }
 
             screen.dispose();
         }
