@@ -35,7 +35,7 @@ public class CutsceneScreen implements Screen {
 
         game.batch.begin();
         controller.drawCutscene(game.batch);
-        controller.drawStartButton();
+        controller.drawStage();
         game.batch.end();
     }
 

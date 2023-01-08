@@ -56,7 +56,7 @@ abstract public class CutsceneModel implements Disposable {
 
         button.setPosition(
                 (Gdx.graphics.getWidth() - button.getWidth()) / 2,
-                50
+                70
         );
 
         stage = new Stage();
