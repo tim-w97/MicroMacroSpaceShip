@@ -33,19 +33,19 @@ public class MenuModel implements Disposable {
         stage = new Stage();
 
         startGameButton = new TextButton("Spiel starten", game.skin);
-        startGameButton.setSize(200, 60);
+        startGameButton.setSize(200, 80);
 
         startGameButton.setPosition(
                 (Gdx.graphics.getWidth() - startGameButton.getWidth()) / 2,
-                120
+                150
         );
 
         exitGameButton = new TextButton("Spiel beenden", game.skin);
-        exitGameButton.setSize(200, 60);
+        exitGameButton.setSize(130, 50);
 
         exitGameButton.setPosition(
-                (Gdx.graphics.getWidth() - exitGameButton.getWidth()) / 2,
-                20
+                10,
+                10
         );
 
         caseDropdown = new SelectBox<>(game.skin);
@@ -58,18 +58,18 @@ public class MenuModel implements Disposable {
 
         caseDropdown.setItems(caseDropdownItems);
 
-        caseDropdown.setSize(200, 60);
+        caseDropdown.setSize(200, 50);
 
         caseDropdown.setPosition(
                 (Gdx.graphics.getWidth() - caseDropdown.getWidth()) / 2,
-                240
+                270
         );
 
         caseDropdownLabel = new Label("Suche dir einen Fall aus und starte das Spiel!", game.skin);
 
         caseDropdownLabel.setPosition(
                 (Gdx.graphics.getWidth() - caseDropdownLabel.getWidth()) / 2,
-                300
+                320
         );
 
         gearTexture = new Texture("images/menu/gear.png");
@@ -86,11 +86,11 @@ public class MenuModel implements Disposable {
         ufoLightY3 = 100;
 
         skipTutorialCheckbox = new CheckBox("Zwischensequenzen weglassen", game.skin);
-        skipTutorialCheckbox.setSize(300, 60);
+        skipTutorialCheckbox.setSize(300, 50);
 
         skipTutorialCheckbox.setPosition(
-                (Gdx.graphics.getWidth() - skipTutorialCheckbox.getWidth()) / 2,
-                160
+                110,
+                10
         );
 
         stage.addActor(startGameButton);
