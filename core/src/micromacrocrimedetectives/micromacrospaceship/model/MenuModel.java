@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 
 public class MenuModel implements Disposable {
@@ -27,6 +26,8 @@ public class MenuModel implements Disposable {
     public Label caseDropdownLabel;
     public SelectBox<String> caseDropdown;
 
+    public Button exitGameButton;
+
     public MenuModel(MicroMacroGame game) {
         this.game = game;
 
@@ -40,6 +41,13 @@ public class MenuModel implements Disposable {
                 150
         );
 
+        exitGameButton = new TextButton("Spiel beenden", game.skin);
+        exitGameButton.setSize(200, 60);
+
+        exitGameButton.setPosition(
+                (Gdx.graphics.getWidth() - exitGameButton.getWidth()) / 2,
+                20
+        );
 
         caseDropdown = new SelectBox<>(game.skin);
 
@@ -77,6 +85,11 @@ public class MenuModel implements Disposable {
         ufoLightY2 = 100;
         ufoLightX3 = Gdx.graphics.getWidth() - 100;
         ufoLightY3 = 100;
+
+        stage.addActor(startGameButton);
+        stage.addActor(caseDropdown);
+        stage.addActor(caseDropdownLabel);
+        stage.addActor(exitGameButton);
     }
 
     @Override

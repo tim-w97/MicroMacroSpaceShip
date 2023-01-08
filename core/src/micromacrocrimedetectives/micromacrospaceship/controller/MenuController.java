@@ -49,9 +49,12 @@ public class MenuController implements Disposable {
             }
         });
 
-        model.stage.addActor(model.startGameButton);
-        model.stage.addActor(model.caseDropdown);
-        model.stage.addActor(model.caseDropdownLabel);
+        model.exitGameButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
     }
 
     public void drawUfo(SpriteBatch batch) {
