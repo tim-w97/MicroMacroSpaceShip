@@ -90,88 +90,94 @@ public class MicroMacroGameModel implements Disposable {
         cases = new ArrayList<>();
 
         Case cylinderCase = new Case(
-                List.of(
-                        new Step(
-                                new Texture("images/micro-macro-game/cases/cylinder/step_1.png"),
-                                new Vector2(10271, 6075),
-                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/step_1.mp3"))
-                        ),
-                        new Step(
-                                new Texture("images/micro-macro-game/cases/cylinder/step_2.png"),
-                                new Vector2(12004, 7245),
-                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/step_2.mp3"))
-                        ),
-                        new Step(
-                                new Texture("images/micro-macro-game/cases/cylinder/step_3.png"),
-                                new Vector2(11353, 6778),
-                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/step_3.mp3"))
-                        ),
-                        new Step(
-                                new Texture("images/micro-macro-game/cases/cylinder/step_4.png"),
-                                new Vector2(10389, 7303),
-                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/step_4.mp3"))
-                        )
-                ),
                 new Texture("images/micro-macro-game/cases/cylinder/cover.png"),
                 Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/beginning-speech.mp3")),
                 Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/final-speech.mp3"))
         );
 
+        cylinderCase.addStep(new Step(
+                new Texture("images/micro-macro-game/cases/cylinder/step_1.png"),
+                new Vector2(10271, 6075),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/step_1.mp3"))
+        ));
+
+        cylinderCase.addStep(new Step(
+                new Texture("images/micro-macro-game/cases/cylinder/step_2.png"),
+                new Vector2(12004, 7245),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/step_2.mp3"))
+        ));
+
+        cylinderCase.addStep(new Step(
+                new Texture("images/micro-macro-game/cases/cylinder/step_3.png"),
+                new Vector2(11353, 6778),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/step_3.mp3"))
+        ));
+
+        cylinderCase.addStep(new Step(
+                new Texture("images/micro-macro-game/cases/cylinder/step_4.png"),
+                new Vector2(10389, 7303),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/cylinder/step_4.mp3"))
+        ));
+
         Case carAccidentCase = new Case(
-                List.of(
-                        new Step(
-                                new Texture("images/micro-macro-game/cases/car-accident/step_1.png"),
-                                new Vector2(10078, 3215),
-                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/step_1.mp3"))
-                        ),
-                        new Step(
-                                new Texture("images/micro-macro-game/cases/car-accident/step_2.png"),
-                                new Vector2(12740, 5575),
-                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/step_2.mp3"))
-                        ),
-                        new Step(
-                                new Texture("images/micro-macro-game/cases/car-accident/step_3.png"),
-                                new Vector2(12716, 6161),
-                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/step_3.mp3"))
-                        ),
-                        new Step(
-                                new Texture("images/micro-macro-game/cases/car-accident/step_4.png"),
-                                new Vector2(10528, 6271),
-                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/step_4.mp3"))
-                        )
-                ),
                 new Texture("images/micro-macro-game/cases/car-accident/cover.png"),
                 Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/beginning-speech.mp3")),
                 Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/final-speech.mp3"))
         );
 
+        carAccidentCase.addStep(new Step(
+                new Texture("images/micro-macro-game/cases/car-accident/step_1.png"),
+                new Vector2(10078, 3215),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/step_1.mp3"))
+        ));
+
+        carAccidentCase.addStep(new Step(
+                new Texture("images/micro-macro-game/cases/car-accident/step_2.png"),
+                new Vector2(12740, 5575),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/step_2.mp3"))
+        ));
+
+        carAccidentCase.addStep(new Step(
+                new Texture("images/micro-macro-game/cases/car-accident/step_3.png"),
+                new Vector2(12716, 6161),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/step_3.mp3"))
+        ));
+
+        carAccidentCase.addStep(new Step(
+                new Texture("images/micro-macro-game/cases/car-accident/step_4.png"),
+                new Vector2(10528, 6271),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/car-accident/step_4.mp3"))
+        ));
+
         Case bankRobberyCase = new Case(
-                List.of(
-                        new Step(
-                                new Texture("images/micro-macro-game/cases/bank-robbery/step_1.png"),
-                                new Vector2(2412, 6477),
-                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_1.mp3"))
-                        ),
-                        new Step(
-                                new Texture("images/micro-macro-game/cases/bank-robbery/step_2.png"),
-                                new Vector2(928, 5271),
-                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_2.mp3"))
-                        ),
-                        new Step(
-                                new Texture("images/micro-macro-game/cases/bank-robbery/step_3.png"),
-                                new Vector2(1460, 4593),
-                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_3.mp3"))
-                        ),
-                        new Step(
-                                new Texture("images/micro-macro-game/cases/bank-robbery/step_4.png"),
-                                new Vector2(12748, 4453),
-                                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_4.mp3"))
-                        )
-                ),
                 new Texture("images/micro-macro-game/cases/bank-robbery/cover.png"),
                 Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/beginning-speech.mp3")),
                 Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/final-speech.mp3"))
         );
+
+        bankRobberyCase.addStep(new Step(
+                new Texture("images/micro-macro-game/cases/bank-robbery/step_1.png"),
+                new Vector2(2412, 6477),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_1.mp3"))
+        ));
+
+        bankRobberyCase.addStep(new Step(
+                new Texture("images/micro-macro-game/cases/bank-robbery/step_2.png"),
+                new Vector2(928, 5271),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_2.mp3"))
+        ));
+
+        bankRobberyCase.addStep(new Step(
+                new Texture("images/micro-macro-game/cases/bank-robbery/step_3.png"),
+                new Vector2(1460, 4593),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_3.mp3"))
+        ));
+
+        bankRobberyCase.addStep(new Step(
+                new Texture("images/micro-macro-game/cases/bank-robbery/step_4.png"),
+                new Vector2(12748, 4453),
+                Gdx.audio.newMusic(Gdx.files.internal("sounds/speech/cases/bank-robbery/step_4.mp3"))
+        ));
 
         cases.add(cylinderCase);
         cases.add(carAccidentCase);
