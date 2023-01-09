@@ -1,44 +1,29 @@
 package micromacrocrimedetectives.micromacrospaceship;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import micromacrocrimedetectives.micromacrospaceship.controller.MenuController;
-import micromacrocrimedetectives.micromacrospaceship.controller.MicroMacroGameController;
-import micromacrocrimedetectives.micromacrospaceship.controller.SpaceshipGameController;
-import micromacrocrimedetectives.micromacrospaceship.model.MenuModel;
-import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroGameModel;
-import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
-import micromacrocrimedetectives.micromacrospaceship.view.MenuScreen;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import micromacrocrimedetectives.micromacrospaceship.model.AvailableCase;
+import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
 
 public class MicroMacroGame extends Game {
     public SpriteBatch batch;
     public ShapeRenderer shapeRenderer;
     public BitmapFont font;
+    public Skin skin;
 
-    // TODO: Put controller instances inside the screens (View)
-    public SpaceshipGameController spaceshipGameController;
-    public MenuController menuController;
-    public MicroMacroGameController microMacroGameController;
+    public AvailableCase selectedCase;
+    public boolean skipCutscenes;
 
     @Override
     public void create() {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
-
-        spaceshipGameController = new SpaceshipGameController(
-                new SpaceshipGameModel()
-        );
-
-        menuController = new MenuController(
-                new MenuModel()
-        );
-
-        microMacroGameController = new MicroMacroGameController(
-                new MicroMacroGameModel()
-        );
+        skin = new Skin(Gdx.files.internal("skin/neon-ui.json"));
 
         this.setScreen(new MenuScreen(this));
     }
@@ -53,5 +38,6 @@ public class MicroMacroGame extends Game {
         batch.dispose();
         shapeRenderer.dispose();
         font.dispose();
+        skin.dispose();
     }
 }

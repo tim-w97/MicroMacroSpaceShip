@@ -6,12 +6,18 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.CustomColors;
+import micromacrocrimedetectives.micromacrospaceship.model.AvailableCase;
 import micromacrocrimedetectives.micromacrospaceship.model.MenuModel;
-import micromacrocrimedetectives.micromacrospaceship.view.MenuScreen;
-import micromacrocrimedetectives.micromacrospaceship.view.SpaceshipGameScreen;
+import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.IntroductionCutsceneModel;
+import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.TripDoneCutsceneModel;
+import micromacrocrimedetectives.micromacrospaceship.model.cutscenes.UfoDestroyedCutsceneModel;
+import micromacrocrimedetectives.micromacrospaceship.screens.CutsceneScreen;
+import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
+import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
 
-public class MenuController {
+public class MenuController implements Disposable {
     private final MenuModel model;
 
     public MenuController(MenuModel model) {
@@ -28,12 +34,34 @@ public class MenuController {
         model.startGameButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                menuScreen.game.setScreen(new SpaceshipGameScreen(menuScreen.game));
+                for (AvailableCase availableCase : AvailableCase.values()) {
+                    if (availableCase.description.equals(model.caseDropdown.getSelected())) {
+                        model.game.selectedCase = availableCase;
+                    }
+                }
+
+                model.game.skipCutscenes = model.skipTutorialCheckbox.isChecked();
+
+                if (model.game.skipCutscenes) {
+                    menuScreen.game.setScreen(new SpaceshipGameScreen(model.game));
+                } else {
+                    menuScreen.game.setScreen(
+                            new CutsceneScreen(
+                                    new IntroductionCutsceneModel(model.game)
+                            )
+                    );
+                }
+
                 menuScreen.dispose();
             }
         });
 
-        model.stage.addActor(model.startGameButton);
+        model.exitGameButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
     }
 
     public void drawUfo(SpriteBatch batch) {
@@ -54,16 +82,16 @@ public class MenuController {
         );
     }
 
-    public void dispose() {
-        model.stage.dispose();
-        model.skin.dispose();
-    }
-
     public void drawGear(SpriteBatch batch) {
         batch.draw(
                 model.gearTexture,
-                (Gdx.graphics.getWidth() - model.gearTexture.getRegionWidth()) / 2f,
+                (Gdx.graphics.getWidth() - model.gearTexture.getWidth()) / 2f,
                 20
         );
+    }
+
+    @Override
+    public void dispose() {
+        model.dispose();
     }
 }

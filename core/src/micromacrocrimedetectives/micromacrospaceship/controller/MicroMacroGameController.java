@@ -1,16 +1,19 @@
 package micromacrocrimedetectives.micromacrospaceship.controller;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.Direction;
 import micromacrocrimedetectives.micromacrospaceship.model.MicroMacroGameModel;
+import micromacrocrimedetectives.micromacrospaceship.screens.MenuScreen;
 
-public class MicroMacroGameController {
+public class MicroMacroGameController implements Disposable {
     private final MicroMacroGameModel model;
 
     public MicroMacroGameController(MicroMacroGameModel model) {
@@ -109,7 +112,7 @@ public class MicroMacroGameController {
     }
 
     public void drawBongoBob(SpriteBatch batch) {
-        TextureRegion ring = model.bongoBob.ringAnimation.getKeyFrame(model.bongoBob.ringStateTime);
+        Texture ring = model.bongoBob.ringAnimation.getKeyFrame(model.bongoBob.ringAnimationStateTime);
 
         batch.draw(
                 ring,
@@ -134,22 +137,26 @@ public class MicroMacroGameController {
     }
 
     public void playerMoves(float delta) {
-        model.bongoBob.ringStateTime += delta;
+        model.bongoBob.ringAnimationStateTime += delta;
 
-        refreshMiniMap();
+        setMiniMapBongoBobPosition();
     }
 
-    private void refreshMiniMap() {
-        model.miniMap.bongoBobPosition.x = model.miniMap.margin +
-                model.cameraPosition.x / model.map.getWidth()
-                        * (model.miniMap.background.getRegionWidth() - model.miniMap.bongoBob.getRegionWidth());
+    private void setMiniMapBongoBobPosition() {
+        model.miniMap.bongoBobPosition.x = model.miniMap.margin
+                + model.cameraPosition.x
+                / model.map.getWidth()
+                * (model.miniMap.background.getWidth()
+                - model.miniMap.bongoBob.getWidth());
 
 
-        model.miniMap.bongoBobPosition.y = Gdx.graphics.getHeight() - model.miniMap.margin
-                - model.miniMap.background.getRegionHeight() +
-                model.cameraPosition.y
-                        / model.map.getHeight() * (model.miniMap.background.getRegionHeight()
-                        - model.miniMap.bongoBob.getRegionHeight());
+        model.miniMap.bongoBobPosition.y = Gdx.graphics.getHeight()
+                - model.miniMap.margin
+                - model.miniMap.background.getHeight()
+                + model.cameraPosition.y
+                / model.map.getHeight()
+                * (model.miniMap.background.getHeight()
+                - model.miniMap.bongoBob.getHeight());
     }
 
     public void drawPhone(SpriteBatch batch) {
@@ -170,12 +177,19 @@ public class MicroMacroGameController {
         );
 
         // draw the current case
+        Texture mobileImage;
+
+        if (model.currentCase.beginningSpeechPlayed) {
+            mobileImage = model.currentCase.currentStep.mobileImage;
+        } else {
+            mobileImage = model.currentCase.cover;
+        }
+
         batch.draw(
-                model.openedPhone.caseTexture,
+                mobileImage,
                 model.openedPhone.frame.x,
                 model.openedPhone.frame.y
         );
-
     }
 
     public void drawMiniMap(SpriteBatch batch) {
@@ -186,15 +200,24 @@ public class MicroMacroGameController {
         );
 
         batch.draw(
+                model.miniMap.mapUfo,
+                model.miniMap.mapUfoPosition.x,
+                model.miniMap.mapUfoPosition.y
+        );
+
+        if (model.currentCase.beginningSpeechPlayed && !model.currentCase.caseIsSolved) {
+            batch.draw(
+                    model.miniMap.hint,
+                    model.miniMap.hintPosition.x,
+                    model.miniMap.hintPosition.y
+            );
+        }
+
+        batch.draw(
                 model.miniMap.bongoBob,
                 model.miniMap.bongoBobPosition.x,
                 model.miniMap.bongoBobPosition.y
         );
-    }
-
-    public void playSpaceshipAmbienceMusic() {
-        model.spaceshipAmbienceMusic.setLooping(true);
-        model.spaceshipAmbienceMusic.play();
     }
 
     public void playRobotSound() {
@@ -233,17 +256,182 @@ public class MicroMacroGameController {
     }
 
     public void handleUserClick(OrthographicCamera camera) {
+        if (model.currentCase.caseIsSolved
+                || model.currentCase.beginningSpeech.isPlaying()
+                || model.foundHintSound.isPlaying()
+                || model.welcomeSound.isPlaying()
+        ) {
+            return;
+        }
+
         Vector2 cursorPosition = getUnprojectedCursorPosition(camera);
 
+        // player opens phone
         if (model.phoneIsClosed && model.closedPhone.frame.contains(cursorPosition)) {
-            model.fernandoCase.play();
+            model.foundHintLabelIsVisible = false;
             model.phoneIsClosed = false;
+
+            if (model.currentCase.beginningSpeechPlayed) {
+                model.currentCase.currentStep.speech.play();
+            } else {
+                model.currentCase.beginningSpeech.play();
+                model.currentCase.beginningSpeech.setOnCompletionListener(music -> {
+                    model.currentCase.beginningSpeechPlayed = true;
+                    model.currentCase.currentStep.speech.play();
+                });
+            }
+
+
+            // player closes phone
         } else if (!model.phoneIsClosed && model.openedPhone.frame.contains(cursorPosition)) {
+            model.currentCase.currentStep.speech.stop();
             model.phoneIsClosed = true;
         }
     }
 
-    public void playWelcomeMessage() {
-        model.welcomeMessage.play();
+    public void checkForCaseStepAreaCollision() {
+        if (model.currentCase.caseIsSolved || !model.currentCase.beginningSpeechPlayed) {
+            return;
+        }
+
+        if (model.currentCase.currentStep.area.contains(
+                model.cameraPosition.x,
+                model.cameraPosition.y
+        )) {
+            model.currentCase.currentStep.speech.stop();
+            model.foundHintSound.stop();
+
+            boolean allStepsSolved = moveToNextStep();
+
+            if (allStepsSolved) {
+                model.currentCase.finalSpeech.play();
+                model.currentCase.finalSpeech.setOnCompletionListener(music -> model.caseSolvedSound.play());
+
+                model.currentCase.caseIsSolved = true;
+                //moveToNextCase();
+            } else {
+                model.foundHintLabelIsVisible = true;
+                model.foundHintSound.play();
+                setMiniMapHintPosition();
+            }
+
+            model.phoneIsClosed = true;
+        }
+    }
+
+    public boolean moveToNextStep() {
+        int index = model.currentCase.steps.indexOf(model.currentCase.currentStep);
+
+        index++;
+
+        if (index == model.currentCase.steps.size()) {
+            return true;
+        }
+
+        model.currentCase.currentStep = model.currentCase.steps.get(index);
+        return false;
+    }
+
+    private void moveToNextCase() {
+        int index = model.cases.indexOf(model.currentCase);
+
+        index++;
+
+        if (index == model.cases.size()) {
+            return;
+        }
+
+        model.currentCase = model.cases.get(index);
+    }
+
+    private void setMiniMapHintPosition() {
+        model.miniMap.hintPosition.x = model.miniMap.margin
+                + model.currentCase.currentStep.area.x
+                / model.map.getWidth()
+                * (model.miniMap.background.getWidth()
+                - model.miniMap.hint.getWidth());
+
+
+        model.miniMap.hintPosition.y = Gdx.graphics.getHeight()
+                - model.miniMap.margin
+                - model.miniMap.background.getHeight()
+                + model.currentCase.currentStep.area.y
+                / model.map.getHeight()
+                * (model.miniMap.background.getHeight()
+                - model.miniMap.hint.getWidth());
+    }
+
+    private void setMapUfoPosition() {
+        model.miniMap.mapUfoPosition.x = model.miniMap.margin
+                + model.mapUfo.frame.x
+                / model.map.getWidth()
+                * (model.miniMap.background.getWidth()
+                - model.miniMap.mapUfo.getWidth());
+
+
+        model.miniMap.mapUfoPosition.y = Gdx.graphics.getHeight()
+                - model.miniMap.margin
+                - model.miniMap.background.getHeight()
+                + model.mapUfo.frame.y
+                / model.map.getHeight()
+                * (model.miniMap.background.getHeight()
+                - model.miniMap.mapUfo.getWidth());
+    }
+
+    public void activateTurboDrive() {
+        model.bongoBob.velocity = model.bongoBob.turboVelocity;
+    }
+
+    public void deactivateTurboDrive() {
+        model.bongoBob.velocity = model.bongoBob.defaultVelocity;
+    }
+
+    public void initMicroMacroGame() {
+        switch (model.game.selectedCase) {
+            case CYLINDER:
+                model.currentCase = model.cases.get(0);
+                break;
+            case CAR_ACCIDENT:
+                model.currentCase = model.cases.get(1);
+                break;
+            case BANK_ROBBERY:
+                model.currentCase = model.cases.get(2);
+        }
+
+        setMiniMapBongoBobPosition();
+        setMiniMapHintPosition();
+        setMapUfoPosition();
+
+        model.spaceshipAmbienceMusic.setLooping(true);
+        model.spaceshipAmbienceMusic.play();
+
+        model.welcomeSound.play();
+    }
+
+    public void drawFoundHintLabel(SpriteBatch batch) {
+        if (model.foundHintLabelIsVisible) {
+            model.foundHintLabel.draw(batch, 1f);
+        }
+    }
+
+    @Override
+    public void dispose() {
+        model.dispose();
+    }
+
+    public void drawMapUfo(SpriteBatch batch) {
+        batch.draw(
+                model.mapUfo.texture,
+                model.mapUfo.frame.x,
+                model.mapUfo.frame.y
+        );
+    }
+
+    public void checkForMapUfoBongoBobCollision(Screen microMacroGameScreen) {
+
+        if (model.mapUfo.frame.contains(model.cameraPosition.x, model.cameraPosition.y)) {
+            model.game.setScreen(new MenuScreen(model.game));
+            microMacroGameScreen.dispose();
+        }
     }
 }

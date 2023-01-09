@@ -2,77 +2,100 @@ package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import micromacrocrimedetectives.micromacrospaceship.Direction;
-import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class BongoBob {
+public class BongoBob implements Disposable {
+    public final float defaultVelocity = 300;
+    public final float turboVelocity = 1200;
+
     public Rectangle frame;
 
-    public float ringStateTime;
-    public Map<Direction, TextureRegion> bodyTextures;
-    public TextureRegion face;
+    public Map<Direction, Texture> bodyTextures;
+    public Texture face;
 
-    public Animation<TextureRegion> ringAnimation;
+    public Animation<Texture> ringAnimation;
+    public float ringAnimationStateTime;
 
     public Direction direction;
     public float velocity;
 
     public Sound robotSound;
+    public Sound nitroSound;
     public boolean robotMakesSound;
+    Array<Texture> ringAnimationKeyFrames;
 
     public BongoBob() {
-        ringStateTime = 0;
+        ringAnimationStateTime = 0;
 
-        float ringFrameDuration = 0.03f;
+        initRingAnimation();
 
-        ringAnimation = new Animation<TextureRegion>(
-                ringFrameDuration,
-                MicroMacroAssets.getInstance().atlas.findRegions("BongoBob/Ring/ring"),
-                Animation.PlayMode.LOOP
-        );
-
-        face = MicroMacroAssets.getInstance().atlas.findRegion("BongoBob/Face/cool");
+        face = new Texture("images/micro-macro-game/bongo-bob/face/cool.png");
 
         bodyTextures = new HashMap<>();
 
-        bodyTextures.put(Direction.UP, MicroMacroAssets.getInstance().atlas.findRegion("BongoBob/Body/back"));
-        bodyTextures.put(Direction.DOWN, MicroMacroAssets.getInstance().atlas.findRegion("BongoBob/Body/front"));
-        bodyTextures.put(Direction.LEFT, MicroMacroAssets.getInstance().atlas.findRegion("BongoBob/Body/side"));
-
-        TextureRegion flippedSide = new TextureRegion(
-                MicroMacroAssets.getInstance().atlas.findRegion("BongoBob/Body/side")
-        );
-
-        flippedSide.flip(true, false);
-
-        bodyTextures.put(Direction.RIGHT, flippedSide);
-
-        TextureRegion misusedTextureRegion = bodyTextures.get(Direction.DOWN);
+        bodyTextures.put(Direction.UP, new Texture("images/micro-macro-game/bongo-bob/body/back.png"));
+        bodyTextures.put(Direction.DOWN, new Texture("images/micro-macro-game/bongo-bob/body/front.png"));
+        bodyTextures.put(Direction.LEFT, new Texture("images/micro-macro-game/bongo-bob/body/left-side.png"));
+        bodyTextures.put(Direction.RIGHT, new Texture("images/micro-macro-game/bongo-bob/body/right-side.png"));
 
         frame = new Rectangle(
-                (Gdx.graphics.getWidth() - misusedTextureRegion.getRegionWidth()) / 2f,
-                (Gdx.graphics.getHeight() - misusedTextureRegion.getRegionHeight()) / 2f,
-                misusedTextureRegion.getRegionWidth(),
-                misusedTextureRegion.getRegionHeight()
+                (Gdx.graphics.getWidth() - face.getWidth()) / 2f,
+                (Gdx.graphics.getHeight() - face.getHeight()) / 2f,
+                face.getWidth(),
+                face.getHeight()
         );
 
-        velocity = 300;
+        velocity = defaultVelocity;
         direction = Direction.DOWN;
 
         robotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/robot sounds.mp3"));
-        robotSound.loop();
+        nitroSound = Gdx.audio.newSound(Gdx.files.internal("sounds/nitro.mp3"));
+
+        robotSound.loop(0.3f);
         robotSound.pause();
+
+        nitroSound.loop(0.3f);
+        nitroSound.pause();
 
         robotMakesSound = false;
     }
 
+    private void initRingAnimation() {
+        float ringFrameDuration = 0.03f;
+
+        ringAnimationKeyFrames = new Array<>();
+
+        for (int i = 1; i <= 8; i++) {
+            ringAnimationKeyFrames.add(new Texture("images/micro-macro-game/bongo-bob/ring/ring_" + i + ".png"));
+        }
+
+        ringAnimation = new Animation<>(
+                ringFrameDuration,
+                ringAnimationKeyFrames,
+                Animation.PlayMode.LOOP
+        );
+    }
+
+    @Override
     public void dispose() {
         robotSound.dispose();
+        nitroSound.dispose();
+        face.dispose();
+
+        for (Disposable ring : ringAnimationKeyFrames) {
+            ring.dispose();
+        }
+
+        for (Disposable bodyTexture : bodyTextures.values()) {
+            bodyTexture.dispose();
+        }
     }
 }

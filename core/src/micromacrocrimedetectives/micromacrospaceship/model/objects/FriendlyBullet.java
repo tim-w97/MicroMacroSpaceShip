@@ -1,25 +1,27 @@
 package micromacrocrimedetectives.micromacrospaceship.model.objects;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import micromacrocrimedetectives.micromacrospaceship.singletons.MicroMacroAssets;
+import com.badlogic.gdx.utils.Disposable;
 
-public class FriendlyBullet {
+public class FriendlyBullet implements Disposable {
     public Rectangle frame;
-    public AtlasRegion texture;
+    public Texture texture;
     public float velocity;
 
     public FriendlyBullet() {
-        texture = MicroMacroAssets.getInstance().atlas.findRegion("Bullet/friendly");
+        texture = new Texture("images/spaceship-game/bullet/friendly.png");
 
         frame = new Rectangle();
 
-        frame.setWidth(texture.getRegionWidth());
-        frame.setHeight(texture.getRegionHeight());
+        frame.setWidth(texture.getWidth());
+        frame.setHeight(texture.getHeight());
 
         velocity = 200;
     }
 
+    @Override
     public void dispose() {
+        texture.dispose();
     }
 }
