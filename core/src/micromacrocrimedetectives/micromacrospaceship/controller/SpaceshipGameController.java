@@ -114,11 +114,7 @@ public class SpaceshipGameController implements Disposable {
                 if (bullet.frame.overlaps(model.ufo.frame)) {
                     model.ufo.lives--;
 
-                    if (model.ufo.lives == 1) {
-                        model.ufo.auaWithWarningSound.play();
-                    } else {
-                        model.ufo.auaSound.play();
-                    }
+                    model.ufo.auaSound.play();
 
                     angryBulletsThatHit.add(bullet);
 

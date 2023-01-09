@@ -24,7 +24,6 @@ public class Ufo implements Disposable {
     public Sound laserSound;
     public Sound crumbleSound;
     public Sound auaSound;
-    public Sound auaWithWarningSound;
 
     public long lastShootTime;
     public final int shootDelay;
@@ -44,7 +43,6 @@ public class Ufo implements Disposable {
         laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
         crumbleSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
         auaSound = Gdx.audio.newSound(Gdx.files.internal("sounds/aua.mp3"));
-        auaWithWarningSound = Gdx.audio.newSound(Gdx.files.internal("sounds/aua-with-warning.mp3"));
 
         shootDelay = 400;
         lives = 3;
@@ -59,7 +57,6 @@ public class Ufo implements Disposable {
         crumbleSound.dispose();
         laserSound.dispose();
         auaSound.dispose();
-        auaWithWarningSound.dispose();
 
         for (Disposable bullet : bullets) {
             bullet.dispose();
