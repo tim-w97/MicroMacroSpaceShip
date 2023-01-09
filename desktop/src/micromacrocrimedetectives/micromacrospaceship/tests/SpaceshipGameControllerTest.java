@@ -1,14 +1,15 @@
-/*
+
 package micromacrocrimedetectives.micromacrospaceship.tests;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 import micromacrocrimedetectives.micromacrospaceship.controller.SpaceshipGameController;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
-import micromacrocrimedetectives.micromacrospaceship.model.objects.Projectile;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBullet;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -20,9 +21,11 @@ public class SpaceshipGameControllerTest {
     SpaceshipGameModel model;
     SpaceshipGameController controller;
     float delta;
+    MicroMacroGame game;
 
     SpaceshipGameControllerTest() {
-        model = new SpaceshipGameModel();
+        game = new MicroMacroGame();
+        model = new SpaceshipGameModel(game);
         controller = new SpaceshipGameController(model);
         delta = 1.0f;
     }
@@ -36,12 +39,6 @@ public class SpaceshipGameControllerTest {
         config.setResizable(false);
         new Lwjgl3Application(new MicroMacroGame(), config);
     }
-
-    @Test
-    public void getPlanetsBackgroundTest() {
-        assertEquals(controller.getPlanetsBackground(), model.planetsBackground);
-    }
-
     @Test
     public void movePlanetsBackgroundTest() {
         assertEquals(model.planetsBackground.y, 0);
@@ -51,12 +48,6 @@ public class SpaceshipGameControllerTest {
         controller.movePlanetsBackground(delta);
         assertEquals(model.planetsBackground.y, 0);
     }
-
-    @Test
-    public void getUfoTest() {
-        assertEquals(controller.getUfo(), model.ufo);
-    }
-
     @Test
     public void moveUfoLeftTest() {
         model.ufo.frame.x = 0;
@@ -76,32 +67,19 @@ public class SpaceshipGameControllerTest {
         controller.moveUfoRight(delta);
         assertEquals(model.ufo.frame.x, -model.ufo.frame.width);
     }
-
     @Test
-    public void shootProjectileTest() {
-        long shootTime = TimeUtils.timeSinceMillis(model.lastShootTime);
+    public void shootFriendlyBulletTest() {
+        long shootTime = TimeUtils.timeSinceMillis(model.ufo.lastShootTime);
         shootTime = 401L;
-        System.out.println(controller.getCurrentProjectiles());
+        System.out.println(shootTime);
         // TODO: controller.shootProjectile() kann nicht ausgeführt werden
-        //controller.shootProjectile();
-        System.out.println(controller.getCurrentProjectiles());
+        controller.shootFriendlyBullet();
+        System.out.println(model.ufo.lastShootTime);
     }
-
     @Test
-    public void getCurrentProjectilesTest() {
-        assertEquals(controller.getCurrentProjectiles(), model.projectiles);
-    }
-
-    @Test
-    public void getCurrentAsteroidsTest() {
-        assertEquals(controller.getCurrentAsteroids(), model.asteroids);
-    }
-
-    @Test
-    public void moveProjectilesTest() {
-        ArrayList<Projectile> projectileList = controller.getCurrentProjectiles();
-        controller.moveProjectiles(delta);
-        assertEquals(projectileList, controller.getCurrentProjectiles());
+    public void moveFriendlyBulletsTest() {
+        ArrayList<FriendlyBullet> projectileList = model.ufo.bullets;
+        controller.moveFriendlyBullets(delta);
+        assertEquals(projectileList, model.ufo.bullets);
     }
 }
-*/
