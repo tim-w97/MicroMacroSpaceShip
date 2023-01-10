@@ -27,6 +27,8 @@ public class MenuModel implements Disposable {
 
     public CheckBox skipTutorialCheckbox;
 
+    public Label niklasLabel;
+
     public MenuModel(MicroMacroGame game) {
         this.game = game;
 
@@ -72,6 +74,12 @@ public class MenuModel implements Disposable {
                 320
         );
 
+        niklasLabel = new Label("Musik produziert\nvon Niklas D. *-*", game.skin);
+        niklasLabel.setPosition(
+                Gdx.graphics.getWidth() - niklasLabel.getWidth() - 10,
+                10
+        );
+
         gearTexture = new Texture("images/menu/gear.png");
         ufoTexture = new Texture("images/spaceship-game/ufo/three-lives.png");
 
@@ -98,6 +106,7 @@ public class MenuModel implements Disposable {
         stage.addActor(caseDropdownLabel);
         stage.addActor(exitGameButton);
         stage.addActor(skipTutorialCheckbox);
+        stage.addActor(niklasLabel);
     }
 
     @Override
