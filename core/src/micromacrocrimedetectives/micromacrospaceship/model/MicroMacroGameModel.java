@@ -73,7 +73,7 @@ public class MicroMacroGameModel implements Disposable {
                 Gdx.files.internal("audio/music/running_from_the_evil_doom2_m1_cover.mp3")
         );
 
-        backgroundMusic.setVolume(0.1f);
+        backgroundMusic.setVolume(0.01f);
 
         phoneIsClosed = true;
 

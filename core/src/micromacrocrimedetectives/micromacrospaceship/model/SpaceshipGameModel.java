@@ -37,7 +37,7 @@ public class SpaceshipGameModel implements Disposable {
         opponentUfoSpawnDelay = 3000;
 
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/music/djenty_808.mp3"));
-        backgroundMusic.setVolume(0.2f);
+        backgroundMusic.setVolume(0.03f);
 
         elapsedTime = 1000 * 31;
 

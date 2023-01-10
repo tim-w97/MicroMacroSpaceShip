@@ -20,7 +20,6 @@ public class Case implements Disposable {
         this.steps = new ArrayList<>();
         this.cover = cover;
 
-        currentStep = steps.get(0);
         beginningSpeechPlayed = false;
         this.beginningSpeech = beginningSpeech;
         this.finalSpeech = finalSpeech;
@@ -28,6 +27,10 @@ public class Case implements Disposable {
     }
 
     public void addStep(Step step) {
+        if (currentStep == null) {
+            currentStep = step;
+        }
+
         steps.add(step);
     }
 
