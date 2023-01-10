@@ -40,9 +40,9 @@ public class Ufo implements Disposable {
 
         velocity = 300;
 
-        laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/pop.mp3"));
-        crumbleSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
-        auaSound = Gdx.audio.newSound(Gdx.files.internal("sounds/aua.mp3"));
+        laserSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/pop.mp3"));
+        crumbleSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/explosion.mp3"));
+        auaSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/aua.mp3"));
 
         shootDelay = 400;
         lives = 3;

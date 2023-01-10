@@ -139,7 +139,7 @@ public class SpaceshipGameController implements Disposable {
     }
 
     public void playSpaceMusic() {
-        model.spaceMusic.play();
+        model.backgroundMusic.play();
     }
 
     public void drawElapsedTime(SpriteBatch batch) {

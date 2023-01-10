@@ -44,7 +44,7 @@ abstract public class CutsceneModel implements Disposable {
             ));
 
             speeches.add(Gdx.audio.newMusic(Gdx.files.internal(
-                    "sounds/speech/cutscenes/" + cutsceneKey + "/speech_" + i + ".mp3"
+                    "audio/sounds/speech/cutscenes/" + cutsceneKey + "/speech_" + i + ".mp3"
             )));
         }
 

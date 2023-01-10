@@ -28,7 +28,6 @@ public class BongoBob implements Disposable {
     public float velocity;
 
     public Sound robotSound;
-    public Sound nitroSound;
     public boolean robotMakesSound;
     Array<Texture> ringAnimationKeyFrames;
 
@@ -56,14 +55,10 @@ public class BongoBob implements Disposable {
         velocity = defaultVelocity;
         direction = Direction.DOWN;
 
-        robotSound = Gdx.audio.newSound(Gdx.files.internal("sounds/robot sounds.mp3"));
-        nitroSound = Gdx.audio.newSound(Gdx.files.internal("sounds/nitro.mp3"));
+        robotSound = Gdx.audio.newSound(Gdx.files.internal("audio/sounds/robot sounds.mp3"));
 
         robotSound.loop(0.3f);
         robotSound.pause();
-
-        nitroSound.loop(0.3f);
-        nitroSound.pause();
 
         robotMakesSound = false;
     }
@@ -87,7 +82,6 @@ public class BongoBob implements Disposable {
     @Override
     public void dispose() {
         robotSound.dispose();
-        nitroSound.dispose();
         face.dispose();
 
         for (Disposable ring : ringAnimationKeyFrames) {
