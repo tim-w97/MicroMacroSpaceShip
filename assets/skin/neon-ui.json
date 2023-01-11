@@ -15,7 +15,7 @@ com.badlogic.gdx.graphics.Color: {
 		hex: "de004e"
 	}
 	selected: {
-		hex: "f887ff"
+		hex: "000000"
 	}
 	text: {
 		hex: "f887ff"
