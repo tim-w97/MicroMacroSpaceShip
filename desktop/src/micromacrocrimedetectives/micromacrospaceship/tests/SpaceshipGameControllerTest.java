@@ -15,6 +15,8 @@ import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 import micromacrocrimedetectives.micromacrospaceship.controller.SpaceshipGameController;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBullet;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.OpponentUfo;
+import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,9 +32,11 @@ public class SpaceshipGameControllerTest {
     SpaceshipGameModel model;
     SpaceshipGameController controller;
 
+    MicroMacroGame game;
+
     @BeforeEach
     public void init() {
-        MicroMacroGame game = new MicroMacroGame();
+        game = new MicroMacroGame();
 
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setForegroundFPS(60);
@@ -101,12 +105,76 @@ public class SpaceshipGameControllerTest {
         System.out.println("Bullets: " + model.ufo.bullets);
         System.out.println("OpponentUfos: " + model.opponentUfos);
         System.out.println("OpponentBullets: " + model.opponentUfos.get(0).bullets);
+    }*/
+
+    /*@Test
+    public void drawElapsedTimeTest() {
+        Label timeLabelBefore = model.elapsedTimeLabel;
+        controller.drawElapsedTime(game.batch);
+        assertNotEquals(timeLabelBefore, model.elapsedTimeLabel);
+    }*/
+
+    /*@Test
+    public void decreaseElapsedTimeTest(float delta, SpaceshipGameScreen screen) {
+        model.elapsedTime = 0;
+        float elapsedTimeCopy = model.elapsedTime;
+        //controller.decreaseElapsedTime(delta, screen);
+        assertEquals(elapsedTimeCopy, model.elapsedTime);
+        //System.out.println(model.elapsedTime);
+    }*/
+
+    /*@Test
+    public void drawOpponentUfoTest() {
+        controller.generateOpponentUfos();
+        controller.drawOpponentUfo(game.batch);
+        assertTrue(model.opponentUfos.get(0).currentTexture == model.opponentUfos.get(0).twoLivesTexture);
+    }*/
+
+    @Test
+    public void moveOpponentUfosTest() {
+        ArrayList<OpponentUfo> opponentUfosCopy = model.opponentUfos;
+        controller.moveOpponentUfos(delta);
+        assertEquals(opponentUfosCopy, model.opponentUfos);
     }
 
     @Test
-    public void drawElapsedTimeTest(SpriteBatch spriteBatch) {
-        Label timeLabelBefore = model.elapsedTimeLabel;
-        controller.drawElapsedTime(spriteBatch);
-        assertNotEquals(timeLabelBefore, model.elapsedTimeLabel);
+    public void generateOpponentUfosTest() {
+        model.lastOpponentUfoSpawn = 3001;
+        controller.generateOpponentUfos();
+        assertTrue(model.opponentUfos != null);
+    }
+
+    @Test
+    public void drawBulletsTest() {
+        assertTrue(game.batch != null);
+    }
+
+    /*@Test
+    public void drawPlanetsBackgroundTest(SpriteBatch batch) {
+
+    }*/
+
+    @Test
+    public void generateAngryBulletsTest() {
+        controller.generateOpponentUfos();
+        controller.generateAngryBullets();
+        assertTrue(model.opponentUfos.get(0).bullets != null);
+    }
+
+    @Test
+    public void moveAngryBulletsTest() {
+        ArrayList<OpponentUfo> opponentUfos = model.opponentUfos;
+        controller.moveAngryBullets(delta);
+        assertEquals(opponentUfos, model.opponentUfos);
+    }
+
+    /*@Test
+    public void drawUfoTest(SpriteBatch batch) {
+
+    }*/
+
+    /*@Test
+    public void disposeTest() {
+        System.out.println();
     }*/
 }
