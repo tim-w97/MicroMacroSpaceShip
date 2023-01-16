@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import micromacrocrimedetectives.micromacrospaceship.MicroMacroGame;
 import micromacrocrimedetectives.micromacrospaceship.controller.SpaceshipGameController;
 import micromacrocrimedetectives.micromacrospaceship.model.SpaceshipGameModel;
+import micromacrocrimedetectives.micromacrospaceship.model.objects.AngryBullet;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.FriendlyBullet;
 import micromacrocrimedetectives.micromacrospaceship.model.objects.OpponentUfo;
 import micromacrocrimedetectives.micromacrospaceship.screens.SpaceshipGameScreen;
@@ -23,6 +24,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -163,9 +165,11 @@ public class SpaceshipGameControllerTest {
 
     @Test
     public void moveAngryBulletsTest() {
-        ArrayList<OpponentUfo> opponentUfos = model.opponentUfos;
+        controller.generateOpponentUfos();
+        controller.drawBullets(game.batch);
+        List<AngryBullet> opponentUfos = model.opponentUfos.get(0).bullets;
         controller.moveAngryBullets(delta);
-        assertEquals(opponentUfos, model.opponentUfos);
+        assertEquals(opponentUfos, model.opponentUfos.get(0).bullets);
     }
 
     /*@Test
