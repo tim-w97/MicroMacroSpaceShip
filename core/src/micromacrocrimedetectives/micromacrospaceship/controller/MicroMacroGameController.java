@@ -402,8 +402,8 @@ public class MicroMacroGameController implements Disposable {
         setMiniMapHintPosition();
         setMapUfoPosition();
 
-        model.spaceshipAmbienceMusic.setLooping(true);
-        model.spaceshipAmbienceMusic.play();
+        model.backgroundMusic.setLooping(true);
+        model.backgroundMusic.play();
 
         model.welcomeSound.play();
     }

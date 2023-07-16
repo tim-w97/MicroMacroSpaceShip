@@ -21,7 +21,7 @@ public class SpaceshipGameModel implements Disposable {
     public long lastOpponentUfoSpawn;
     public int opponentUfoSpawnDelay;
 
-    public Music spaceMusic;
+    public Music backgroundMusic;
     public long elapsedTime;
 
     public Label elapsedTimeLabel;
@@ -36,8 +36,8 @@ public class SpaceshipGameModel implements Disposable {
         opponentUfos = new ArrayList<>();
         opponentUfoSpawnDelay = 3000;
 
-        spaceMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/space music.mp3"));
-        spaceMusic.setVolume(0.1f);
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("audio/music/djenty_808.mp3"));
+        backgroundMusic.setVolume(0.03f);
 
         elapsedTime = 1000 * 31;
 
@@ -51,7 +51,7 @@ public class SpaceshipGameModel implements Disposable {
     public void dispose() {
         planetsBackground.dispose();
         ufo.dispose();
-        spaceMusic.dispose();
+        backgroundMusic.dispose();
 
         for (Disposable opponentUfo : opponentUfos) {
             opponentUfo.dispose();

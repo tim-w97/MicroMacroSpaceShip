@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Disposable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Case implements Disposable {
@@ -15,15 +16,22 @@ public class Case implements Disposable {
     public boolean caseIsSolved;
     public Music finalSpeech;
 
-    public Case(List<Step> steps, Texture cover, Music beginningSpeech, Music finalSpeech) {
-        this.steps = steps;
+    public Case(Texture cover, Music beginningSpeech, Music finalSpeech) {
+        this.steps = new ArrayList<>();
         this.cover = cover;
 
-        currentStep = steps.get(0);
         beginningSpeechPlayed = false;
         this.beginningSpeech = beginningSpeech;
         this.finalSpeech = finalSpeech;
         caseIsSolved = false;
+    }
+
+    public void addStep(Step step) {
+        if (currentStep == null) {
+            currentStep = step;
+        }
+
+        steps.add(step);
     }
 
     @Override
